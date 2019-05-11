@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Attributes from "./Attributes";
+import KeysDisplay from "./KeysDisplay"
 
 class Form extends Component {
   constructor(props) {
@@ -10,7 +11,6 @@ class Form extends Component {
   }
 
   handleAttributesChange = event => {
-    console.log(this.state.attributes);
     this.setState({ attributes: event.target.value });
   };
 
@@ -21,8 +21,8 @@ class Form extends Component {
           attributes={this.state.attributes}
           handleChange={this.handleAttributesChange}
         />
-        {/* <Keys />
-        <FunctionalDependencies /> */}
+        <KeysDisplay attributes={this.state.attributes}/>
+         {/* <FunctionalDependencies /> */}
       </div>
     );
   }

@@ -2,3 +2,38 @@
   margin: 0;
   padding: 0;
 }
+
+.Dropdown{
+  position: relative;
+  display: inline-block;
+}
+
+.DropdownContent{
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.Dropdown:hover .DropdownContent{
+  display: flex;
+  flex-direction: column;
+}
+
+.KeyInput{
+  border: 1px solid #332b22;
+  padding: 50px;
+  background-color: #e9e2c8
+}
+
+.KeyElement{
+  display: flex;
+  margin: 5px;
+}
+
+.KeyInputElement{
+  margin: 5px;
+}
