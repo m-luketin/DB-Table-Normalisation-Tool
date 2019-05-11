@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Attributes from "./Attributes";
 import KeysDisplay from "./KeysDisplay";
+import DependenciesDisplay from "./DependenciesDisplay";
 import { attributeHandler } from "./../utils";
 
 class Form extends Component {
@@ -8,7 +9,9 @@ class Form extends Component {
     super(props);
     this.state = {
       attributes: "",
-      keys: [[]]
+      keys: [[]],
+      dependenciesLeft: [[]],
+      dependenciesRight: [[]]
     };
   }
 
@@ -58,6 +61,76 @@ class Form extends Component {
     });
   };
 
+  handleDependencyChangeAddLeft = (event, index) => {
+    const selectedAttribute = event.target.innerHTML;
+    this.setState(prevState => {
+      return {
+        dependenciesLeft: attributeHandler(prevState.dependenciesLeft).addAttribute(
+          selectedAttribute,
+          index
+        )
+      };
+    });
+  };
+
+  handleDependencyChangeAddRight = (event, index) => {
+    const selectedAttribute = event.target.innerHTML;
+    this.setState(prevState => {
+      return {
+        dependenciesRight: attributeHandler(prevState.dependenciesRight).addAttribute(
+          selectedAttribute,
+          index
+        )
+      };
+    });
+  };
+
+  handleDependencyChangeRemoveLeft = (event, index) => {
+    const selectedAttribute = event.target.innerHTML;
+    this.setState(prevState => {
+      return {
+        dependenciesLeft: attributeHandler(prevState.dependenciesLeft).removeAttribute(
+          selectedAttribute,
+          index
+        )
+      };
+    });
+  };
+
+  handleDependencyChangeRemoveRight = (event, index) => {
+    const selectedAttribute = event.target.innerHTML;
+    this.setState(prevState => {
+      return {
+        dependenciesRight: attributeHandler(prevState.dependenciesRight).removeAttribute(
+          selectedAttribute,
+          index
+        )
+      };
+    });
+  };
+
+  addDependency = () => {
+    this.setState(prevState => {
+      return {
+        dependenciesLeft: [...prevState.dependenciesLeft, []],
+        dependenciesRight: [...prevState.dependenciesRight, []]
+      };
+    });
+  };
+
+  removeDependency = index => {
+    this.setState(prevState => {
+      let newDependenciesLeft = [...prevState.dependenciesLeft];
+      newDependenciesLeft.splice(index, 1);
+      let newDependenciesRight = [...prevState.dependenciesRight];
+      newDependenciesRight.splice(index, 1);
+      return {
+        dependenciesLeft: [...newDependenciesLeft],
+        dependenciesRight: [...newDependenciesRight]
+      };
+    });
+  };
+
   render() {
     return (
       <div>
@@ -73,7 +146,17 @@ class Form extends Component {
           handleKeyAdd={this.addKey}
           handleKeyRemove={this.removeKey}
         />
-        {/* <FunctionalDependencies /> */}
+        <DependenciesDisplay 
+          attributes={this.state.attributes}
+          dependenciesLeft={this.state.dependenciesLeft}
+          dependenciesRight={this.state.dependenciesRight}
+          handleAttributeAddLeft={this.handleDependencyChangeAddLeft}
+          handleAttributeAddRight={this.handleDependencyChangeAddRight}
+          handleAttributeRemoveLeft={this.handleDependencyChangeRemoveLeft}
+          handleAttributeRemoveRight={this.handleDependencyChangeRemoveRight}
+          handleDependencyRemove={this.removeDependency}
+          handleDependencyAdd={this.addDependency}
+        />
       </div>
     );
   }

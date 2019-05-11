@@ -24,3 +24,7 @@ export const attributeHandler = container => {
     removeAttribute: removeAttribute
   };
 };
+
+export const splitAttributes = string => {
+  return string.replace(" ", "").split(",");
+};

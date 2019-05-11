@@ -3,12 +3,12 @@ import React from "react";
 const AttributeSelector = props => {
   return (
     <div className="Dropdown">
-      <div className="KeyInput" type="text">
-        {props.keyValue.map((value, index) => {
+      <div className="AttributeInput">
+        {props.value.map((value, index) => {
           return (
             <button
               key={index}
-              className="KeyInputElement"
+              className="AttributeInputElement"
               onClick={props.handleRemove}
             >
               {value}

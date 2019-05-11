@@ -1,5 +1,6 @@
 import React from "react";
 import Key from "./Key";
+import {splitAttributes} from "./../utils";
 
 const KeysDisplay = props => {
   const handleAttributeAdd = (event, index) => {
@@ -10,29 +11,24 @@ const KeysDisplay = props => {
     props.handleAttributeRemove(event, index);
   };
   
-  const handleRemoveKey = index => {
+  const handleKeyRemove = index => {
     props.handleKeyRemove(index);
-  };
-  
-  const splitAttributes = string => {
-    return string.replace(" ", "").split(",");
   };
   
   return (
     <div>
       <h1>Keys in table</h1>
-      <span>Jebi mater</span>
       <ul>
         {props.keys.map((keyAttributes, index) => {
           return (
             <li key={index} className="KeyElement">
               <Key
-                keyValue={keyAttributes}
+                value={keyAttributes}
                 availableAttributes={splitAttributes(props.attributes)}
                 handleAdd={event => handleAttributeAdd(event, index)}
                 handleRemove={event => handleAttributeRemove(event, index)}
               />
-              <button onClick={() => handleRemoveKey(index)}>Remove</button>
+              <button onClick={() => handleKeyRemove(index)}>Remove</button>
             </li>
           );
         })}

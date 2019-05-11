@@ -5,7 +5,7 @@ const Key = props => {
   return (
     <div className="Key">
       <AttributeSelector
-        keyValue={props.keyValue}
+        value={props.value}
         availableAttributes={props.availableAttributes}
         handleAdd={props.handleAdd}
         handleRemove={props.handleRemove}
