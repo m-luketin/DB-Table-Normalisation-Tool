@@ -65,10 +65,9 @@ class Form extends Component {
     const selectedAttribute = event.target.innerHTML;
     this.setState(prevState => {
       return {
-        dependenciesLeft: attributeHandler(prevState.dependenciesLeft).addAttribute(
-          selectedAttribute,
-          index
-        )
+        dependenciesLeft: attributeHandler(
+          prevState.dependenciesLeft
+        ).addAttribute(selectedAttribute, index)
       };
     });
   };
@@ -77,10 +76,9 @@ class Form extends Component {
     const selectedAttribute = event.target.innerHTML;
     this.setState(prevState => {
       return {
-        dependenciesRight: attributeHandler(prevState.dependenciesRight).addAttribute(
-          selectedAttribute,
-          index
-        )
+        dependenciesRight: attributeHandler(
+          prevState.dependenciesRight
+        ).addAttribute(selectedAttribute, index)
       };
     });
   };
@@ -89,10 +87,9 @@ class Form extends Component {
     const selectedAttribute = event.target.innerHTML;
     this.setState(prevState => {
       return {
-        dependenciesLeft: attributeHandler(prevState.dependenciesLeft).removeAttribute(
-          selectedAttribute,
-          index
-        )
+        dependenciesLeft: attributeHandler(
+          prevState.dependenciesLeft
+        ).removeAttribute(selectedAttribute, index)
       };
     });
   };
@@ -101,10 +98,9 @@ class Form extends Component {
     const selectedAttribute = event.target.innerHTML;
     this.setState(prevState => {
       return {
-        dependenciesRight: attributeHandler(prevState.dependenciesRight).removeAttribute(
-          selectedAttribute,
-          index
-        )
+        dependenciesRight: attributeHandler(
+          prevState.dependenciesRight
+        ).removeAttribute(selectedAttribute, index)
       };
     });
   };
@@ -146,7 +142,7 @@ class Form extends Component {
           handleKeyAdd={this.addKey}
           handleKeyRemove={this.removeKey}
         />
-        <DependenciesDisplay 
+        <DependenciesDisplay
           attributes={this.state.attributes}
           dependenciesLeft={this.state.dependenciesLeft}
           dependenciesRight={this.state.dependenciesRight}

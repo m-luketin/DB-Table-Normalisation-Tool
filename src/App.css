@@ -24,8 +24,8 @@
 }
 
 .AttributeInput {
-  border: 1px solid #332b22;
-  padding: 50px;
+  border: 1px solid #222;
+  padding: 20px 80px;
   background-color: #e9e2c8;
 }
 
@@ -33,12 +33,35 @@
   margin: 5px;
 }
 
+.Key{
+  display: flex;
+  align-items: center;
+}
+
 .KeyElement {
   display: flex;
-  margin: 5px;
 }
 
 .FunctionalDependency {
   display: flex;
   align-items: center;
+}
+
+.DependencyElement{
+  display: flex;
+}
+
+.Button{
+  display: flex;
+  align-items: center;
+  font-weight: bolder;
+  color: #9e9e9e;
+  background-color: #595856;
+  border: none;
+  border-radius: 8px;
+}
+
+.SvgLine{
+  stroke: #9e9e9e;
+  stroke-width: 4px;
 }
