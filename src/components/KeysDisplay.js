@@ -1,86 +1,45 @@
-import React, { Component } from "react";
+import React from "react";
 import Key from "./Key";
-import { attributeHandler } from "./../utils";
 
-class KeysDisplay extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      keys: [[]]
-    };
-  }
-
-  handleKeyChangeAdd = (event, index) => {
-    const selectedAttribute = event.target.innerHTML;
-    this.setState(prevState => {
-      return {
-        keys: attributeHandler(prevState.keys).addAttribute(
-          selectedAttribute,
-          index
-        )
-      };
-    });
+const KeysDisplay = props => {
+  const handleAttributeAdd = (event, index) => {
+    props.handleAttributeAdd(event, index);
   };
-
-  handleKeyChangeRemove = (event, index) => {
-    const selectedAttribute = event.target.innerHTML;
-    this.setState(prevState => {
-      return {
-        keys: attributeHandler(prevState.keys).removeAttribute(
-          selectedAttribute,
-          index
-        )
-      };
-    });
+  
+  const handleAttributeRemove = (event, index) => {
+    props.handleAttributeRemove(event, index);
   };
-
-  addKey = () => {
-    this.setState(prevState => {
-      return {
-        keys: [...prevState.keys, []]
-      };
-    });
+  
+  const handleRemoveKey = index => {
+    props.handleKeyRemove(index);
   };
-
-  removeKey = index => {
-    this.setState(prevState => {
-      let newKeys = [...prevState.keys];
-      newKeys.splice(index, 1);
-      return {
-        keys: [...newKeys]
-      };
-    });
+  
+  const splitAttributes = string => {
+    return string.replace(" ", "").split(",");
   };
-
-  render() {
-    const splitAttributes = string => {
-      return string.replace(" ", "").split(",");
-    };
-    return (
-      <div>
-        <h1>Keys in table</h1>
-        <span>Jebi mater</span>
-        <ul>
-          {this.state.keys.map((keyAttributes, index) => {
-            return (
-              <li key={index} className="KeyElement">
-                <Key
-                  keyValue={keyAttributes}
-                  availableAttributes={splitAttributes(this.props.attributes)}
-                  handleAdd={event => this.handleKeyChangeAdd(event, index)}
-                  handleRemove={event =>
-                    this.handleKeyChangeRemove(event, index)
-                  }
-                />
-                <button onClick={() => this.removeKey(index)}>Remove</button>
-              </li>
-            );
-          })}
-        </ul>
-        <button onClick={this.addKey}>Add key</button>
-      </div>
-    );
-  }
-}
+  
+  return (
+    <div>
+      <h1>Keys in table</h1>
+      <span>Jebi mater</span>
+      <ul>
+        {props.keys.map((keyAttributes, index) => {
+          return (
+            <li key={index} className="KeyElement">
+              <Key
+                keyValue={keyAttributes}
+                availableAttributes={splitAttributes(props.attributes)}
+                handleAdd={event => handleAttributeAdd(event, index)}
+                handleRemove={event => handleAttributeRemove(event, index)}
+              />
+              <button onClick={() => handleRemoveKey(index)}>Remove</button>
+            </li>
+          );
+        })}
+      </ul>
+      <button onClick={props.handleKeyAdd}>Add key</button>
+    </div>
+  );
+};
 
 export default KeysDisplay;
