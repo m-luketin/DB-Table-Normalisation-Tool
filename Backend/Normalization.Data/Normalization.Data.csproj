@@ -90,6 +90,7 @@
       <HintPath>..\packages\System.ComponentModel.Annotations.4.5.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.SqlClient, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Data.SqlClient.4.5.1\lib\net461\System.Data.SqlClient.dll</HintPath>
@@ -118,12 +119,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Contexts\AttributeCollectionContext.cs" />
+    <Compile Include="Contexts\AttributeContext.cs" />
+    <Compile Include="Contexts\BaseContext.cs" />
+    <Compile Include="Contexts\DependencyElementContext.cs" />
+    <Compile Include="Contexts\FunctionalDependencyContext.cs" />
+    <Compile Include="Contexts\KeyGroupContext.cs" />
+    <Compile Include="Contexts\TableAttributeCollectionContext.cs" />
+    <Compile Include="Contexts\TableAttributeContext.cs" />
+    <Compile Include="Contexts\TableContext.cs" />
+    <Compile Include="Models\Attribute.cs" />
+    <Compile Include="Models\AttributeCollection.cs" />
+    <Compile Include="Models\DependencyElement.cs" />
+    <Compile Include="Models\FunctionalDependency.cs" />
+    <Compile Include="Interfaces\IEntity.cs" />
+    <Compile Include="Models\KeyGroup.cs" />
+    <Compile Include="Models\Table.cs" />
+    <Compile Include="Models\TableAttribute.cs" />
+    <Compile Include="Models\TableAttributeCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

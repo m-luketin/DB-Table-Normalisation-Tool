@@ -109,12 +109,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AttributeCollectionRepository.cs" />
+    <Compile Include="Repositories\AttributeRepository.cs" />
+    <Compile Include="Repositories\DependencyElementRepository.cs" />
+    <Compile Include="Repositories\FunctionalDependencyRepository.cs" />
+    <Compile Include="Repositories\KeyGroupRepository.cs" />
+    <Compile Include="Repositories\TableAttributeCollectionRepository.cs" />
+    <Compile Include="Repositories\TableAttributeRepository.cs" />
+    <Compile Include="Repositories\TableRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Normalization.Data\Normalization.Data.csproj">
+      <Project>{2a000668-dbf9-4127-8498-436cc7b80c76}</Project>
+      <Name>Normalization.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
