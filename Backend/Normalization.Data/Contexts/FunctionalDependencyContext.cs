@@ -10,6 +10,6 @@ namespace Normalization.Data.Contexts
 {
     public class FunctionalDependencyContext : BaseContext
     {
-        public DbSet<FunctionalDependency> AttributeCollections { get; set; }
+        public DbSet<FunctionalDependency> FunctionalDependencies { get; set; }
     }
 }

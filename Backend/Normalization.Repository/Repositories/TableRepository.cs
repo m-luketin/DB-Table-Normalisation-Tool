@@ -38,6 +38,8 @@ namespace Normalization.Repository.Repositories
 
         public void Edit(IEntity entity)
         {
+            Delete(entity.PrimaryId);
+            Create(entity);
             _tableContext.SaveChanges();
         }
 

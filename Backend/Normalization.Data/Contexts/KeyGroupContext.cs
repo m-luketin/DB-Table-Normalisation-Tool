@@ -10,6 +10,6 @@ namespace Normalization.Data.Contexts
 {
     public class KeyGroupContext : BaseContext
     {
-        public DbSet<KeyGroup> AttributeCollections { get; set; }
+        public DbSet<KeyGroup> KeyGroups { get; set; }
     }
 }
