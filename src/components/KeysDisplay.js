@@ -23,9 +23,11 @@ const KeysDisplay = props => {
           return (
             <li key={index} className="KeyElement">
               <Key
+                index={index}
                 value={keyAttributes}
                 availableAttributes={splitAttributes(props.attributes)}
                 handleAdd={event => handleAttributeAdd(event, index)}
+                handleAddByEnter={props.handleAttributeAddByEnter}
                 handleRemove={event => handleAttributeRemove(event, index)}
               />
               <button className="Button" onClick={() => handleKeyRemove(index)}>

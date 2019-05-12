@@ -34,9 +34,13 @@ nav {
   background-color: #de5b1e;
 }
 
+.AttributeSelector{
+  display: flex;
+}
+
 .Dropdown {
   position: relative;
-  display: inline-block;
+  display: flex;
 }
 
 .DropdownContent {
@@ -44,12 +48,13 @@ nav {
   position: absolute;
   background-color: #f9f9f9;
   min-width: 160px;
+  top: 100%;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   padding: 12px 16px;
   z-index: 1;
 }
 
-.Dropdown:hover .DropdownContent {
+.Dropdown:focus-within .DropdownContent {
   display: flex;
   flex-direction: column;
 }
@@ -58,14 +63,13 @@ nav {
   cursor: pointer;
 }
 
-.AttributeInput {
-  cursor: text;
+.AttributeOutput {
   border: 1px solid #222;
   padding: 20px 80px;
   background-color: #e9e2c8;
 }
 
-.AttributeInputElement {
+.AttributeOutputElement {
   margin: 5px;
 }
 

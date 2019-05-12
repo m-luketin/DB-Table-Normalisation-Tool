@@ -31,6 +31,17 @@ class Form extends Component {
     });
   };
 
+  handleKeyChangeAddByEnter = ( selectedAttribute, index ) => {
+    this.setState(prevState => {
+      return {
+        keys: attributeHandler(prevState.keys).addAttribute(
+          selectedAttribute,
+          index
+        )
+      };
+    });
+  };
+
   handleKeyChangeRemove = (event, index) => {
     const selectedAttribute = event.target.innerHTML;
     this.setState(prevState => {
@@ -73,6 +84,7 @@ class Form extends Component {
   };
 
   handleDependencyChangeAddRight = (event, index) => {
+    if (this.state.dependenciesRight[index].length === 1) return;
     const selectedAttribute = event.target.innerHTML;
     this.setState(prevState => {
       return {
@@ -138,6 +150,7 @@ class Form extends Component {
           attributes={this.state.attributes}
           keys={this.state.keys}
           handleAttributeAdd={this.handleKeyChangeAdd}
+          handleAttributeAddByEnter={this.handleKeyChangeAddByEnter}
           handleAttributeRemove={this.handleKeyChangeRemove}
           handleKeyAdd={this.addKey}
           handleKeyRemove={this.removeKey}
