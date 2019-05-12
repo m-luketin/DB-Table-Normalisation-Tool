@@ -1,6 +1,6 @@
 import React from "react";
 import Key from "./Key";
-import { splitAttributes } from "./../utils";
+import { splitAttributes, isNullOrWhitespace } from "./../utils";
 
 const KeysDisplay = props => {
   const handleAttributeAdd = (event, index) => {
@@ -25,7 +25,7 @@ const KeysDisplay = props => {
               <Key
                 index={index}
                 value={keyAttributes}
-                availableAttributes={splitAttributes(props.attributes)}
+                availableAttributes={isNullOrWhitespace(props.attributes) ? [] : splitAttributes(props.attributes)}
                 handleAdd={event => handleAttributeAdd(event, index)}
                 handleAddByEnter={props.handleAttributeAddByEnter}
                 handleRemove={event => handleAttributeRemove(event, index)}

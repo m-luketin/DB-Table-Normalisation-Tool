@@ -26,7 +26,7 @@ export const attributeHandler = container => {
 };
 
 export const splitAttributes = string => {
-  return string.replace(" ", "").split(",");
+  return string.replace(" ", "").split(",").filter(attribute => !isNullOrWhitespace(attribute));
 };
 
 export const isNullOrWhitespace = input => {
