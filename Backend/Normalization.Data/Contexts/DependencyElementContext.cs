@@ -10,6 +10,6 @@ namespace Normalization.Data.Contexts
 {
     public class DependencyElementContext : BaseContext
     {
-        public DbSet<DependencyElement> AttributeCollections { get; set; }
+        public DbSet<DependencyElement> DependencyElements { get; set; }
     }
 }

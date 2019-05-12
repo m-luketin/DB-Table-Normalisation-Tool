@@ -10,6 +10,6 @@ namespace Normalization.Data.Contexts
 {
     public class TableAttributeCollectionContext : BaseContext
     {
-        public DbSet<TableAttributeCollection> AttributeCollections { get; set; }
+        public DbSet<TableAttributeCollection> TableAttributeCollections { get; set; }
     }
 }

@@ -19,27 +19,32 @@ namespace Normalization.Repository.Repositories
 
         public void Create(IEntity entity)
         {
-            throw new NotImplementedException();
+            _attributeCollectionContext.AttributeCollections.Add((AttributeCollection)entity);
+            _attributeCollectionContext.SaveChanges();
         }
 
         public void Delete(IEntity entity)
         {
-            throw new NotImplementedException();
+            _attributeCollectionContext.AttributeCollections.Remove((AttributeCollection)entity);
+            _attributeCollectionContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Delete(GetById(id));
+            _attributeCollectionContext.SaveChanges();
         }
 
         public void Edit(IEntity entity)
         {
-            throw new NotImplementedException();
+            Delete(entity.PrimaryId);
+            Create(entity);
+            _attributeCollectionContext.SaveChanges();
         }
 
         public IEntity GetById(int id)
         {
-            throw new NotImplementedException();
+            return _attributeCollectionContext.AttributeCollections.Find(id);
         }
     }
 }
