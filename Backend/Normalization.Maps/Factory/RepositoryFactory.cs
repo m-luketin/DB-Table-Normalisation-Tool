@@ -9,16 +9,46 @@ using Normalization.Repository.Repositories;
 
 namespace Normalization.Maps.Factory
 {
-    public class RepositoryFactory
+    public static class RepositoryFactory
     {
-        public IRepository CreateTableRepository()
+        public static IRepository CreateTableRepository()
         {
             return new TableRepository();
         }
 
-        public IRepository CreateDependencyElementRepository()
+        public static IRepository CreateDependencyElementRepository()
         {
             return new DependencyElementRepository();
+        }
+
+        public static IRepository CreateAttributeRepository()
+        {
+            return new AttributeRepository();
+        }
+
+        public static IRepository CreateAttributeCollectionRepository()
+        {
+            return new AttributeCollectionRepository();
+        }
+
+        public static IRepository CreateFunctionalDependencyRepository()
+        {
+            return new FunctionalDependencyRepository();
+        }
+
+        public static IRepository CreateKeyGroupRepository()
+        {
+            return new KeyGroupRepository();
+        }
+
+        public static IRepository CreateTableAttributeRepository()
+        {
+            return new TableAttributeRepository();
+        }
+
+        public static IRepository CreateTableAttributeCollectionRepository()
+        {
+            return new TableAttributeCollectionRepository();
         }
     }
 }
