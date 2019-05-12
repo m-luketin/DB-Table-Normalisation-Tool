@@ -37,7 +37,6 @@ class AttributeSelector extends Component {
       )
         return;
         
-      console.log(attributeToAdd)
       this.props.handleAddByEnter(attributeToAdd, this.props.index);
     }
   };
@@ -72,7 +71,7 @@ class AttributeSelector extends Component {
             return (
               <button
                 key={index}
-                className="AttributeOutputElement"
+                className="ButtonSmall"
                 onClick={this.props.handleRemove}
               >
                 {value}

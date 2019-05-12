@@ -26,11 +26,14 @@ const DependenciesDisplay = props => {
         {props.dependenciesLeft.map((dependency, index) => (
           <li key={index} className="DependencyElement">
             <Dependency
+              index={index}
               availableAttributes={splitAttributes(props.attributes)}
               dependencyLeft={dependency}
               dependencyRight={props.dependenciesRight[index]}
               handleAddLeft={event => handleAttributeAddLeft(event, index)}
               handleAddRight={event => handleAttributeAddRight(event, index)}
+              handleAddByEnterLeft={props.handleAttributeAddByEnterLeft}
+              handleAddByEnterRight={props.handleAttributeAddByEnterRight}
               handleRemoveLeft={event =>
                 handleAttributeRemoveLeft(event, index)
               }

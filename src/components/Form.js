@@ -31,7 +31,7 @@ class Form extends Component {
     });
   };
 
-  handleKeyChangeAddByEnter = ( selectedAttribute, index ) => {
+  handleKeyChangeAddByEnter = (selectedAttribute, index) => {
     this.setState(prevState => {
       return {
         keys: attributeHandler(prevState.keys).addAttribute(
@@ -83,9 +83,30 @@ class Form extends Component {
     });
   };
 
+  handleDependencyChangeAddByEnterLeft = (selectedAttribute, index) => {
+    this.setState(prevState => {
+      return {
+        dependenciesLeft: attributeHandler(
+          prevState.dependenciesLeft
+        ).addAttribute(selectedAttribute, index)
+      };
+    });
+  };
+
   handleDependencyChangeAddRight = (event, index) => {
     if (this.state.dependenciesRight[index].length === 1) return;
     const selectedAttribute = event.target.innerHTML;
+    this.setState(prevState => {
+      return {
+        dependenciesRight: attributeHandler(
+          prevState.dependenciesRight
+        ).addAttribute(selectedAttribute, index)
+      };
+    });
+  };
+
+  handleDependencyChangeAddByEnterRight = (selectedAttribute, index) => {
+    if (this.state.dependenciesRight[index].length === 1) return;
     this.setState(prevState => {
       return {
         dependenciesRight: attributeHandler(
@@ -161,6 +182,8 @@ class Form extends Component {
           dependenciesRight={this.state.dependenciesRight}
           handleAttributeAddLeft={this.handleDependencyChangeAddLeft}
           handleAttributeAddRight={this.handleDependencyChangeAddRight}
+          handleAttributeAddByEnterLeft={this.handleDependencyChangeAddByEnterLeft}
+          handleAttributeAddByEnterRight={this.handleDependencyChangeAddByEnterRight}
           handleAttributeRemoveLeft={this.handleDependencyChangeRemoveLeft}
           handleAttributeRemoveRight={this.handleDependencyChangeRemoveRight}
           handleDependencyRemove={this.removeDependency}

@@ -4,7 +4,7 @@ const Attributes = props => {
   return (
     <div>
       <h1>Attributes in table</h1>
-      <span>Separate attributes using a comma (,)</span>
+      <div>Separate attributes using a comma (,)</div>
       <textarea onChange={props.handleChange} value={props.attributes}></textarea>
     </div>
   );
