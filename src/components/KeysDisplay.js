@@ -39,7 +39,7 @@ const KeysDisplay = props => {
           );
         })}
       </ul>
-      <button className="Button" onClick={props.handleKeyAdd}>
+      <button className="Button ButtonAdd" onClick={props.handleKeyAdd}>
         <svg height="40" width="40">
           <line className="SvgLine" x1="10" y1="20" x2="30" y2="20" />
           <line className="SvgLine" x1="20" y1="10" x2="20" y2="30" />

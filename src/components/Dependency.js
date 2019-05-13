@@ -13,7 +13,26 @@ const Dependency = props => {
         handleRemove={props.handleRemoveLeft}
       />
 
-      <div> --> </div>
+      <div className="DependencyArrow">
+        <div className="Dot" />
+        <div className="Dot" />
+        <div className="Dot" />
+        <svg
+          className="Triangle"
+          width="60px"
+          height="80px"
+          viewBox="0 -10 50 95"
+        >
+          <polyline
+            fill="none"
+            stroke="#9e9e9e"
+            strokeWidth="10"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            points="0.375,0.375 45.63,38.087 0.375,75.8"
+          />
+        </svg>
+      </div>
 
       <AttributeSelector
         index={props.index}

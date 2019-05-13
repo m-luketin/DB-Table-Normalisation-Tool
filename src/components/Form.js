@@ -8,10 +8,10 @@ class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      attributes: "",
-      keys: [[]],
-      dependenciesLeft: [[]],
-      dependenciesRight: [[]]
+      attributes: this.props.attributes,
+      keys: this.props.keys,
+      dependenciesLeft: this.props.dependenciesLeft,
+      dependenciesRight: this.props.dependenciesRight
     };
   }
 

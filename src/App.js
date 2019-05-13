@@ -7,7 +7,12 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Form />
+      <Form 
+        attributes=""
+        keys={[[]]}
+        dependenciesLeft={[[]]}
+        dependenciesRight={[[]]}
+      />
     </div>
   );
 }
