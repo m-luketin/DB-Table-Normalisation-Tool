@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyViewModel.cs" />
-    <Compile Include="IViewModel.cs" />
+    <Compile Include="Interfaces\IViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TableViewModel.cs" />
   </ItemGroup>
