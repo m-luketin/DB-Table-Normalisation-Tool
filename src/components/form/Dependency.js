@@ -11,6 +11,8 @@ const Dependency = props => {
         handleAdd={props.handleAddLeft}
         handleAddByEnter={props.handleAddByEnterLeft}
         handleRemove={props.handleRemoveLeft}
+        outputTooltip="This is your functional dependency"
+        tooltipId="DependencyTooltip"
       />
 
       <div className="DependencyArrow">
@@ -41,6 +43,8 @@ const Dependency = props => {
         handleAdd={props.handleAddRight}
         handleAddByEnter={props.handleAddByEnterRight}
         handleRemove={props.handleRemoveRight}
+        outputTooltip="This is your functional dependency"
+        tooltipId="DependencyTooltip"
       />
     </div>
   );

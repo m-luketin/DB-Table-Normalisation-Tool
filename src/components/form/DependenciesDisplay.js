@@ -1,6 +1,6 @@
 import React from "react";
 import Dependency from "./Dependency";
-import { splitAttributes } from "./../utils";
+import { splitAttributes } from "../../utils";
 
 const DependenciesDisplay = props => {
   const handleAttributeAddLeft = (event, index) => {

@@ -1,19 +1,19 @@
 import React from "react";
 import "./App.css";
-import Form from "./components/Form";
-import Navbar from "./components/Navbar";
-import "./fonts/stylesheet.css"
+import Form from "./components/form/Form";
+import Decomposition from "./components/decomposition/Decomposition";
+import "./fonts/stylesheet.css";
 
 function App() {
   return (
     <div className="App">
-      <Navbar />
-      <Form 
+      {/* <Form 
         attributes=""
         keys={[[]]}
         dependenciesLeft={[[]]}
         dependenciesRight={[[]]}
-      />
+      /> */}
+      <Decomposition />
     </div>
   );
 }

@@ -11,6 +11,8 @@ const Key = props => {
         handleAdd={props.handleAdd}
         handleAddByEnter={props.handleAddByEnter}
         handleRemove={props.handleRemove}
+        outputTooltip="This is your key"
+        tooltipId="KeyTooltip"
       />
     </div>
   );

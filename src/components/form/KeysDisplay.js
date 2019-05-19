@@ -1,6 +1,6 @@
 import React from "react";
 import Key from "./Key";
-import { splitAttributes, isNullOrWhitespace } from "./../utils";
+import { splitAttributes, isNullOrWhitespace } from "../../utils";
 
 const KeysDisplay = props => {
   const handleAttributeAdd = (event, index) => {

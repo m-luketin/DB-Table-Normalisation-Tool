@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import Attributes from "./Attributes";
 import KeysDisplay from "./KeysDisplay";
 import DependenciesDisplay from "./DependenciesDisplay";
-import { attributeHandler } from "./../utils";
+import Navbar from "./../Navbar";
+import { attributeHandler } from "../../utils";
 
 class Form extends Component {
   constructor(props) {
@@ -162,34 +163,41 @@ class Form extends Component {
 
   render() {
     return (
-      <div>
-        <Attributes
-          attributes={this.state.attributes}
-          handleChange={this.handleAttributesChange}
-        />
-        <KeysDisplay
-          attributes={this.state.attributes}
-          keys={this.state.keys}
-          handleAttributeAdd={this.handleKeyChangeAdd}
-          handleAttributeAddByEnter={this.handleKeyChangeAddByEnter}
-          handleAttributeRemove={this.handleKeyChangeRemove}
-          handleKeyAdd={this.addKey}
-          handleKeyRemove={this.removeKey}
-        />
-        <DependenciesDisplay
-          attributes={this.state.attributes}
-          dependenciesLeft={this.state.dependenciesLeft}
-          dependenciesRight={this.state.dependenciesRight}
-          handleAttributeAddLeft={this.handleDependencyChangeAddLeft}
-          handleAttributeAddRight={this.handleDependencyChangeAddRight}
-          handleAttributeAddByEnterLeft={this.handleDependencyChangeAddByEnterLeft}
-          handleAttributeAddByEnterRight={this.handleDependencyChangeAddByEnterRight}
-          handleAttributeRemoveLeft={this.handleDependencyChangeRemoveLeft}
-          handleAttributeRemoveRight={this.handleDependencyChangeRemoveRight}
-          handleDependencyRemove={this.removeDependency}
-          handleDependencyAdd={this.addDependency}
-        />
-      </div>
+      <>
+        <Navbar />
+        <div>
+          <Attributes
+            attributes={this.state.attributes}
+            handleChange={this.handleAttributesChange}
+          />
+          <KeysDisplay
+            attributes={this.state.attributes}
+            keys={this.state.keys}
+            handleAttributeAdd={this.handleKeyChangeAdd}
+            handleAttributeAddByEnter={this.handleKeyChangeAddByEnter}
+            handleAttributeRemove={this.handleKeyChangeRemove}
+            handleKeyAdd={this.addKey}
+            handleKeyRemove={this.removeKey}
+          />
+          <DependenciesDisplay
+            attributes={this.state.attributes}
+            dependenciesLeft={this.state.dependenciesLeft}
+            dependenciesRight={this.state.dependenciesRight}
+            handleAttributeAddLeft={this.handleDependencyChangeAddLeft}
+            handleAttributeAddRight={this.handleDependencyChangeAddRight}
+            handleAttributeAddByEnterLeft={
+              this.handleDependencyChangeAddByEnterLeft
+            }
+            handleAttributeAddByEnterRight={
+              this.handleDependencyChangeAddByEnterRight
+            }
+            handleAttributeRemoveLeft={this.handleDependencyChangeRemoveLeft}
+            handleAttributeRemoveRight={this.handleDependencyChangeRemoveRight}
+            handleDependencyRemove={this.removeDependency}
+            handleDependencyAdd={this.addDependency}
+          />
+        </div>
+      </>
     );
   }
 }

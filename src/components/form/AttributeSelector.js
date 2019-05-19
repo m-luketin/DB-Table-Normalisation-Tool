@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { isNullOrWhitespace } from "./../utils";
+import { isNullOrWhitespace } from "../../utils";
+import ReactTooltip from "react-tooltip";
 
 class AttributeSelector extends Component {
   constructor(props) {
@@ -45,11 +46,16 @@ class AttributeSelector extends Component {
       <div className="AttributeSelector">
         <div className="Dropdown">
           <textarea
+            data-tip
+            data-for="SearchBar"
             className="AttributeInput"
             onChange={event => this.handleChange(event)}
             onKeyDown={event => this.handleKeyDown(event)}
             value={this.state.inputValue}
           />
+          <ReactTooltip className="Tooltip" id="SearchBar" effect="solid">
+            <span>You can search for your attributes here</span>
+          </ReactTooltip>
           <div className="DropdownContent">
             {this.props.availableAttributes
               .filter(attribute =>
@@ -69,7 +75,7 @@ class AttributeSelector extends Component {
           </div>
         </div>
 
-        <div className="AttributeOutput">
+        <div data-tip data-for={this.props.tooltipId} className="AttributeOutput">
           {this.props.value.map((value, index) => {
             return (
               <button
@@ -82,6 +88,10 @@ class AttributeSelector extends Component {
             );
           })}
         </div>
+
+        <ReactTooltip className="Tooltip" id={this.props.tooltipId} effect="solid">
+          <span>{this.props.outputTooltip}</span>
+        </ReactTooltip>
       </div>
     );
   }
