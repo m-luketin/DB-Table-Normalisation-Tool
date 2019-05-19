@@ -45,7 +45,7 @@
     <Compile Include="Factory\RepositoryFactory.cs" />
     <Compile Include="Interfaces\IMaps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TableMaps.cs" />
+    <Compile Include="TableMap.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Normalization.Data\Normalization.Data.csproj">

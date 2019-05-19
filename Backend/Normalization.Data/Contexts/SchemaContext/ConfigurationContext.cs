@@ -14,6 +14,7 @@ namespace Normalization.Data.Contexts
         public DbSet<TableAttributeCollection> TableAttributeCollections { get; set; }
         public DbSet<TableAttribute> TableAttributes { get; set; }
         public DbSet<Table> Tables { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["NormalizationContext"].ConnectionString);
@@ -26,8 +27,7 @@ namespace Normalization.Data.Contexts
             modelBuilder.Entity<DependencyElement>().HasKey(dependencyElement => dependencyElement.PrimaryId);
             modelBuilder.Entity<FunctionalDependency>().HasKey(functionalDependency => functionalDependency.PrimaryId);
             modelBuilder.Entity<KeyGroup>().HasKey(keyGroup => keyGroup.PrimaryId);
-            modelBuilder.Entity<TableAttributeCollection>()
-                .HasKey(tableAttributeCollection => tableAttributeCollection.PrimaryId);
+            modelBuilder.Entity<TableAttributeCollection>().HasKey(tableAttributeCollection => tableAttributeCollection.PrimaryId);
             modelBuilder.Entity<TableAttribute>().HasKey(tableAttribute => tableAttribute.PrimaryId);
             modelBuilder.Entity<Table>().HasKey((table => table.PrimaryId));
 
@@ -45,11 +45,11 @@ namespace Normalization.Data.Contexts
                 .HasOne(tableAttribute => tableAttribute.Attribute)
                 .WithMany(table => table.TableAttributes)
                 .HasForeignKey(tableAttribute => tableAttribute.TableId);
-
             modelBuilder.Entity<TableAttribute>()
                 .HasOne(tableAttribute => tableAttribute.Table)
                 .WithMany(table => table.TableAttributes)
                 .HasForeignKey(tableAttribute => tableAttribute.AttributeId);
+
             base.OnModelCreating(modelBuilder);
         }
     }
