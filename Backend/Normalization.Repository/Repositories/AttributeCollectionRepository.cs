@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
 using Normalization.Repository.Interfaces;
+using Attribute = Normalization.Data.Models.Attribute;
+
 namespace Normalization.Repository.Repositories
 {
     public class AttributeCollectionRepository : IRepository

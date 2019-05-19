@@ -9,7 +9,7 @@ using Normalization.Repository.Interfaces;
 
 namespace Normalization.Repository.Repositories
 {
-    public class KeyGroupRepository : IRepository 
+    public class KeyGroupRepository : IRepository
     {
         private readonly KeyGroupContext _keyGroupContext;
 

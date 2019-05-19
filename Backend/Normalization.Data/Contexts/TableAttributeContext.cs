@@ -11,5 +11,19 @@ namespace Normalization.Data.Contexts
     public class TableAttributeContext : BaseContext
     {
         public DbSet<TableAttribute> TableAttributes { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<TableAttribute>()
+                .HasOne(tableAttribute => tableAttribute.Attribute)
+                .WithMany(table => table.TableAttributes)
+                .HasForeignKey(tableAttribute => tableAttribute.TableId);
+
+            modelBuilder.Entity<TableAttribute>()
+                .HasOne(tableAttribute => tableAttribute.Table)
+                .WithMany(table => table.TableAttributes)
+                .HasForeignKey(tableAttribute => tableAttribute.AttributeId);
+        }
     }
 }

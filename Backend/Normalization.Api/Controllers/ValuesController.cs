@@ -10,7 +10,7 @@ namespace Normalization.Api.Controllers
     [Route("api/[controller]/[action]")]
     [ApiController]
     [EnableCors("Allow origins")]
-    public class ValuesController :   ControllerBase
+    public class ValuesController : ControllerBase
     {
 
     }

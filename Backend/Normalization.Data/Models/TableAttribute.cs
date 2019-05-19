@@ -9,25 +9,27 @@ namespace Normalization.Data.Models
     public class TableAttribute : IEntity
     {
         public int PrimaryId { get; set; }
-        public Table Tables { get; set; }
-        public Attribute Attributes { get; set; }
-        public ICollection<TableAttributeCollection> TableAttributeCollections { get; set; }
+        public Table Table { get; set; }
+        public int TableId { get; set; }
+        public Attribute Attribute { get; set; }
+        public int AttributeId { get; set; }
+        public ICollection<TableAttributeCollection> TableAttributeCollection { get; set; }
 
         public TableAttribute()
         {
             
         }
 
-        public TableAttribute(Table tables, Attribute attributes)
+        public TableAttribute(Table table, Attribute attribute)
         {
-            Tables = tables;
-            Attributes = attributes;
+            Table = table;
+            Attribute = attribute;
         }
-        public TableAttribute(Table tables, Attribute attributes, ICollection<TableAttributeCollection> tableAttributeCollections)
+        public TableAttribute(Table table, Attribute attribute, ICollection<TableAttributeCollection> tableAttributeCollection)
         {
-            Tables = tables;
-            Attributes = attributes;
-            TableAttributeCollections = tableAttributeCollections;
+            Table = table;
+            Attribute = attribute;
+            TableAttributeCollection = tableAttributeCollection;
         }
 
     }

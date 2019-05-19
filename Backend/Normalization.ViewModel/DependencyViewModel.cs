@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Normalization.ViewModel;
 
-namespace Normalization.Maps
+namespace Normalization.ViewModel
 {
     public class DependencyViewModel : IViewModel
     {

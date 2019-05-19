@@ -10,7 +10,9 @@ namespace Normalization.Data.Models
     {
         public int PrimaryId { get; set; }
         public AttributeCollection AttributeCollection { get; set; }
+        public int AttributeCollectionId { get; set; }
         public TableAttribute TableAttribute { get; set; }
+        public int TableAttributeId { get; set; }
 
         public TableAttributeCollection()
         {
