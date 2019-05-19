@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Normalization.Maps
 {
-    public class DependencyMaps
+    class DependencyMap
     {
     }
 }
