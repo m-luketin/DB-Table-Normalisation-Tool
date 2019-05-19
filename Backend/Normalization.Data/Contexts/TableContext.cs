@@ -11,5 +11,11 @@ namespace Normalization.Data.Contexts
     public class TableContext : BaseContext
     {
         public DbSet<Table> Tables { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Table>().HasKey((table => table.PrimaryId));
+        }
     }
 }

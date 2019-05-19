@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Factory\ModelFactory.cs" />
     <Compile Include="Factory\RepositoryFactory.cs" />
+    <Compile Include="IMaps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TableMaps.cs" />
   </ItemGroup>
