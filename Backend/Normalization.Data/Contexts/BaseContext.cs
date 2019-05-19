@@ -10,10 +10,5 @@ namespace Normalization.Data.Contexts
         {
             optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["NormalizationContext"].ConnectionString);
         }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<IEntity>().HasKey(entity => entity.PrimaryId);
-        }
     }
 }

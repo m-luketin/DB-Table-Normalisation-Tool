@@ -11,5 +11,10 @@ namespace Normalization.Data.Contexts
     public class DependencyElementContext : BaseContext
     {
         public DbSet<DependencyElement> DependencyElements { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<DependencyElement>().HasKey(dependencyElement => dependencyElement.PrimaryId);
+        }
     }
 }

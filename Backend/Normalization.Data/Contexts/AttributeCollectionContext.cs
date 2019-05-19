@@ -11,5 +11,10 @@ namespace Normalization.Data.Contexts
     public class AttributeCollectionContext : BaseContext
     {
         public DbSet<AttributeCollection> AttributeCollections { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<AttributeCollection>().HasKey(attributeCollection => attributeCollection.PrimaryId);
+        }
     }
 }

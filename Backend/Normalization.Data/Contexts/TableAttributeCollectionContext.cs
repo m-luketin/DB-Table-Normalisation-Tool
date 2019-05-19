@@ -15,6 +15,10 @@ namespace Normalization.Data.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<TableAttributeCollection>()
+                .HasKey(tableAttributeCollection => tableAttributeCollection.PrimaryId);
+
             modelBuilder.Entity<TableAttributeCollection>()
                 .HasOne(tableAttributeCollection => tableAttributeCollection.TableAttribute)
                 .WithMany(tableAttribute => tableAttribute.TableAttributeCollection)

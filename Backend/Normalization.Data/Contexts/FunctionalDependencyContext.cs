@@ -11,5 +11,10 @@ namespace Normalization.Data.Contexts
     public class FunctionalDependencyContext : BaseContext
     {
         public DbSet<FunctionalDependency> FunctionalDependencies { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<FunctionalDependency>().HasKey(functionalDependency => functionalDependency.PrimaryId);
+        }
     }
 }
