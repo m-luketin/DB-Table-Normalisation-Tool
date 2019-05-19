@@ -127,13 +127,18 @@
   <ItemGroup>
     <Compile Include="Contexts\AttributeCollectionContext.cs" />
     <Compile Include="Contexts\AttributeContext.cs" />
-    <Compile Include="Contexts\BaseContext.cs" />
+    <Compile Include="Contexts\SchemaContext\ConfigurationContext.cs" />
     <Compile Include="Contexts\DependencyElementContext.cs" />
     <Compile Include="Contexts\FunctionalDependencyContext.cs" />
     <Compile Include="Contexts\KeyGroupContext.cs" />
     <Compile Include="Contexts\TableAttributeCollectionContext.cs" />
     <Compile Include="Contexts\TableAttributeContext.cs" />
     <Compile Include="Contexts\TableContext.cs" />
+    <Compile Include="Migrations\20190519155817_InitialCreate.cs" />
+    <Compile Include="Migrations\20190519155817_InitialCreate.designer.cs">
+      <DependentUpon>20190519155817_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\ConfigurationContextModelSnapshot.cs" />
     <Compile Include="Models\Attribute.cs" />
     <Compile Include="Models\AttributeCollection.cs" />
     <Compile Include="Models\DependencyElement.cs" />

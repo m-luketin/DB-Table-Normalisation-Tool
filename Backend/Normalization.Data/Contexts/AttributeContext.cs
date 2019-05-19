@@ -9,14 +9,9 @@ using Attribute = Normalization.Data.Models.Attribute;
 
 namespace Normalization.Data.Contexts
 {
-    public class AttributeContext : BaseContext
+    public class AttributeContext : DbContext
     {
         public DbSet<Attribute> Attributes { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Attribute>().HasKey(attribute => attribute.PrimaryId);
-        }
     }
     
 }

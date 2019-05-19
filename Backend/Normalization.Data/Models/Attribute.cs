@@ -16,10 +16,9 @@ namespace Normalization.Data.Models
         {
             
         }
-        public Attribute(string columnName, ICollection<TableAttribute> tableAttributes)
+        public Attribute(string columnName)
         {
             ColumnName = columnName;
-            TableAttributes = tableAttributes;
         }
 
     }

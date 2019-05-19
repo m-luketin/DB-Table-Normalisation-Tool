@@ -8,13 +8,8 @@ using Normalization.Data.Models;
 
 namespace Normalization.Data.Contexts
 {
-    public class KeyGroupContext : BaseContext
+    public class KeyGroupContext : DbContext
     {
         public DbSet<KeyGroup> KeyGroups { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<KeyGroup>().HasKey(keyGroup => keyGroup.PrimaryId);
-        }
     }
 }

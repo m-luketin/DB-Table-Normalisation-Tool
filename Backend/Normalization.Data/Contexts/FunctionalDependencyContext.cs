@@ -8,13 +8,8 @@ using Normalization.Data.Models;
 
 namespace Normalization.Data.Contexts
 {
-    public class FunctionalDependencyContext : BaseContext
+    public class FunctionalDependencyContext : DbContext
     {
         public DbSet<FunctionalDependency> FunctionalDependencies { get; set; }
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<FunctionalDependency>().HasKey(functionalDependency => functionalDependency.PrimaryId);
-        }
     }
 }
