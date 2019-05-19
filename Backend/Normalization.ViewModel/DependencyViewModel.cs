@@ -10,8 +10,9 @@ namespace Normalization.ViewModel
 {
     public class DependencyViewModel : IViewModel
     {
+        public int? PrimaryId { get; set; }
         public ICollection<string> From { get; set; }
         public string To { get; set; }
-        public int? PrimaryId { get; set; }
+        
     }
 }
