@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "frutiger_boldregular";
+  src: url("ftb-webfont.woff2") format("woff2"),
+    url("ftb-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "frutiger_light_condensedLtcn";
+  src: url("ftlc-webfont.woff2") format("woff2"),
+    url("ftlc-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "frutiger_ultra_blackregular";
+  src: url("ftubl-webfont.woff2") format("woff2"),
+    url("ftubl-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}

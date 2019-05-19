@@ -27,7 +27,6 @@ class AttributeSelector extends Component {
       attributeToAdd = attributeToAdd.filter(
         element => element !== undefined
       )[0];
-      
 
       if (
         attributeToAdd === undefined ||
@@ -36,7 +35,7 @@ class AttributeSelector extends Component {
         )
       )
         return;
-        
+
       this.props.handleAddByEnter(attributeToAdd, this.props.index);
     }
   };
@@ -53,7 +52,11 @@ class AttributeSelector extends Component {
           />
           <div className="DropdownContent">
             {this.props.availableAttributes
-              .filter(attribute => attribute.includes(this.state.inputValue))
+              .filter(attribute =>
+                attribute
+                  .toLowerCase()
+                  .includes(this.state.inputValue.toLowerCase())
+              )
               .map((attribute, index) => (
                 <button
                   key={index}

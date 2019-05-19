@@ -43,7 +43,7 @@ const DependenciesDisplay = props => {
                 }
               />
               <button
-                className="Button"
+                className="Button ButtonRemove"
                 onClick={() => props.handleDependencyRemove(index)}
               >
                 <svg height="40" width="40">

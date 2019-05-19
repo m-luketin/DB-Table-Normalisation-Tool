@@ -2,10 +2,15 @@ import React from "react";
 
 const Attributes = props => {
   return (
-    <div>
+    <div className="AttributesContent">
       <h1>Attributes in table</h1>
-      <div>Separate attributes using a comma (,)</div>
-      <textarea onChange={props.handleChange} value={props.attributes}></textarea>
+      <div className="Description">Separate attributes using a comma ( , )</div>
+      <textarea 
+        spellCheck="false"
+        className="AttributeInput"
+        onChange={props.handleChange}
+        value={props.attributes}
+      />
     </div>
   );
 };
