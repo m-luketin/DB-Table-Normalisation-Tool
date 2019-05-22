@@ -1,19 +1,31 @@
 import React from "react";
-import "./App.css";
-import Form from "./components/form/Form";
-import Decomposition from "./components/decomposition/Decomposition";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import "./fonts/stylesheet.css";
+import "./App.css";
+import MainScreen from "./components/MainScreen";
+import Form from "./components/form/Form";
 
 function App() {
   return (
     <div className="App">
-      {/* <Form 
-        attributes=""
-        keys={[[]]}
-        dependenciesLeft={[[]]}
-        dependenciesRight={[[]]}
-      /> */}
-      <Decomposition />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" render={() => <MainScreen />} />
+          <Route
+            exact
+            path="/create"
+            render={() => (
+              <Form
+                attributes=""
+                keys={[[]]}
+                dependenciesLeft={[[]]}
+                dependenciesRight={[[]]}
+              />
+            )}
+          />
+          <Redirect to="/" />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }

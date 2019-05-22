@@ -23,12 +23,57 @@ h1 {
   margin-top: 20px;
 }
 
+h2 {
+  margin-top: 50px;
+  text-align: center;
+}
+
 textarea {
   font-size: 18px;
 }
 
+p{
+  font-size: 20px;
+  color: #595856;
+}
+
+b{
+  color: black;
+}
+
+a{
+  font-family: "Graphik-Regular";
+  font-weight: bolder;
+  color: black;
+  transition: 0.1s color ease-in-out;
+}
+
+a:hover{
+  color: #9dd2b5;
+}
+
 ::selection {
   background-color: #f0b74788;
+}
+
+.MainTitle{
+  margin-top: 140px;
+  text-align: center;
+}
+
+.MainDescription{
+  text-align: center;
+  margin: auto;
+  margin-top: 55px;
+  padding-bottom: 20px;
+  max-width: 50%;
+  line-height: 25px;
+  border-bottom: 4px solid #9dd2b5;
+}
+
+.CreatedBy{
+  border: none;
+  margin-top: 40px;
 }
 
 .Description {
@@ -66,7 +111,7 @@ textarea {
 
 .AttributeInput {
   border-radius: 4px;
-  margin-left: 140px;
+  margin-left: 115px;
 }
 
 .AttributeSelector {
@@ -122,8 +167,6 @@ textarea {
 }
 
 .DropdownAttribute:hover {
-  /* background-color: #9dd2b5; */
-
   background-color: #9e9e9e;
 }
 
@@ -211,6 +254,38 @@ textarea {
   margin-left: 200px;
 }
 
+.FormButtonContainer{
+  margin-top: 36px;
+  margin-left: -30px;
+  display: flex;
+  justify-content: center;
+}
+
+.ButtonRun{
+  margin: 0 26px;
+  background-color: #9dd2b5;
+  padding: 10px 20px;
+  padding-bottom: 4px;
+  border: none;
+  border-bottom: 6px solid #59585688;
+  border-radius: 8px;
+  font-size: 20px;
+  color: #595856;
+  transition: 0.2s color ease-in-out;
+  cursor: pointer;
+}
+
+.ButtonRun:hover{
+  color: #ffffffcc;
+}
+
+.ButtonClear{
+  margin-right: 32px;
+  background-color: #595856;
+  border-color: #de5b1e;
+  color: #9e9e9e
+}
+
 .DependencyElement .ButtonRemove {
   position: absolute;
   left: 100%;
@@ -277,6 +352,12 @@ textarea {
 
 .Tooltip.place-top::after {
   border-top-color: #595856 !important;
+}
+
+.Form{
+  display: block;
+  margin: auto;
+  width: 80%;
 }
 
 .TableContent {
