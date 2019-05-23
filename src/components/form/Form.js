@@ -161,11 +161,20 @@ class Form extends Component {
     });
   };
 
+  clearState = () => {
+    this.setState({
+      attributes: "",
+      keys: [[]],
+      dependenciesLeft: [[]],
+      dependenciesRight: [[]]
+    });
+  };
+
   render() {
     return (
       <>
         <Navbar />
-        <div>
+        <div className="Form">
           <Attributes
             attributes={this.state.attributes}
             handleChange={this.handleAttributesChange}
@@ -196,6 +205,12 @@ class Form extends Component {
             handleDependencyRemove={this.removeDependency}
             handleDependencyAdd={this.addDependency}
           />
+          <div className="FormButtonContainer">
+            <button className="ButtonRun ButtonClear" onClick={this.clearState}>
+              Clear all inputs
+            </button>
+            <button className="ButtonRun">Save and run</button>
+          </div>
         </div>
       </>
     );
