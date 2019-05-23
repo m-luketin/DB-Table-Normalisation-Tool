@@ -21,3 +21,10 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: "Graphik-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/Graphik-Regular.ttf") format("truetype");
+}

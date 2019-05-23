@@ -21,7 +21,10 @@ class AttributeSelector extends Component {
   handleKeyDown = event => {
     if (event.key === "Enter") {
       let attributeToAdd = this.props.availableAttributes.map(attribute => {
-        if (attribute.includes(this.state.inputValue)) return attribute;
+        if (
+          attribute.toLowerCase().includes(this.state.inputValue.toLowerCase())
+        )
+          return attribute;
         return undefined;
       });
       this.setState({ inputValue: "" });
@@ -75,7 +78,11 @@ class AttributeSelector extends Component {
           </div>
         </div>
 
-        <div data-tip data-for={this.props.tooltipId} className="AttributeOutput">
+        <div
+          data-tip
+          data-for={this.props.tooltipId}
+          className="AttributeOutput"
+        >
           {this.props.value.map((value, index) => {
             return (
               <button
@@ -89,7 +96,11 @@ class AttributeSelector extends Component {
           })}
         </div>
 
-        <ReactTooltip className="Tooltip" id={this.props.tooltipId} effect="solid">
+        <ReactTooltip
+          className="Tooltip"
+          id={this.props.tooltipId}
+          effect="solid"
+        >
           <span>{this.props.outputTooltip}</span>
         </ReactTooltip>
       </div>
