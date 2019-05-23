@@ -10,12 +10,7 @@ using Attribute = Normalization.Data.Models.Attribute;
 
 namespace Normalization.Data.Contexts
 {
-    public class AttributeContext : DbContext
+    public class AttributeContext : ConfigurationContext
     {
-        public DbSet<Attribute> Attributes { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["NormalizationContext"].ConnectionString);
-        }
     }
 }

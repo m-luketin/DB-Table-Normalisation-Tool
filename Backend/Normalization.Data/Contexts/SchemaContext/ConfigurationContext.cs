@@ -17,7 +17,9 @@ namespace Normalization.Data.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["NormalizationContext"].ConnectionString);
+            optionsBuilder.UseSqlServer(
+                "Server=(localdb)\\mssqllocaldb;Database=Normalization;Trusted_Connection=True;");
+            //optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["NormalizationContext"].ConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

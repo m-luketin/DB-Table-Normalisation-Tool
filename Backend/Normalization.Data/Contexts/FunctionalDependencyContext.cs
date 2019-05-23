@@ -9,12 +9,7 @@ using Normalization.Data.Models;
 
 namespace Normalization.Data.Contexts
 {
-    public class FunctionalDependencyContext : DbContext
+    public class FunctionalDependencyContext : ConfigurationContext
     {
-        public DbSet<FunctionalDependency> FunctionalDependencies { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["NormalizationContext"].ConnectionString);
-        }
     }
 }

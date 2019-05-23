@@ -6,11 +6,11 @@ const Dependency = props => {
     <div className="FunctionalDependency">
       <AttributeSelector
         index={props.index}
-        value={props.dependencyLeft}
+        value={props.dependencyFrom}
         availableAttributes={props.availableAttributes}
-        handleAdd={props.handleAddLeft}
-        handleAddByEnter={props.handleAddByEnterLeft}
-        handleRemove={props.handleRemoveLeft}
+        handleAdd={props.handleAddFrom}
+        handleAddByEnter={props.handleAddByEnterFrom}
+        handleRemove={props.handleRemoveFrom}
         outputTooltip="This is your functional dependency"
         tooltipId="DependencyTooltip"
       />
@@ -38,11 +38,11 @@ const Dependency = props => {
 
       <AttributeSelector
         index={props.index}
-        value={props.dependencyRight}
+        value={props.dependencyTo}
         availableAttributes={props.availableAttributes}
-        handleAdd={props.handleAddRight}
-        handleAddByEnter={props.handleAddByEnterRight}
-        handleRemove={props.handleRemoveRight}
+        handleAdd={props.handleAddTo}
+        handleAddByEnter={props.handleAddByEnterTo}
+        handleRemove={props.handleRemoveTo}
         outputTooltip="This is your functional dependency"
         tooltipId="DependencyTooltip"
       />

@@ -3,7 +3,8 @@ import Attributes from "./Attributes";
 import KeysDisplay from "./KeysDisplay";
 import DependenciesDisplay from "./DependenciesDisplay";
 import Navbar from "./../Navbar";
-import { attributeHandler } from "../../utils";
+import { attributeHandler,splitAttributes } from "../../utils";
+import { Post } from "../../services/normalization";
 
 class Form extends Component {
   constructor(props) {
@@ -11,8 +12,8 @@ class Form extends Component {
     this.state = {
       attributes: this.props.attributes,
       keys: this.props.keys,
-      dependenciesLeft: this.props.dependenciesLeft,
-      dependenciesRight: this.props.dependenciesRight
+      dependenciesFrom: this.props.dependenciesFrom,
+      dependenciesTo: this.props.dependenciesTo
     };
   }
 
@@ -73,67 +74,67 @@ class Form extends Component {
     });
   };
 
-  handleDependencyChangeAddLeft = (event, index) => {
+  handleDependencyChangeAddFrom = (event, index) => {
     const selectedAttribute = event.target.innerHTML;
     this.setState(prevState => {
       return {
-        dependenciesLeft: attributeHandler(
-          prevState.dependenciesLeft
+        dependenciesFrom: attributeHandler(
+          prevState.dependenciesFrom
         ).addAttribute(selectedAttribute, index)
       };
     });
   };
 
-  handleDependencyChangeAddByEnterLeft = (selectedAttribute, index) => {
+  handleDependencyChangeAddByEnterFrom = (selectedAttribute, index) => {
     this.setState(prevState => {
       return {
-        dependenciesLeft: attributeHandler(
-          prevState.dependenciesLeft
+        dependenciesFrom: attributeHandler(
+          prevState.dependenciesFrom
         ).addAttribute(selectedAttribute, index)
       };
     });
   };
 
-  handleDependencyChangeAddRight = (event, index) => {
-    if (this.state.dependenciesRight[index].length === 1) return;
+  handleDependencyChangeAddTo = (event, index) => {
+    if (this.state.dependenciesTo[index].length === 1) return;
     const selectedAttribute = event.target.innerHTML;
     this.setState(prevState => {
       return {
-        dependenciesRight: attributeHandler(
-          prevState.dependenciesRight
+        dependenciesTo: attributeHandler(
+          prevState.dependenciesTo
         ).addAttribute(selectedAttribute, index)
       };
     });
   };
 
-  handleDependencyChangeAddByEnterRight = (selectedAttribute, index) => {
-    if (this.state.dependenciesRight[index].length === 1) return;
+  handleDependencyChangeAddByEnterTo = (selectedAttribute, index) => {
+    if (this.state.dependenciesTo[index].length === 1) return;
     this.setState(prevState => {
       return {
-        dependenciesRight: attributeHandler(
-          prevState.dependenciesRight
+        dependenciesTo: attributeHandler(
+          prevState.dependenciesTo
         ).addAttribute(selectedAttribute, index)
       };
     });
   };
 
-  handleDependencyChangeRemoveLeft = (event, index) => {
+  handleDependencyChangeRemoveFrom = (event, index) => {
     const selectedAttribute = event.target.innerHTML;
     this.setState(prevState => {
       return {
-        dependenciesLeft: attributeHandler(
-          prevState.dependenciesLeft
+        dependenciesFrom: attributeHandler(
+          prevState.dependenciesFrom
         ).removeAttribute(selectedAttribute, index)
       };
     });
   };
 
-  handleDependencyChangeRemoveRight = (event, index) => {
+  handleDependencyChangeRemoveTo = (event, index) => {
     const selectedAttribute = event.target.innerHTML;
     this.setState(prevState => {
       return {
-        dependenciesRight: attributeHandler(
-          prevState.dependenciesRight
+        dependenciesTo: attributeHandler(
+          prevState.dependenciesTo
         ).removeAttribute(selectedAttribute, index)
       };
     });
@@ -142,21 +143,21 @@ class Form extends Component {
   addDependency = () => {
     this.setState(prevState => {
       return {
-        dependenciesLeft: [...prevState.dependenciesLeft, []],
-        dependenciesRight: [...prevState.dependenciesRight, []]
+        dependenciesFrom: [...prevState.dependenciesFrom, []],
+        dependenciesTo: [...prevState.dependenciesTo, []]
       };
     });
   };
 
   removeDependency = index => {
     this.setState(prevState => {
-      let newDependenciesLeft = [...prevState.dependenciesLeft];
-      newDependenciesLeft.splice(index, 1);
-      let newDependenciesRight = [...prevState.dependenciesRight];
-      newDependenciesRight.splice(index, 1);
+      let newdependenciesFrom = [...prevState.dependenciesFrom];
+      newdependenciesFrom.splice(index, 1);
+      let newdependenciesTo = [...prevState.dependenciesTo];
+      newdependenciesTo.splice(index, 1);
       return {
-        dependenciesLeft: [...newDependenciesLeft],
-        dependenciesRight: [...newDependenciesRight]
+        dependenciesFrom: [...newdependenciesFrom],
+        dependenciesTo: [...newdependenciesTo]
       };
     });
   };
@@ -165,11 +166,18 @@ class Form extends Component {
     this.setState({
       attributes: "",
       keys: [[]],
-      dependenciesLeft: [[]],
-      dependenciesRight: [[]]
+      dependenciesFrom: [[]],
+      dependenciesTo: [[]]
     });
   };
 
+  postForm = () =>{
+    Post({
+      ...this.state,
+      attributes: splitAttributes(this.state.attributes),
+      name: "Test"
+    }).then(response => console.log(response));
+  }
   render() {
     return (
       <>
@@ -190,18 +198,18 @@ class Form extends Component {
           />
           <DependenciesDisplay
             attributes={this.state.attributes}
-            dependenciesLeft={this.state.dependenciesLeft}
-            dependenciesRight={this.state.dependenciesRight}
-            handleAttributeAddLeft={this.handleDependencyChangeAddLeft}
-            handleAttributeAddRight={this.handleDependencyChangeAddRight}
-            handleAttributeAddByEnterLeft={
-              this.handleDependencyChangeAddByEnterLeft
+            dependenciesFrom={this.state.dependenciesFrom}
+            dependenciesTo={this.state.dependenciesTo}
+            handleAttributeAddFrom={this.handleDependencyChangeAddFrom}
+            handleAttributeAddTo={this.handleDependencyChangeAddTo}
+            handleAttributeAddByEnterFrom={
+              this.handleDependencyChangeAddByEnterFrom
             }
-            handleAttributeAddByEnterRight={
-              this.handleDependencyChangeAddByEnterRight
+            handleAttributeAddByEnterTo={
+              this.handleDependencyChangeAddByEnterTo
             }
-            handleAttributeRemoveLeft={this.handleDependencyChangeRemoveLeft}
-            handleAttributeRemoveRight={this.handleDependencyChangeRemoveRight}
+            handleAttributeRemoveFrom={this.handleDependencyChangeRemoveFrom}
+            handleAttributeRemoveTo={this.handleDependencyChangeRemoveTo}
             handleDependencyRemove={this.removeDependency}
             handleDependencyAdd={this.addDependency}
           />
@@ -209,7 +217,7 @@ class Form extends Component {
             <button className="ButtonRun ButtonClear" onClick={this.clearState}>
               Clear all inputs
             </button>
-            <button className="ButtonRun">Save and run</button>
+            <button className="ButtonRun" onClick={this.postForm}>Save and run</button>
           </div>
         </div>
       </>

@@ -25,6 +25,11 @@ namespace Normalization.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AnyOrigin",
+                    builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials());
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -40,6 +45,7 @@ namespace Normalization.Api
                 app.UseHsts();
             }
 
+            app.UseCors("AnyOrigin");  
             app.UseHttpsRedirection();
             app.UseMvc();
         }

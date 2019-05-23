@@ -9,12 +9,7 @@ using Normalization.Data.Models;
 
 namespace Normalization.Data.Contexts
 {
-    public class TableAttributeCollectionContext : DbContext
+    public class TableAttributeCollectionContext : ConfigurationContext
     {
-        public DbSet<TableAttributeCollection> TableAttributeCollections { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["NormalizationContext"].ConnectionString);
-        }
     }
 }

@@ -9,12 +9,7 @@ using Normalization.Data.Models;
 
 namespace Normalization.Data.Contexts
 {
-    public class KeyGroupContext : DbContext
+    public class KeyGroupContext : ConfigurationContext
     {
-        public DbSet<KeyGroup> KeyGroups { get; set; }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["NormalizationContext"].ConnectionString);
-        }
     }
 }

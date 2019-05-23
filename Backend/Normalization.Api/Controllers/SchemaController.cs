@@ -11,7 +11,7 @@ namespace Normalization.Api.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    [EnableCors("Allow origins")]
+    [EnableCors("AnyOrigin")]
     public class SchemaController : Controller
     {
         [HttpGet]

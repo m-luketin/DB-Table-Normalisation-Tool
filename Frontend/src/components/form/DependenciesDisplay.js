@@ -3,20 +3,20 @@ import Dependency from "./Dependency";
 import { splitAttributes } from "../../utils";
 
 const DependenciesDisplay = props => {
-  const handleAttributeAddLeft = (event, index) => {
-    props.handleAttributeAddLeft(event, index);
+  const handleAttributeAddFrom = (event, index) => {
+    props.handleAttributeAddFrom(event, index);
   };
 
-  const handleAttributeAddRight = (event, index) => {
-    props.handleAttributeAddRight(event, index);
+  const handleAttributeAddTo = (event, index) => {
+    props.handleAttributeAddTo(event, index);
   };
 
-  const handleAttributeRemoveLeft = (event, index) => {
-    props.handleAttributeRemoveLeft(event, index);
+  const handleAttributeRemoveFrom = (event, index) => {
+    props.handleAttributeRemoveFrom(event, index);
   };
 
-  const handleAttributeRemoveRight = (event, index) => {
-    props.handleAttributeRemoveRight(event, index);
+  const handleAttributeRemoveTo = (event, index) => {
+    props.handleAttributeRemoveTo(event, index);
   };
 
   return (
@@ -24,22 +24,22 @@ const DependenciesDisplay = props => {
       <h1>Functional dependencies</h1>
       <div className="DependencyContent">
         <ul>
-          {props.dependenciesLeft.map((dependency, index) => (
+          {props.dependenciesFrom.map((dependency, index) => (
             <li key={index} className="DependencyElement">
               <Dependency
                 index={index}
                 availableAttributes={splitAttributes(props.attributes)}
-                dependencyLeft={dependency}
-                dependencyRight={props.dependenciesRight[index]}
-                handleAddLeft={event => handleAttributeAddLeft(event, index)}
-                handleAddRight={event => handleAttributeAddRight(event, index)}
-                handleAddByEnterLeft={props.handleAttributeAddByEnterLeft}
-                handleAddByEnterRight={props.handleAttributeAddByEnterRight}
-                handleRemoveLeft={event =>
-                  handleAttributeRemoveLeft(event, index)
+                dependencyFrom={dependency}
+                dependencyTo={props.dependenciesTo[index]}
+                handleAddFrom={event => handleAttributeAddFrom(event, index)}
+                handleAddTo={event => handleAttributeAddTo(event, index)}
+                handleAddByEnterFrom={props.handleAttributeAddByEnterFrom}
+                handleAddByEnterTo={props.handleAttributeAddByEnterTo}
+                handleRemoveFrom={event =>
+                  handleAttributeRemoveFrom(event, index)
                 }
-                handleRemoveRight={event =>
-                  handleAttributeRemoveRight(event, index)
+                handleRemoveTo={event =>
+                  handleAttributeRemoveTo(event, index)
                 }
               />
               <button
