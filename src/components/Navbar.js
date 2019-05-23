@@ -11,7 +11,7 @@ const Navbar = () => {
         <Link to="/load" className="NavbarListItem">
           <div>Load example</div>
         </Link>
-        <Link to="/normalize/previous" className="NavbarListItem">
+        <Link to="/test" className="NavbarListItem">
           <div>Previous normalized</div>
         </Link>
         <Link to="/" className="NavbarListItem">
