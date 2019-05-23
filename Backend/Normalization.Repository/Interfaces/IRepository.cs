@@ -11,6 +11,7 @@ namespace Normalization.Repository.Interfaces
 {
     public interface IRepository
     {
+        ICollection<IQueryable> Read();
         IEntity Create(IEntity entity);
         void Delete(IEntity entity);
         void Delete(int id);

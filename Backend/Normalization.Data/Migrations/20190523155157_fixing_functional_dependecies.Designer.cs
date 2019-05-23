@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Normalization.Data.Contexts;
 
 namespace Normalization.Data.Migrations
 {
     [DbContext(typeof(ConfigurationContext))]
-    partial class ConfigurationContextModelSnapshot : ModelSnapshot
+    [Migration("20190523155157_fixing_functional_dependecies")]
+    partial class fixing_functional_dependecies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +53,7 @@ namespace Normalization.Data.Migrations
 
                     b.Property<int?>("AttributeCollectionPrimaryId");
 
-                    b.Property<int?>("FunctionalDependencyPrimaryId");
+                    b.Property<int?>("FunctionalDependenciesPrimaryId");
 
                     b.Property<bool>("IsLeft");
 
@@ -59,7 +61,7 @@ namespace Normalization.Data.Migrations
 
                     b.HasIndex("AttributeCollectionPrimaryId");
 
-                    b.HasIndex("FunctionalDependencyPrimaryId");
+                    b.HasIndex("FunctionalDependenciesPrimaryId");
 
                     b.ToTable("DependencyElements");
                 });
@@ -147,9 +149,9 @@ namespace Normalization.Data.Migrations
                         .WithMany("FunctionalDependency")
                         .HasForeignKey("AttributeCollectionPrimaryId");
 
-                    b.HasOne("Normalization.Data.Models.FunctionalDependency", "FunctionalDependency")
+                    b.HasOne("Normalization.Data.Models.FunctionalDependency", "FunctionalDependencies")
                         .WithMany("DependencyElements")
-                        .HasForeignKey("FunctionalDependencyPrimaryId");
+                        .HasForeignKey("FunctionalDependenciesPrimaryId");
                 });
 
             modelBuilder.Entity("Normalization.Data.Models.KeyGroup", b =>

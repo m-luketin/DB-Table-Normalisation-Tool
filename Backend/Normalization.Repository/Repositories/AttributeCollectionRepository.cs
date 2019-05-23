@@ -19,6 +19,11 @@ namespace Normalization.Repository.Repositories
             _attributeCollectionContext = new AttributeCollectionContext();
         }
 
+        public ICollection<IQueryable> Read()
+        {
+            return (ICollection<IQueryable>)_attributeCollectionContext.AttributeCollections.ToList();
+        }
+
         public IEntity Create(IEntity entity)
         {
             var attributeCollection = (AttributeCollection) entity;

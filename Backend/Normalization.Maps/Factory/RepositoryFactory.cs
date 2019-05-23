@@ -16,7 +16,7 @@ namespace Normalization.Maps.Factory
             return new TableRepository();
         }
 
-        public static IRepository CreateDependencyElementRepository()
+        public static DependencyElementRepository CreateDependencyElementRepository()
         {
             return new DependencyElementRepository();
         }
@@ -41,7 +41,7 @@ namespace Normalization.Maps.Factory
             return new KeyGroupRepository();
         }
 
-        public static IRepository CreateTableAttributeRepository()
+        public static TableAttributeRepository CreateTableAttributeRepository()
         {
             return new TableAttributeRepository();
         }

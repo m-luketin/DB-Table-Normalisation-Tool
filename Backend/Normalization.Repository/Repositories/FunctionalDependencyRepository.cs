@@ -17,7 +17,10 @@ namespace Normalization.Repository.Repositories
         {
             _functionalDependencyContext = new FunctionalDependencyContext();
         }
-
+        public ICollection<IQueryable> Read()
+        {
+            return (ICollection<IQueryable>)_functionalDependencyContext.FunctionalDependencies.ToList();
+        }
         public IEntity Create(IEntity entity)
         {
             var functionalDependency = (FunctionalDependency) entity;
@@ -42,7 +45,6 @@ namespace Normalization.Repository.Repositories
         {
             var functionalDependencyNew = (FunctionalDependency) entity;
             var functionalDependency = (FunctionalDependency) GetById(entity.PrimaryId);
-            functionalDependency.DependencyElement = functionalDependencyNew.DependencyElement;
             _functionalDependencyContext.FunctionalDependencies.Update(functionalDependency);
             _functionalDependencyContext.SaveChanges();
             return functionalDependency;

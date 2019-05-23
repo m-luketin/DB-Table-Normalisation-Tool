@@ -17,7 +17,10 @@ namespace Normalization.Repository.Repositories
         {
             _keyGroupContext = new KeyGroupContext();
         }
-
+        public ICollection<IQueryable> Read()
+        {
+            return (ICollection<IQueryable>)_keyGroupContext.KeyGroups.ToList();
+        }
         public IEntity Create(IEntity entity)
         {
             var keyGroup = (KeyGroup) entity;

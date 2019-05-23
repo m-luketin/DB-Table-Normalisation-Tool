@@ -16,7 +16,10 @@ namespace Normalization.Repository.Repositories
         {
             _tableAttributeContext = new TableAttributeContext();
         }
-
+        public ICollection<IQueryable> Read()
+        {
+            return (ICollection<IQueryable>)_tableAttributeContext.TableAttributes.ToList();
+        }
         public IEntity Create(IEntity entity)
         {
             var tableAttribute = (TableAttribute) entity;
@@ -52,6 +55,11 @@ namespace Normalization.Repository.Repositories
         public IEntity GetById(int id)
         {
             return _tableAttributeContext.TableAttributes.Find(id);
+        }
+
+        public IEntity GetByName(string nameAttribute)
+        {
+            return (IEntity)_tableAttributeContext.TableAttributes.Where(tableAttr => tableAttr.Attribute.ColumnName == nameAttribute);
         }
     }
 }

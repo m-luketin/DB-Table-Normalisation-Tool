@@ -18,6 +18,11 @@ namespace Normalization.Repository.Repositories
             _dependencyElementContext = new DependencyElementContext();
         }
 
+        public ICollection<IQueryable> Read()
+        {
+            return (ICollection<IQueryable>)_dependencyElementContext.DependencyElements.ToList();
+        }
+
         public IEntity Create(IEntity entity)
         {
             var dependencyElement = (DependencyElement) entity;
@@ -44,7 +49,7 @@ namespace Normalization.Repository.Repositories
             var dependencyElement = (DependencyElement) GetById(entity.PrimaryId);
 
             dependencyElement.AttributeCollection = dependencyElementNew.AttributeCollection;
-            dependencyElement.FunctionalDependencies = dependencyElementNew.FunctionalDependencies;
+            dependencyElement.FunctionalDependency = dependencyElementNew.FunctionalDependency;
             dependencyElement.IsLeft = dependencyElementNew.IsLeft;
 
             _dependencyElementContext.DependencyElements.Update(dependencyElement);
@@ -55,6 +60,19 @@ namespace Normalization.Repository.Repositories
         public IEntity GetById(int id)
         {
             return _dependencyElementContext.DependencyElements.Find(id);
+        }
+
+        public IEntity CreateWithAttributeCollection(bool isLeft, IEntity attributeCollection,IEntity functionalDependency)
+        {
+            var dependencyElement = new DependencyElement
+            {
+                IsLeft = isLeft,
+                AttributeCollection = (AttributeCollection) attributeCollection,
+                FunctionalDependency = (FunctionalDependency)functionalDependency
+            };
+            _dependencyElementContext.DependencyElements.Add(dependencyElement);
+            _dependencyElementContext.SaveChanges();
+            return dependencyElement;
         }
     }
 }

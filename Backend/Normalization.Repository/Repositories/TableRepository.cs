@@ -17,7 +17,10 @@ namespace Normalization.Repository.Repositories
         {
             _tableContext = new TableContext();
         }
-
+        public ICollection<IQueryable> Read()
+        {
+            return (ICollection<IQueryable>)_tableContext.Tables.ToList();
+        }
         public IEntity Create(IEntity entity)
         {
             var table = (Table) entity;

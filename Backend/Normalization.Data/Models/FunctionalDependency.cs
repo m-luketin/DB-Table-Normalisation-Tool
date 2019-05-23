@@ -9,15 +9,15 @@ namespace Normalization.Data.Models
     public class FunctionalDependency : IEntity
     {
         public int PrimaryId { get; set; }
-        public DependencyElement DependencyElement { get; set; }
+        public ICollection<DependencyElement> DependencyElements { get; set; }
 
         public FunctionalDependency()
         {
             
         }
-        public FunctionalDependency(DependencyElement dependencyElement)
+        public FunctionalDependency(ICollection<DependencyElement> dependencyElement)
         {
-            DependencyElement = dependencyElement;
+            DependencyElements = dependencyElement;
         }
 
     }

@@ -10,19 +10,38 @@ namespace Normalization.Maps.Factory
 {
     public static  class ModelFactory
     {
-        public static IEntity CreateTable(string name)
+        public static Table CreateTable(string name)
         {
             return new Table(name);
         }
 
-        public static IEntity CreateAttribute(string columnName)
+        public static Attribute CreateAttribute(string columnName)
         {
             return new Attribute(columnName);
         }
 
-        public static IEntity CreateTableAttribute(Table table, Attribute attribute)
+        public static TableAttribute CreateTableAttribute(Table table, Attribute attribute)
         {
             return new TableAttribute(table,attribute);
+        }
+
+        public static TableAttributeCollection CreateTableAttributeCollection(Table table, Attribute attribute)
+        {
+            return new TableAttributeCollection();
+        }
+        public static AttributeCollection CreateAttributeCollection(List<Attribute> attributeList)
+        {
+            return new AttributeCollection();
+        }
+
+        public static FunctionalDependency CreateFunctionalDependency()
+        {
+            return new FunctionalDependency();
+        }
+
+        public static KeyGroup CreateKeyGroup()
+        {
+            return new KeyGroup();
         }
     }
 }

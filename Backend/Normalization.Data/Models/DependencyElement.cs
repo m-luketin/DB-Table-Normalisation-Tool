@@ -10,17 +10,17 @@ namespace Normalization.Data.Models
     {
         public int PrimaryId { get; set; }
         public AttributeCollection AttributeCollection { get; set; }
-        public ICollection<FunctionalDependency> FunctionalDependencies { get; set; }
+        public FunctionalDependency FunctionalDependency { get; set; }
         public bool IsLeft { get; set; }
 
         public DependencyElement()
         {
             
         }
-        public DependencyElement(AttributeCollection attributeCollection, ICollection<FunctionalDependency> functionalDependencies, bool isLeft)
+        public DependencyElement(AttributeCollection attributeCollection, FunctionalDependency functionalDependencies, bool isLeft)
         {
             AttributeCollection = attributeCollection;
-            FunctionalDependencies = functionalDependencies;
+            FunctionalDependency = functionalDependencies;
             IsLeft = isLeft;
         }
 
