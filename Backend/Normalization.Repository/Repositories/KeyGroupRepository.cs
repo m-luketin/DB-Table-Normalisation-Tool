@@ -18,10 +18,12 @@ namespace Normalization.Repository.Repositories
             _keyGroupContext = new KeyGroupContext();
         }
 
-        public void Create(IEntity entity)
+        public IEntity Create(IEntity entity)
         {
-            _keyGroupContext.KeyGroups.Add((KeyGroup)entity);
+            var keyGroup = (KeyGroup) entity;
+            _keyGroupContext.KeyGroups.Add(keyGroup);
             _keyGroupContext.SaveChanges();
+            return keyGroup;
         }
 
         public void Delete(IEntity entity)
@@ -36,11 +38,14 @@ namespace Normalization.Repository.Repositories
             _keyGroupContext.SaveChanges();
         }
 
-        public void Edit(IEntity entity)
+        public IEntity Edit(IEntity entity)
         {
-            Delete(entity.PrimaryId);
-            Create(entity);
+            var keyGroupNew = (KeyGroup) entity;
+            var keyGroup = (KeyGroup) GetById(entity.PrimaryId);
+            keyGroup.AttributeCollection = keyGroupNew.AttributeCollection;
+            _keyGroupContext.KeyGroups.Update(keyGroup);
             _keyGroupContext.SaveChanges();
+            return keyGroup;
         }
 
         public IEntity GetById(int id)

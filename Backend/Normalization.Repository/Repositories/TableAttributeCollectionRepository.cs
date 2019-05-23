@@ -18,10 +18,12 @@ namespace Normalization.Repository.Repositories
             _tableAttributeCollectionContext = new TableAttributeCollectionContext();
         }
 
-        public void Create(IEntity entity)
+        public IEntity Create(IEntity entity)
         {
-            _tableAttributeCollectionContext.TableAttributeCollections.Add((TableAttributeCollection)entity);
+            var tableAttributeCollection = (TableAttributeCollection) entity;
+            _tableAttributeCollectionContext.TableAttributeCollections.Add(tableAttributeCollection);
             _tableAttributeCollectionContext.SaveChanges();
+            return tableAttributeCollection;
         }
 
         public void Delete(IEntity entity)
@@ -36,11 +38,15 @@ namespace Normalization.Repository.Repositories
             _tableAttributeCollectionContext.SaveChanges();
         }
 
-        public void Edit(IEntity entity)
+        public IEntity Edit(IEntity entity)
         {
-            Delete(entity.PrimaryId);
-            Create(entity);
+            var tableAttributeCollectionNew = (TableAttributeCollection) entity;
+            var tableAttributeCollection = (TableAttributeCollection) GetById(entity.PrimaryId);
+            tableAttributeCollection.AttributeCollection = tableAttributeCollectionNew.AttributeCollection;
+            tableAttributeCollection.TableAttribute = tableAttributeCollection.TableAttribute;
+            _tableAttributeCollectionContext.TableAttributeCollections.Update(tableAttributeCollection);
             _tableAttributeCollectionContext.SaveChanges();
+            return tableAttributeCollection;
         }
 
         public IEntity GetById(int id)

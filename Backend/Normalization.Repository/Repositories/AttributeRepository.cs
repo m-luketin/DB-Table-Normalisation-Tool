@@ -19,10 +19,12 @@ namespace Normalization.Repository.Repositories
             _attributeContext = new AttributeContext();
         }
 
-        public void Create(IEntity entity)
+        public IEntity Create(IEntity entity)
         {
-            _attributeContext.Attributes.Add((Data.Models.Attribute)entity);
+            var attributeNew = (Attribute) entity;
+            _attributeContext.Attributes.Add(attributeNew);
             _attributeContext.SaveChanges();
+            return attributeNew;
         }
 
         public void Delete(IEntity entity)
@@ -37,11 +39,15 @@ namespace Normalization.Repository.Repositories
             _attributeContext.SaveChanges();
         }
 
-        public void Edit(IEntity entity)
+        public IEntity Edit(IEntity entity)
         {
-            Delete(entity.PrimaryId);
-            Create(entity);
+            var attributeNew = (Attribute) entity;
+            var attribute = (Attribute)GetById(entity.PrimaryId);
+            attribute.ColumnName = attributeNew.ColumnName;
+            attribute.TableAttributes = attributeNew.TableAttributes;
+            _attributeContext.Attributes.Update(attribute);
             _attributeContext.SaveChanges();
+            return attribute;
         }
 
         public IEntity GetById(int id)

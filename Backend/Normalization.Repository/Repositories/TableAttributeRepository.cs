@@ -17,10 +17,12 @@ namespace Normalization.Repository.Repositories
             _tableAttributeContext = new TableAttributeContext();
         }
 
-        public void Create(IEntity entity)
+        public IEntity Create(IEntity entity)
         {
-            _tableAttributeContext.TableAttributes.Add((TableAttribute)entity);
+            var tableAttribute = (TableAttribute) entity;
+            _tableAttributeContext.TableAttributes.Add(tableAttribute);
             _tableAttributeContext.SaveChanges();
+            return tableAttribute;
         }
 
         public void Delete(IEntity entity)
@@ -35,11 +37,16 @@ namespace Normalization.Repository.Repositories
             _tableAttributeContext.SaveChanges();
         }
 
-        public void Edit(IEntity entity)
+        public IEntity Edit(IEntity entity)
         {
-            Delete(entity.PrimaryId);
-            Create(entity);
+            var tableAttributeNew = (TableAttribute) entity;
+            var tableAttribute = (TableAttribute) entity;
+            tableAttribute.Attribute = tableAttributeNew.Attribute;
+            tableAttribute.Table = tableAttributeNew.Table;
+            tableAttribute.TableAttributeCollection = tableAttributeNew.TableAttributeCollection;
+            _tableAttributeContext.TableAttributes.Update(tableAttribute);
             _tableAttributeContext.SaveChanges();
+            return tableAttribute;
         }
 
         public IEntity GetById(int id)

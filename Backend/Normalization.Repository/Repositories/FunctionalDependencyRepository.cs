@@ -18,10 +18,12 @@ namespace Normalization.Repository.Repositories
             _functionalDependencyContext = new FunctionalDependencyContext();
         }
 
-        public void Create(IEntity entity)
+        public IEntity Create(IEntity entity)
         {
-            _functionalDependencyContext.FunctionalDependencies.Add((FunctionalDependency)entity);
+            var functionalDependency = (FunctionalDependency) entity;
+            _functionalDependencyContext.FunctionalDependencies.Add(functionalDependency);
             _functionalDependencyContext.SaveChanges();
+            return functionalDependency;
         }
 
         public void Delete(IEntity entity)
@@ -36,11 +38,14 @@ namespace Normalization.Repository.Repositories
             _functionalDependencyContext.SaveChanges();
         }
 
-        public void Edit(IEntity entity)
+        public IEntity Edit(IEntity entity)
         {
-            Delete(entity.PrimaryId);
-            Create(entity);
+            var functionalDependencyNew = (FunctionalDependency) entity;
+            var functionalDependency = (FunctionalDependency) GetById(entity.PrimaryId);
+            functionalDependency.DependencyElement = functionalDependencyNew.DependencyElement;
+            _functionalDependencyContext.FunctionalDependencies.Update(functionalDependency);
             _functionalDependencyContext.SaveChanges();
+            return functionalDependency;
         }
 
         public IEntity GetById(int id)

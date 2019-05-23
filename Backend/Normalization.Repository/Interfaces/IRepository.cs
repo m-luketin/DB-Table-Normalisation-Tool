@@ -11,10 +11,10 @@ namespace Normalization.Repository.Interfaces
 {
     public interface IRepository
     {
-        void Create(IEntity entity);
+        IEntity Create(IEntity entity);
         void Delete(IEntity entity);
         void Delete(int id);
-        void Edit(IEntity entity);
+        IEntity Edit(IEntity entity);
 
         IEntity GetById(int id);
 
