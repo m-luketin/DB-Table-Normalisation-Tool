@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "./Navbar";
+import { Link } from "react-router-dom";
 
 const MainScreen = () => {
   return (
@@ -15,6 +16,13 @@ const MainScreen = () => {
           set of <b>Attributes</b> (Relation scheme), <b>Keys</b> and{" "}
           <b>Functional</b> dependencies.
         </p>
+
+        <div className="MainButtonContainer">
+          <Link to="/create">
+            <button className="ButtonRun">Start normalizing</button>
+          </Link>
+        </div>
+
         <h2>Created by:</h2>
         <p className="MainDescription CreatedBy">
           <a

@@ -1,16 +1,25 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <nav>
-      <ul className="NavbarList">
-        <li className="NavbarListItem"></li>
-        <li className="NavbarListItem"></li>
-        <li className="NavbarListItem"></li>
-        <li className="NavbarListItem"></li>
-      </ul>
+      <div className="NavbarList">
+        <Link to="/create" className="NavbarListItem">
+          <div>Create</div>
+        </Link>
+        <Link to="/load" className="NavbarListItem">
+          <div>Load example</div>
+        </Link>
+        <Link to="/normalize/previous" className="NavbarListItem">
+          <div>Previous normalized</div>
+        </Link>
+        <Link to="/" className="NavbarListItem">
+          <div>About</div>
+        </Link>
+      </div>
     </nav>
   );
-}
+};
 
 export default Navbar;
