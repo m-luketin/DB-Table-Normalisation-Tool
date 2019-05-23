@@ -16,6 +16,11 @@ namespace Normalization.Data.Models
         {
             
         }
+
+        public Table(string name)
+        {
+            Name = name;
+        }
         public Table(string name, ICollection<TableAttribute> tableAttributes)
         {
             Name = name;

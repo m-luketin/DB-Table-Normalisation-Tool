@@ -4,19 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Normalization.Data.Models;
+using Attribute = Normalization.Data.Models.Attribute;
 
 namespace Normalization.Maps.Factory
 {
-    public class ModelFactory
+    public static  class ModelFactory
     {
-        public IEntity CreateTable()
+        public static IEntity CreateTable(string name)
         {
-            return new Table();
+            return new Table(name);
         }
 
-        public IEntity CreateAttribute()
+        public static IEntity CreateAttribute(string columnName)
         {
-            return new Normalization.Data.Models.Attribute();
+            return new Attribute(columnName);
+        }
+
+        public static IEntity CreateTableAttribute(Table table, Attribute attribute)
+        {
+            return new TableAttribute(table,attribute);
         }
     }
 }
