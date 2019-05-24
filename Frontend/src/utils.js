@@ -70,8 +70,6 @@ export const getFirstFormattedFormError = formStateValues => {
     dependenciesFrom,
     dependenciesTo
   } = formStateValues;
-  
-  console.log(keys)
 
   if (isNullOrWhitespace(attributes)) {
     return 1;
@@ -82,14 +80,32 @@ export const getFirstFormattedFormError = formStateValues => {
   if (dependenciesFrom.length === 0) {
     return 3;
   }
-  if(dependenciesFrom.find(element => element.length === 0) !== undefined){
+  if (dependenciesFrom.find(element => element.length === 0) !== undefined) {
     return 3;
   }
   if (dependenciesTo.length === 0) {
     return 3;
   }
-  if(dependenciesTo.find(element => element.length === 0) !== undefined){
+  if (dependenciesTo.find(element => element.length === 0) !== undefined) {
     return 3;
   }
   return 0;
+};
+
+export const formErrorHandler = formErrorCode => {
+  let errorCode = "You are missing some fields in the ";
+  switch (formErrorCode) {
+    case 1:
+      errorCode += "Attributes section!";
+      break;
+    case 2:
+      errorCode += "Keys section!";
+      break;
+    case 3:
+      errorCode += "Functional Dependencies section!";
+      break;
+    default:
+      errorCode = "Invalid error code!";
+  }
+  alert(errorCode);
 };
