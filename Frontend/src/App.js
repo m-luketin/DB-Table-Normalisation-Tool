@@ -19,8 +19,8 @@ function App() {
               <Form
                 attributes=""
                 keys={[[]]}
-                dependenciesLeft={[[]]}
-                dependenciesRight={[[]]}
+                dependenciesFrom={[[]]}
+                dependenciesTo={[[]]}
               />
             )}
           />
