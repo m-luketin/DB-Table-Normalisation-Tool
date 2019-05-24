@@ -23,7 +23,7 @@ const MainScreen = () => {
           </Link>
         </div>
 
-        <h2>Created by:</h2>
+        <h3>Created by:</h3>
         <p className="MainDescription CreatedBy">
           <a
             href="https://github.com/AnteVuletic"

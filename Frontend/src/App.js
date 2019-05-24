@@ -4,6 +4,7 @@ import "./fonts/stylesheet.css";
 import "./App.css";
 import MainScreen from "./components/MainScreen";
 import Form from "./components/form/Form";
+import Decomposition from "./components/display/Decomposition";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
               />
             )}
           />
+          <Route exact path="/test" render={() => <Decomposition/>} />
           <Redirect to="/" />
         </Switch>
       </BrowserRouter>

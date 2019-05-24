@@ -27,7 +27,7 @@ const Dependency = props => {
         >
           <polyline
             fill="none"
-            stroke="#9e9e9e"
+            stroke="#595856"
             strokeWidth="10"
             strokeLinecap="round"
             strokeLinejoin="round"
