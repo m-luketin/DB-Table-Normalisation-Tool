@@ -9,6 +9,7 @@ using Normalization.Maps.Factory;
 using Normalization.Repository.Interfaces;
 using Normalization.Repository.Repositories;
 using Normalization.ViewModel;
+using Attribute = System.Attribute;
 
 namespace Normalization.Maps
 {
@@ -100,7 +101,6 @@ namespace Normalization.Maps
             }
 
             return viewItem;
-
         }
 
         public IViewModel Update(IViewModel item)
@@ -110,51 +110,114 @@ namespace Normalization.Maps
 
         public IViewModel ReadFromId(int id)
         {
-            throw new NotImplementedException();
+            var table = (Table)RepositoryFactory.CreateTableRepository().GetById(id);
+            ICollection<Attribute> attributes;
+            var tableAttributes = (ICollection<TableAttribute>)table.TableAttributes
+                .Where(tableAttr => tableAttr.TableId == id);
+
+            
+            foreach (var tableAttribute in tableAttributes)
+            {
+               attributes.Add(attr => attr.Id == tableAttribute.AttributeId)
+            }
+
+            var tableAttributeCollections = tableAttributes.Cast<TableAttribute>()
+                .Where(tableAttr => tableAttr.TableAttributeCollection
+                    .All(tableAttrCol => tableAttrCol.TableAttributeId == tableAttr.Id));
+
+            var attributeCollections = tableAttributeCollections.Cast<AttributeCollection>().Where(attrCol =>
+                attrCol.TableAttributeCollections
+                    .All(tableAttrCol => tableAttrCol.Id == attrCol.Id));
+
+            var keyGroups = attributeCollections.Cast<AttributeCollection>()
+                .Where(attrCol => attrCol.KeyGroup
+                    .All(keyGrp => keyGrp.AttributeCollection.Id == attrCol.Id));
+
+            var dependencyFrom = attributeCollections.Cast<DependencyElement>()
+                .Where(dependElem => dependElem.AttributeCollection.Id == dependElem.Id && dependElem.IsLeft);
+
+            var dependencyTo = attributeCollections.Cast<DependencyElement>()
+                .Where(dependElem => dependElem.AttributeCollection.Id == dependElem.Id && !dependElem.IsLeft);
+
+            var functionalDependencies = dependencyFrom.Cast<FunctionalDependency>()
+                .Where(funcDepend => funcDepend.DependencyElements
+                    .All(dependElem => dependElem.Id == funcDepend.Id));
+
+            var dependencyToString = dependencyTo
+                .Select(dependTo => dependTo.AttributeCollection.TableAttributeCollections
+                    .Select(tableAttr => tableAttr.TableAttribute.Attribute.ColumnName).ToString()).ToList()[0];
+
+            var dependencies = new List<DependencyViewModel>();
+            dependencies.AddRange(functionalDependencies
+                .Select(funcDepend => new DependencyViewModel(funcDepend.Id, dependencyFrom
+                    .Select(dependFrom => dependFrom.AttributeCollection.TableAttributeCollections
+                        .Select(tableAttr => tableAttr.TableAttribute.Attribute.ColumnName).ToString()).ToList(), dependencyToString)));
+
+            var keys = new List<ICollection<string>>();
+            keys.AddRange(tableAttributeCollections
+                .Select(tableAttr => keyGroups.Select(keyGrp => keyGrp.TableAttributeCollections
+                    .Where(attrTable => attrTable.TableAttribute.Id == tableAttr.Id)
+                        .Select(attrTable => attrTable.TableAttribute.Attribute.ColumnName).ToString()).ToList()));
+
+            table = (new TableViewModel
+            {
+                Attributes = new List<string>(attributes.Select(attr => attr.Attribute.ColumnName)),
+                Dependencies = dependencies,
+                Keys = keys
+            });
         }
 
         public ICollection<IViewModel> Read()
         {
             var tableViewList = new List<IViewModel>();
             var table = RepositoryFactory.CreateTableRepository().Read();
-            var tableAttributes = table.Cast<Table>().Where(tab => tab.TableAttributes.All(tableAttr => tableAttr.Id == tab.Id));
+            var tableAttributes = table.Cast<Table>()
+                .Where(tab => tab.TableAttributes.All(tableAttr => tableAttr.Id == tab.Id));
 
             var attributes = tableAttributes.Cast<TableAttribute>().Where(tableAttribute =>
-                tableAttribute.Attribute.TableAttributes.All(attr => attr.Id == tableAttribute.AttributeId));
+                tableAttribute.Attribute.TableAttributes
+                    .All(attr => attr.Id == tableAttribute.AttributeId));
 
-            var tableAttributeCollections = tableAttributes.Cast<TableAttribute>().Where(tableAttr =>
-                tableAttr.TableAttributeCollection.All(tableAttrCol =>
-                    tableAttrCol.TableAttributeId == tableAttr.Id));
+            var tableAttributeCollections = tableAttributes.Cast<TableAttribute>()
+                .Where(tableAttr => tableAttr.TableAttributeCollection
+                    .All(tableAttrCol => tableAttrCol.TableAttributeId == tableAttr.Id));
 
             var attributeCollections = tableAttributeCollections.Cast<AttributeCollection>().Where(attrCol =>
-                attrCol.TableAttributeCollections.All(tableAttrCol => tableAttrCol.Id == attrCol.Id));
+                attrCol.TableAttributeCollections
+                    .All(tableAttrCol => tableAttrCol.Id == attrCol.Id));
 
-            var keyGroups = attributeCollections.Cast<AttributeCollection>().Where(attrCol =>
-                attrCol.KeyGroup.All(keyGrp => keyGrp.AttributeCollection.Id == attrCol.Id));
+            var keyGroups = attributeCollections.Cast<AttributeCollection>()
+                .Where(attrCol => attrCol.KeyGroup
+                    .All(keyGrp => keyGrp.AttributeCollection.Id == attrCol.Id));
 
-            var dependencyFrom = attributeCollections.Cast<DependencyElement>().Where(dependElem => dependElem.AttributeCollection.Id == dependElem.Id && dependElem.IsLeft);
+            var dependencyFrom = attributeCollections.Cast<DependencyElement>()
+                .Where(dependElem => dependElem.AttributeCollection.Id == dependElem.Id && dependElem.IsLeft);
 
-            var dependencyTo = attributeCollections.Cast<DependencyElement>().Where(dependElem => dependElem.AttributeCollection.Id == dependElem.Id && !dependElem.IsLeft);
-            var functionalDependencies = dependencyFrom.Cast<FunctionalDependency>().Where(funcDepend =>
-                funcDepend.DependencyElements.All(dependElem => dependElem.Id == funcDepend.Id));
+            var dependencyTo = attributeCollections.Cast<DependencyElement>()
+                .Where(dependElem => dependElem.AttributeCollection.Id == dependElem.Id && !dependElem.IsLeft);
 
-            var dependencyToString =dependencyTo.Select(dependTo =>
-                dependTo.AttributeCollection.TableAttributeCollections
+            var functionalDependencies = dependencyFrom.Cast<FunctionalDependency>()
+                .Where(funcDepend => funcDepend.DependencyElements
+                    .All(dependElem => dependElem.Id == funcDepend.Id));
+
+            var dependencyToString =dependencyTo
+                .Select(dependTo =>dependTo.AttributeCollection.TableAttributeCollections
                     .Select(tableAttr => tableAttr.TableAttribute.Attribute.ColumnName).ToString()).ToList()[0];
+
             var dependencies = new List<DependencyViewModel>();
             dependencies.AddRange(functionalDependencies
-                                    .Select(funcDepend =>
-                                        new DependencyViewModel(
-                                            funcDepend.Id,
-                                            dependencyFrom.Select(dependFrom =>
-                                                dependFrom.AttributeCollection.TableAttributeCollections
-                                                    .Select(tableAttr => tableAttr.TableAttribute.Attribute.ColumnName).ToString()).ToList(),
-                                            dependencyToString)));
+                .Select(funcDepend => new DependencyViewModel(funcDepend.Id, dependencyFrom
+                    .Select(dependFrom => dependFrom.AttributeCollection.TableAttributeCollections
+                        .Select(tableAttr => tableAttr.TableAttribute.Attribute.ColumnName).ToString()).ToList(), dependencyToString)));
+
             var keys = new List<ICollection<string>>();
-            keys.AddRange(tableAttributeCollections.Select(tableAttr => keyGroups.Select(keyGrp => keyGrp.TableAttributeCollections.Where(attrTable => attrTable.TableAttribute.Id == tableAttr.Id).Select(attrTable=> attrTable.TableAttribute.Attribute.ColumnName).ToString()).ToList()));
+            keys.AddRange(tableAttributeCollections
+                .Select(tableAttr => keyGroups.Select(keyGrp => keyGrp.TableAttributeCollections
+                    .Where(attrTable => attrTable.TableAttribute.Id == tableAttr.Id)
+                        .Select(attrTable=> attrTable.TableAttribute.Attribute.ColumnName).ToString()).ToList()));
+
             tableViewList.Add(new TableViewModel
             {
-                Name = ,
                 Attributes = new List<string>(attributes.Select(attr => attr.Attribute.ColumnName)),
                 Dependencies = dependencies,
                 Keys = keys
