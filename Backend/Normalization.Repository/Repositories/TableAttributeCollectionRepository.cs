@@ -18,9 +18,9 @@ namespace Normalization.Repository.Repositories
         {
             _tableAttributeCollectionContext = new TableAttributeCollectionContext();
         }
-        public ICollection<IQueryable> Read()
+        public IQueryable Read()
         {
-            return (ICollection<IQueryable>)_tableAttributeCollectionContext.TableAttributeCollections.ToList();
+            return _tableAttributeCollectionContext.TableAttributeCollections;
         }
         public void Create(ref IEntity entity)
         {

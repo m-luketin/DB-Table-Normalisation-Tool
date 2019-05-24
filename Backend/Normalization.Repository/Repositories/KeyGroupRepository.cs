@@ -18,9 +18,9 @@ namespace Normalization.Repository.Repositories
         {
             _keyGroupContext = ContextFactory.CreateKeyGroupContext();
         }
-        public ICollection<IQueryable> Read()
+        public IQueryable Read()
         {
-            return (ICollection<IQueryable>)_keyGroupContext.KeyGroups.ToList();
+            return _keyGroupContext.KeyGroups;
         }
         public void Create(ref IEntity entity)
         {

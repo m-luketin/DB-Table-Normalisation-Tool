@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
 using Normalization.Repository.Factory;
@@ -18,9 +19,9 @@ namespace Normalization.Repository.Repositories
         {
             _tableAttributeContext = ContextFactory.CreateTableAttributeContext();
         }
-        public ICollection<IQueryable> Read()
+        public IQueryable Read()
         {
-            return (ICollection<IQueryable>)_tableAttributeContext.TableAttributes.ToList();
+            return _tableAttributeContext.TableAttributes;
         }
         public void Create(ref IEntity entity)
         {
@@ -63,7 +64,7 @@ namespace Normalization.Repository.Repositories
 
         public IEntity GetByName(string nameAttribute)
         {
-            return (IEntity)_tableAttributeContext.TableAttributes.Where(tableAttr => tableAttr.Attribute.ColumnName == nameAttribute);
+            return _tableAttributeContext.TableAttributes.FirstOrDefault(tableAttr => tableAttr.Attribute.ColumnName == nameAttribute);
         }
     }
 }

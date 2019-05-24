@@ -18,9 +18,9 @@ namespace Normalization.Repository.Repositories
         {
             _functionalDependencyContext = ContextFactory.CreateFunctionalDependencyContext();
         }
-        public ICollection<IQueryable> Read()
+        public IQueryable Read()
         {
-            return (ICollection<IQueryable>)_functionalDependencyContext.FunctionalDependencies.ToList();
+            return _functionalDependencyContext.FunctionalDependencies;
         }
         public void Create(ref IEntity entity)
         {

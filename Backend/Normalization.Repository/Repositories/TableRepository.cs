@@ -18,9 +18,9 @@ namespace Normalization.Repository.Repositories
         {
             _tableContext = ContextFactory.CreateTableContext();
         }
-        public ICollection<IQueryable> Read()
+        public IQueryable Read()
         {
-            return (ICollection<IQueryable>)_tableContext.Tables.ToList();
+            return _tableContext.Tables;
         }
         public void Create(ref IEntity entity)
         {

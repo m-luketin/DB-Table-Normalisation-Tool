@@ -19,9 +19,9 @@ namespace Normalization.Repository.Repositories
             _dependencyElementContext = ContextFactory.CreateDependencyElementContext();
         }
 
-        public ICollection<IQueryable> Read()
+        public IQueryable Read()
         {
-            return (ICollection<IQueryable>)_dependencyElementContext.DependencyElements.ToList();
+            return _dependencyElementContext.DependencyElements;
         }
 
         public void Create(ref IEntity entity)
@@ -75,8 +75,8 @@ namespace Normalization.Repository.Repositories
             var dependencyElement = new DependencyElement
             {
                 IsLeft = isLeft,
-                AttributeCollection = (AttributeCollection) attributeCollection,
-                FunctionalDependency = (FunctionalDependency)functionalDependency
+                AttributeCollection = _dependencyElementContext.AttributeCollections.Find(attributeCollection.Id),
+                FunctionalDependency = _dependencyElementContext.FunctionalDependencies.Find(functionalDependency.Id)
             };
             _dependencyElementContext.DependencyElements.Add(dependencyElement);
             _dependencyElementContext.SaveChanges();

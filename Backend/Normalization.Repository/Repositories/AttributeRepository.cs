@@ -20,9 +20,9 @@ namespace Normalization.Repository.Repositories
             _attributeContext = ContextFactory.CreateAttributeContext();
         }
 
-        public ICollection<IQueryable> Read()
+        public IQueryable Read()
         {
-            return (ICollection<IQueryable>)_attributeContext.Attributes.ToList();
+            return _attributeContext.Attributes;
         }
 
         public void Create(ref IEntity entity)
