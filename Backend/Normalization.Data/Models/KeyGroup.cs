@@ -8,8 +8,9 @@ namespace Normalization.Data.Models
 {
     public class KeyGroup : IEntity
     {
-        public int PrimaryId { get; set; }
+        public int Id { get; set; }
         public AttributeCollection AttributeCollection { get; set; }
+        public int AttributeCollectionId { get; set; }
 
         public KeyGroup()
         {
@@ -18,6 +19,7 @@ namespace Normalization.Data.Models
         public KeyGroup(AttributeCollection attributeCollection)
         {
             AttributeCollection = attributeCollection;
+            AttributeCollectionId = attributeCollection.Id;
         }
 
     }

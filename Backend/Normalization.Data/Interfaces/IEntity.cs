@@ -8,6 +8,6 @@ namespace Normalization.Data.Models
 {
     public interface IEntity
     {
-        int PrimaryId { get; set; }
+        int Id { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Normalization.Data.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitalCreateSecond : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,164 +11,164 @@ namespace Normalization.Data.Migrations
                 name: "AttributeCollections",
                 columns: table => new
                 {
-                    PrimaryId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AttributeCollections", x => x.PrimaryId);
+                    table.PrimaryKey("PK_AttributeCollections", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Attributes",
                 columns: table => new
                 {
-                    PrimaryId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     ColumnName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Attributes", x => x.PrimaryId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tables",
-                columns: table => new
-                {
-                    PrimaryId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Tables", x => x.PrimaryId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "DependencyElements",
-                columns: table => new
-                {
-                    PrimaryId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AttributeCollectionPrimaryId = table.Column<int>(nullable: true),
-                    IsLeft = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DependencyElements", x => x.PrimaryId);
-                    table.ForeignKey(
-                        name: "FK_DependencyElements_AttributeCollections_AttributeCollectionPrimaryId",
-                        column: x => x.AttributeCollectionPrimaryId,
-                        principalTable: "AttributeCollections",
-                        principalColumn: "PrimaryId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "KeyGroups",
-                columns: table => new
-                {
-                    PrimaryId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AttributeCollectionPrimaryId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_KeyGroups", x => x.PrimaryId);
-                    table.ForeignKey(
-                        name: "FK_KeyGroups_AttributeCollections_AttributeCollectionPrimaryId",
-                        column: x => x.AttributeCollectionPrimaryId,
-                        principalTable: "AttributeCollections",
-                        principalColumn: "PrimaryId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TableAttributes",
-                columns: table => new
-                {
-                    PrimaryId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TableId = table.Column<int>(nullable: false),
-                    AttributeId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TableAttributes", x => x.PrimaryId);
-                    table.ForeignKey(
-                        name: "FK_TableAttributes_Tables_AttributeId",
-                        column: x => x.AttributeId,
-                        principalTable: "Tables",
-                        principalColumn: "PrimaryId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TableAttributes_Attributes_TableId",
-                        column: x => x.TableId,
-                        principalTable: "Attributes",
-                        principalColumn: "PrimaryId",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Attributes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "FunctionalDependencies",
                 columns: table => new
                 {
-                    PrimaryId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DependencyElementPrimaryId = table.Column<int>(nullable: true)
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FunctionalDependencies", x => x.PrimaryId);
+                    table.PrimaryKey("PK_FunctionalDependencies", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Tables",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Tables", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "KeyGroups",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AttributeCollectionId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_KeyGroups", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FunctionalDependencies_DependencyElements_DependencyElementPrimaryId",
-                        column: x => x.DependencyElementPrimaryId,
-                        principalTable: "DependencyElements",
-                        principalColumn: "PrimaryId",
-                        onDelete: ReferentialAction.Restrict);
+                        name: "FK_KeyGroups_AttributeCollections_AttributeCollectionId",
+                        column: x => x.AttributeCollectionId,
+                        principalTable: "AttributeCollections",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DependencyElements",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    AttributeCollectionId = table.Column<int>(nullable: false),
+                    FunctionalDependencyId = table.Column<int>(nullable: false),
+                    IsLeft = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DependencyElements", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DependencyElements_AttributeCollections_AttributeCollectionId",
+                        column: x => x.AttributeCollectionId,
+                        principalTable: "AttributeCollections",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DependencyElements_FunctionalDependencies_FunctionalDependencyId",
+                        column: x => x.FunctionalDependencyId,
+                        principalTable: "FunctionalDependencies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TableAttributes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TableId = table.Column<int>(nullable: false),
+                    AttributeId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TableAttributes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TableAttributes_Attributes_AttributeId",
+                        column: x => x.AttributeId,
+                        principalTable: "Attributes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TableAttributes_Tables_TableId",
+                        column: x => x.TableId,
+                        principalTable: "Tables",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "TableAttributeCollections",
                 columns: table => new
                 {
-                    PrimaryId = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AttributeCollectionId = table.Column<int>(nullable: false),
                     TableAttributeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TableAttributeCollections", x => x.PrimaryId);
+                    table.PrimaryKey("PK_TableAttributeCollections", x => x.Id);
                     table.ForeignKey(
                         name: "FK_TableAttributeCollections_AttributeCollections_AttributeCollectionId",
                         column: x => x.AttributeCollectionId,
                         principalTable: "AttributeCollections",
-                        principalColumn: "PrimaryId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TableAttributeCollections_TableAttributes_TableAttributeId",
                         column: x => x.TableAttributeId,
                         principalTable: "TableAttributes",
-                        principalColumn: "PrimaryId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DependencyElements_AttributeCollectionPrimaryId",
+                name: "IX_DependencyElements_AttributeCollectionId",
                 table: "DependencyElements",
-                column: "AttributeCollectionPrimaryId");
+                column: "AttributeCollectionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FunctionalDependencies_DependencyElementPrimaryId",
-                table: "FunctionalDependencies",
-                column: "DependencyElementPrimaryId");
+                name: "IX_DependencyElements_FunctionalDependencyId",
+                table: "DependencyElements",
+                column: "FunctionalDependencyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_KeyGroups_AttributeCollectionPrimaryId",
+                name: "IX_KeyGroups_AttributeCollectionId",
                 table: "KeyGroups",
-                column: "AttributeCollectionPrimaryId");
+                column: "AttributeCollectionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TableAttributeCollections_AttributeCollectionId",
@@ -194,7 +194,7 @@ namespace Normalization.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FunctionalDependencies");
+                name: "DependencyElements");
 
             migrationBuilder.DropTable(
                 name: "KeyGroups");
@@ -203,19 +203,19 @@ namespace Normalization.Data.Migrations
                 name: "TableAttributeCollections");
 
             migrationBuilder.DropTable(
-                name: "DependencyElements");
-
-            migrationBuilder.DropTable(
-                name: "TableAttributes");
+                name: "FunctionalDependencies");
 
             migrationBuilder.DropTable(
                 name: "AttributeCollections");
 
             migrationBuilder.DropTable(
-                name: "Tables");
+                name: "TableAttributes");
 
             migrationBuilder.DropTable(
                 name: "Attributes");
+
+            migrationBuilder.DropTable(
+                name: "Tables");
         }
     }
 }

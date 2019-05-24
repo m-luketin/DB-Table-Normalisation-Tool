@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
+using Normalization.Repository.Factory;
 using Normalization.Repository.Interfaces;
 
 namespace Normalization.Repository.Repositories
@@ -15,7 +16,7 @@ namespace Normalization.Repository.Repositories
 
         public DependencyElementRepository()
         {
-            _dependencyElementContext = new DependencyElementContext();
+            _dependencyElementContext = ContextFactory.CreateDependencyElementContext();
         }
 
         public ICollection<IQueryable> Read()
@@ -23,12 +24,19 @@ namespace Normalization.Repository.Repositories
             return (ICollection<IQueryable>)_dependencyElementContext.DependencyElements.ToList();
         }
 
-        public IEntity Create(IEntity entity)
+        public void Create(ref IEntity entity)
         {
-            var dependencyElement = (DependencyElement) entity;
-            _dependencyElementContext.DependencyElements.Add(dependencyElement);
+            var dependencyElementNew = (DependencyElement) entity;
+            var attributeCollection = _dependencyElementContext.AttributeCollections
+                .Find(dependencyElementNew.AttributeCollection.Id);
+            var functionalDependency = _dependencyElementContext.FunctionalDependencies
+                .Find(dependencyElementNew.FunctionalDependency.Id);
+            var dependencyElement =_dependencyElementContext.DependencyElements.Add(
+                new DependencyElement(attributeCollection,
+                                      functionalDependency,
+                                      dependencyElementNew.IsLeft));
             _dependencyElementContext.SaveChanges();
-            return dependencyElement;
+            entity = dependencyElement.Entity;
         }
 
         public void Delete(IEntity entity)
@@ -46,7 +54,7 @@ namespace Normalization.Repository.Repositories
         public IEntity Edit(IEntity entity)
         {
             var dependencyElementNew = (DependencyElement) entity;
-            var dependencyElement = (DependencyElement) GetById(entity.PrimaryId);
+            var dependencyElement = (DependencyElement) GetById(entity.Id);
 
             dependencyElement.AttributeCollection = dependencyElementNew.AttributeCollection;
             dependencyElement.FunctionalDependency = dependencyElementNew.FunctionalDependency;

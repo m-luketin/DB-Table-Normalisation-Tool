@@ -172,11 +172,22 @@ class Form extends Component {
   };
 
   postForm = () =>{
-    Post({
-      ...this.state,
-      attributes: splitAttributes(this.state.attributes),
-      name: "Test"
-    }).then(response => console.log(response));
+    const Dependencies = this.state.dependenciesFrom.map((dependencyFrom,index)=>{
+      return{
+        PrimaryId: -1,
+        From: dependencyFrom,
+        To : this.state.dependenciesTo[index].toString()
+      }
+    })
+    const endpointCorrect = {
+      Name: "Test",
+      Attributes: splitAttributes(this.state.attributes),
+      Dependencies: [...Dependencies],
+      Keys : this.state.keys,
+      PrimaryId: -1
+    }
+    console.log(endpointCorrect)
+    Post(endpointCorrect).then(response => console.log(response));
   }
   render() {
     return (

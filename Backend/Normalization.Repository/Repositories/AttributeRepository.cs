@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
+using Normalization.Repository.Factory;
 using Normalization.Repository.Interfaces;
 using Attribute = Normalization.Data.Models.Attribute;
 
@@ -16,7 +17,7 @@ namespace Normalization.Repository.Repositories
 
         public AttributeRepository()
         {
-            _attributeContext = new AttributeContext();
+            _attributeContext = ContextFactory.CreateAttributeContext();
         }
 
         public ICollection<IQueryable> Read()
@@ -24,12 +25,12 @@ namespace Normalization.Repository.Repositories
             return (ICollection<IQueryable>)_attributeContext.Attributes.ToList();
         }
 
-        public IEntity Create(IEntity entity)
+        public void Create(ref IEntity entity)
         {
             var attributeNew = (Attribute) entity;
-            _attributeContext.Attributes.Add(attributeNew);
+            var attribute=_attributeContext.Attributes.Add(new Attribute(attributeNew.ColumnName));
             _attributeContext.SaveChanges();
-            return attributeNew;
+            entity = attribute.Entity;
         }
 
         public void Delete(IEntity entity)
@@ -47,7 +48,7 @@ namespace Normalization.Repository.Repositories
         public IEntity Edit(IEntity entity)
         {
             var attributeNew = (Attribute) entity;
-            var attribute = (Attribute)GetById(entity.PrimaryId);
+            var attribute = (Attribute)GetById(entity.Id);
             attribute.ColumnName = attributeNew.ColumnName;
             attribute.TableAttributes = attributeNew.TableAttributes;
             _attributeContext.Attributes.Update(attribute);

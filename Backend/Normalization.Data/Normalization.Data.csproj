@@ -148,17 +148,9 @@
     <Compile Include="Contexts\TableAttributeCollectionContext.cs" />
     <Compile Include="Contexts\TableAttributeContext.cs" />
     <Compile Include="Contexts\TableContext.cs" />
-    <Compile Include="Migrations\20190519155817_InitialCreate.cs" />
-    <Compile Include="Migrations\20190519155817_InitialCreate.designer.cs">
-      <DependentUpon>20190519155817_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20190523155157_fixing_functional_dependecies.cs" />
-    <Compile Include="Migrations\20190523155157_fixing_functional_dependecies.designer.cs">
-      <DependentUpon>20190523155157_fixing_functional_dependecies.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20190523155718_functional_typo.cs" />
-    <Compile Include="Migrations\20190523155718_functional_typo.designer.cs">
-      <DependentUpon>20190523155718_functional_typo.cs</DependentUpon>
+    <Compile Include="Migrations\20190524084332_Inital-Create-Second.cs" />
+    <Compile Include="Migrations\20190524084332_Inital-Create-Second.designer.cs">
+      <DependentUpon>20190524084332_Inital-Create-Second.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ConfigurationContextModelSnapshot.cs" />
     <Compile Include="Models\Attribute.cs" />
@@ -179,6 +171,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

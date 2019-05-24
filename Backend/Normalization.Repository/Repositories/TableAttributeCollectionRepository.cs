@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
+using Normalization.Repository.Factory;
 using Normalization.Repository.Interfaces;
 
 namespace Normalization.Repository.Repositories
@@ -21,12 +22,18 @@ namespace Normalization.Repository.Repositories
         {
             return (ICollection<IQueryable>)_tableAttributeCollectionContext.TableAttributeCollections.ToList();
         }
-        public IEntity Create(IEntity entity)
+        public void Create(ref IEntity entity)
         {
-            var tableAttributeCollection = (TableAttributeCollection) entity;
-            _tableAttributeCollectionContext.TableAttributeCollections.Add(tableAttributeCollection);
+            var tableAttributeCollectionNew = (TableAttributeCollection) entity;
+            var attributeCollection = _tableAttributeCollectionContext.AttributeCollections
+                .Find(tableAttributeCollectionNew.AttributeCollection.Id);
+            var tableAttribute = _tableAttributeCollectionContext.TableAttributes
+                .Find(tableAttributeCollectionNew.TableAttribute.Id);
+            var tableAttributeCollection =_tableAttributeCollectionContext.TableAttributeCollections.Add(
+                new TableAttributeCollection(attributeCollection,tableAttribute));
+
             _tableAttributeCollectionContext.SaveChanges();
-            return tableAttributeCollection;
+            entity = tableAttributeCollection.Entity;
         }
 
         public void Delete(IEntity entity)
@@ -44,7 +51,7 @@ namespace Normalization.Repository.Repositories
         public IEntity Edit(IEntity entity)
         {
             var tableAttributeCollectionNew = (TableAttributeCollection) entity;
-            var tableAttributeCollection = (TableAttributeCollection) GetById(entity.PrimaryId);
+            var tableAttributeCollection = (TableAttributeCollection) GetById(entity.Id);
             tableAttributeCollection.AttributeCollection = tableAttributeCollectionNew.AttributeCollection;
             tableAttributeCollection.TableAttribute = tableAttributeCollection.TableAttribute;
             _tableAttributeCollectionContext.TableAttributeCollections.Update(tableAttributeCollection);

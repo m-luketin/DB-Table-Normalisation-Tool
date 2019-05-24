@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
+using Normalization.Repository.Factory;
 using Normalization.Repository.Interfaces;
+using Attribute = Normalization.Data.Models.Attribute;
 
 namespace Normalization.Repository.Repositories
 {
@@ -14,18 +16,20 @@ namespace Normalization.Repository.Repositories
         private readonly TableAttributeContext _tableAttributeContext;
         public TableAttributeRepository()
         {
-            _tableAttributeContext = new TableAttributeContext();
+            _tableAttributeContext = ContextFactory.CreateTableAttributeContext();
         }
         public ICollection<IQueryable> Read()
         {
             return (ICollection<IQueryable>)_tableAttributeContext.TableAttributes.ToList();
         }
-        public IEntity Create(IEntity entity)
+        public void Create(ref IEntity entity)
         {
-            var tableAttribute = (TableAttribute) entity;
-            _tableAttributeContext.TableAttributes.Add(tableAttribute);
+            var tableAttributeNew = (TableAttribute) entity;
+            var table = _tableAttributeContext.Tables.Find(tableAttributeNew.Table.Id);
+            var attribute = _tableAttributeContext.Attributes.Find(tableAttributeNew.Attribute.Id);
+            var tableAttribute =_tableAttributeContext.TableAttributes.Add(new TableAttribute(table,attribute));
             _tableAttributeContext.SaveChanges();
-            return tableAttribute;
+            entity = tableAttribute.Entity;
         }
 
         public void Delete(IEntity entity)

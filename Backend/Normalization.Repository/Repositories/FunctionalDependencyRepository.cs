@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
+using Normalization.Repository.Factory;
 using Normalization.Repository.Interfaces;
 
 namespace Normalization.Repository.Repositories
@@ -15,18 +16,17 @@ namespace Normalization.Repository.Repositories
 
         public FunctionalDependencyRepository()
         {
-            _functionalDependencyContext = new FunctionalDependencyContext();
+            _functionalDependencyContext = ContextFactory.CreateFunctionalDependencyContext();
         }
         public ICollection<IQueryable> Read()
         {
             return (ICollection<IQueryable>)_functionalDependencyContext.FunctionalDependencies.ToList();
         }
-        public IEntity Create(IEntity entity)
+        public void Create(ref IEntity entity)
         {
-            var functionalDependency = (FunctionalDependency) entity;
-            _functionalDependencyContext.FunctionalDependencies.Add(functionalDependency);
+            var functionalDependency =_functionalDependencyContext.FunctionalDependencies.Add(new FunctionalDependency());
             _functionalDependencyContext.SaveChanges();
-            return functionalDependency;
+            entity = functionalDependency.Entity;
         }
 
         public void Delete(IEntity entity)
@@ -44,7 +44,7 @@ namespace Normalization.Repository.Repositories
         public IEntity Edit(IEntity entity)
         {
             var functionalDependencyNew = (FunctionalDependency) entity;
-            var functionalDependency = (FunctionalDependency) GetById(entity.PrimaryId);
+            var functionalDependency = (FunctionalDependency) GetById(entity.Id);
             _functionalDependencyContext.FunctionalDependencies.Update(functionalDependency);
             _functionalDependencyContext.SaveChanges();
             return functionalDependency;

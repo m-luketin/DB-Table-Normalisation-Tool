@@ -21,14 +21,14 @@ namespace Normalization.Maps
             var tableAttributesFrom = new List<IEntity>();
             var tableAttributesTo = new List<IEntity>();
             var tableModel = ModelFactory.CreateTable(viewItem.Name);
-            RepositoryFactory.CreateTableRepository().Create(tableModel);
+            RepositoryFactory.CreateTableRepository().Create(ref tableModel);
 
             foreach (var viewItemAttribute in viewItem.Attributes)
             {
                 var attributeModel = ModelFactory.CreateAttribute(viewItemAttribute);
-                RepositoryFactory.CreateAttributeRepository().Create(attributeModel);
-                var tableAttributeModel = ModelFactory.CreateTableAttribute(tableModel, attributeModel);
-                RepositoryFactory.CreateTableAttributeRepository().Create(tableAttributeModel);
+                RepositoryFactory.CreateAttributeRepository().Create(ref attributeModel);
+                var tableAttributeModel = ModelFactory.CreateTableAttribute(tableModel,attributeModel);
+                RepositoryFactory.CreateTableAttributeRepository().Create(ref tableAttributeModel);
                 attributeList.Add(attributeModel);
             }
 
@@ -40,20 +40,28 @@ namespace Normalization.Maps
 
             foreach (var tableAttribute in tableAttributesFrom)
             {
-                RepositoryFactory.CreateTableAttributeCollectionRepository().Create(tableAttribute);
-                var attributeCollectionsFrom = RepositoryFactory.CreateAttributeCollectionRepository().Create(tableAttribute);
-                var functionalDependency = RepositoryFactory.CreateFunctionalDependencyRepository().Create(ModelFactory.CreateFunctionalDependency());
+                var functionalDependency = ModelFactory.CreateFunctionalDependency();
+                var tableAttributeModel = ModelFactory.CreateTableAttributeCollection();
+                functionalDependency = tableAttribute;
+                tableAttributeModel = tableAttribute;
+                RepositoryFactory.CreateTableAttributeCollectionRepository().Create(ref tableAttributeModel);
+                RepositoryFactory.CreateAttributeCollectionRepository().Create(ref tableAttributeModel);
+                RepositoryFactory.CreateFunctionalDependencyRepository().Create(ref functionalDependency);
                 RepositoryFactory.CreateDependencyElementRepository()
-                    .CreateWithAttributeCollection(true, attributeCollectionsFrom,functionalDependency);
+                    .CreateWithAttributeCollection(true, tableAttributeModel,functionalDependency);
 
             }
             foreach (var tableAttribute in tableAttributesTo)
             {
-                RepositoryFactory.CreateTableAttributeCollectionRepository().Create(tableAttribute);
-                var functionalDependency = RepositoryFactory.CreateFunctionalDependencyRepository().Create(ModelFactory.CreateFunctionalDependency());
-                var attributeCollectionsTo = RepositoryFactory.CreateAttributeCollectionRepository().Create(tableAttribute);
+                var functionalDependency = ModelFactory.CreateFunctionalDependency();
+                var tableAttributeModel = ModelFactory.CreateTableAttributeCollection();
+                functionalDependency = tableAttribute;
+                tableAttributeModel = tableAttribute;
+                RepositoryFactory.CreateTableAttributeCollectionRepository().Create(ref tableAttributeModel);
+                RepositoryFactory.CreateFunctionalDependencyRepository().Create(ref functionalDependency);
+                RepositoryFactory.CreateAttributeCollectionRepository().Create(ref tableAttributeModel);
                 RepositoryFactory.CreateDependencyElementRepository()
-                    .CreateWithAttributeCollection(false, attributeCollectionsTo,functionalDependency);
+                    .CreateWithAttributeCollection(false, tableAttributeModel, functionalDependency);
             }
 
             foreach (var keyGroupsView in viewItem.Keys)
@@ -61,9 +69,10 @@ namespace Normalization.Maps
                 var tableAttributeCollectionKeyGroupList = keyGroupsView.Select(keyGroupString => RepositoryFactory.CreateTableAttributeRepository().GetByName(keyGroupString)).ToList();
                 foreach (var tableAttributeCollection in tableAttributeCollectionKeyGroupList)
                 {
-                    var attributeCollectionKeyGroup = RepositoryFactory.CreateAttributeCollectionRepository()
-                        .Create(tableAttributeCollection);
-                    RepositoryFactory.CreateKeyGroupRepository().Create(attributeCollectionKeyGroup);
+                    var tableAttributeCollectionModel = ModelFactory.CreateTableAttributeCollection();
+                    tableAttributeCollectionModel = tableAttributeCollection;
+                    RepositoryFactory.CreateAttributeCollectionRepository().Create(ref tableAttributeCollectionModel);
+                    RepositoryFactory.CreateKeyGroupRepository().Create(ref tableAttributeCollectionModel);
                 }
             }
 
@@ -87,26 +96,26 @@ namespace Normalization.Maps
             var tableList = RepositoryFactory.CreateTableRepository().Read();
             foreach (var table in tableList)
             {
-                var tableAttributes = table.Cast<Table>().Where(tab => tab.TableAttributes.All(tableAttr => tableAttr.PrimaryId == tab.PrimaryId));
+                var tableAttributes = table.Cast<Table>().Where(tab => tab.TableAttributes.All(tableAttr => tableAttr.Id == tab.Id));
 
                 var attributes = tableAttributes.Cast<TableAttribute>().Where(tableAttribute =>
-                    tableAttribute.Attribute.TableAttributes.All(attr => attr.PrimaryId == tableAttribute.AttributeId));
+                    tableAttribute.Attribute.TableAttributes.All(attr => attr.Id == tableAttribute.AttributeId));
 
                 var tableAttributeCollections = tableAttributes.Cast<TableAttribute>().Where(tableAttr =>
                     tableAttr.TableAttributeCollection.All(tableAttrCol =>
-                        tableAttrCol.TableAttributeId == tableAttr.PrimaryId));
+                        tableAttrCol.TableAttributeId == tableAttr.Id));
 
                 var attributeCollections = tableAttributeCollections.Cast<AttributeCollection>().Where(attrCol =>
-                    attrCol.TableAttributeCollections.All(tableAttrCol => tableAttrCol.PrimaryId == attrCol.PrimaryId));
+                    attrCol.TableAttributeCollections.All(tableAttrCol => tableAttrCol.Id == attrCol.Id));
 
                 var keyGroups = attributeCollections.Cast<AttributeCollection>().Where(attrCol =>
-                    attrCol.KeyGroup.All(keyGrp => keyGrp.AttributeCollection.PrimaryId == attrCol.PrimaryId));
+                    attrCol.KeyGroup.All(keyGrp => keyGrp.AttributeCollection.Id == attrCol.Id));
 
-                var dependencyFrom = attributeCollections.Cast<DependencyElement>().Where(dependElem => dependElem.AttributeCollection.PrimaryId == dependElem.PrimaryId && dependElem.IsLeft);
+                var dependencyFrom = attributeCollections.Cast<DependencyElement>().Where(dependElem => dependElem.AttributeCollection.Id == dependElem.Id && dependElem.IsLeft);
 
-                var dependencyTo = attributeCollections.Cast<DependencyElement>().Where(dependElem => dependElem.AttributeCollection.PrimaryId == dependElem.PrimaryId && !dependElem.IsLeft);
+                var dependencyTo = attributeCollections.Cast<DependencyElement>().Where(dependElem => dependElem.AttributeCollection.Id == dependElem.Id && !dependElem.IsLeft);
                 var functionalDependencies = dependencyFrom.Cast<FunctionalDependency>().Where(funcDepend =>
-                    funcDepend.DependencyElements.All(dependElem => dependElem.PrimaryId == funcDepend.PrimaryId));
+                    funcDepend.DependencyElements.All(dependElem => dependElem.Id == funcDepend.Id));
                 var tableInMemory = (Table)table;
 
                 var dependencyToString =dependencyTo.Select(dependTo =>
@@ -116,13 +125,13 @@ namespace Normalization.Maps
                 dependencies.AddRange(functionalDependencies
                                         .Select(funcDepend =>
                                             new DependencyViewModel(
-                                                funcDepend.PrimaryId,
+                                                funcDepend.Id,
                                                 dependencyFrom.Select(dependFrom =>
                                                     dependFrom.AttributeCollection.TableAttributeCollections
                                                         .Select(tableAttr => tableAttr.TableAttribute.Attribute.ColumnName).ToString()).ToList(),
                                                 dependencyToString)));
                 var keys = new List<ICollection<string>>();
-                keys.AddRange(tableAttributeCollections.Select(tableAttr => keyGroups.Select(keyGrp => keyGrp.TableAttributeCollections.Where(attrTable => attrTable.TableAttribute.PrimaryId == tableAttr.PrimaryId).Select(attrTable=> attrTable.TableAttribute.Attribute.ColumnName).ToString()).ToList()));
+                keys.AddRange(tableAttributeCollections.Select(tableAttr => keyGroups.Select(keyGrp => keyGrp.TableAttributeCollections.Where(attrTable => attrTable.TableAttribute.Id == tableAttr.Id).Select(attrTable=> attrTable.TableAttribute.Attribute.ColumnName).ToString()).ToList()));
                 tableViewList.Add(new TableViewModel
                 {
                     Name = tableInMemory.Name,

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
+using Normalization.Repository.Factory;
 using Normalization.Repository.Interfaces;
 
 namespace Normalization.Repository.Repositories
@@ -15,18 +16,21 @@ namespace Normalization.Repository.Repositories
 
         public KeyGroupRepository()
         {
-            _keyGroupContext = new KeyGroupContext();
+            _keyGroupContext = ContextFactory.CreateKeyGroupContext();
         }
         public ICollection<IQueryable> Read()
         {
             return (ICollection<IQueryable>)_keyGroupContext.KeyGroups.ToList();
         }
-        public IEntity Create(IEntity entity)
+        public void Create(ref IEntity entity)
         {
-            var keyGroup = (KeyGroup) entity;
-            _keyGroupContext.KeyGroups.Add(keyGroup);
+            var keyGroupNew = (KeyGroup) entity;
+            var attributeCollection = _keyGroupContext.AttributeCollections
+                .Find(keyGroupNew.AttributeCollection.Id);
+            var keyGroup = _keyGroupContext.KeyGroups.Add(new KeyGroup(attributeCollection));
+
             _keyGroupContext.SaveChanges();
-            return keyGroup;
+            entity = keyGroup.Entity;
         }
 
         public void Delete(IEntity entity)
@@ -44,7 +48,7 @@ namespace Normalization.Repository.Repositories
         public IEntity Edit(IEntity entity)
         {
             var keyGroupNew = (KeyGroup) entity;
-            var keyGroup = (KeyGroup) GetById(entity.PrimaryId);
+            var keyGroup = (KeyGroup) GetById(entity.Id);
             keyGroup.AttributeCollection = keyGroupNew.AttributeCollection;
             _keyGroupContext.KeyGroups.Update(keyGroup);
             _keyGroupContext.SaveChanges();

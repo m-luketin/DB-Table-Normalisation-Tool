@@ -24,14 +24,28 @@ namespace Normalization.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Attribute>().HasKey(attribute => attribute.PrimaryId);
-            modelBuilder.Entity<AttributeCollection>().HasKey(attributeCollection => attributeCollection.PrimaryId);
-            modelBuilder.Entity<DependencyElement>().HasKey(dependencyElement => dependencyElement.PrimaryId);
-            modelBuilder.Entity<FunctionalDependency>().HasKey(functionalDependency => functionalDependency.PrimaryId);
-            modelBuilder.Entity<KeyGroup>().HasKey(keyGroup => keyGroup.PrimaryId);
-            modelBuilder.Entity<TableAttributeCollection>().HasKey(tableAttributeCollection => tableAttributeCollection.PrimaryId);
-            modelBuilder.Entity<TableAttribute>().HasKey(tableAttribute => tableAttribute.PrimaryId);
-            modelBuilder.Entity<Table>().HasKey((table => table.PrimaryId));
+            modelBuilder.Entity<Attribute>()
+                .HasMany(attr => attr.TableAttributes)
+                .WithOne(tableAttr => tableAttr.Attribute)
+                .HasForeignKey(tableAttr => tableAttr.AttributeId);
+
+            modelBuilder.Entity<Table>()
+                .HasMany(table => table.TableAttributes)
+                .WithOne(tableAttr => tableAttr.Table)
+                .HasForeignKey(tableAttr => tableAttr.TableId);
+                
+            modelBuilder.Entity<TableAttribute>()
+                .HasOne(tableAttr => tableAttr.Attribute)
+                .WithMany(attr => attr.TableAttributes)
+                .HasForeignKey(tableAttr => tableAttr.AttributeId);
+            modelBuilder.Entity<TableAttribute>()
+                .HasOne(tableAttr => tableAttr.Table)
+                .WithMany(table => table.TableAttributes)
+                .HasForeignKey(tableAttr => tableAttr.TableId);
+            modelBuilder.Entity<TableAttribute>()
+                .HasMany(tableAttr => tableAttr.TableAttributeCollection)
+                .WithOne(tableAttrCol => tableAttrCol.TableAttribute)
+                .HasForeignKey(tableAttrCol => tableAttrCol.TableAttributeId);
 
             modelBuilder.Entity<TableAttributeCollection>()
                 .HasOne(tableAttributeCollection => tableAttributeCollection.TableAttribute)
@@ -42,15 +56,32 @@ namespace Normalization.Data.Contexts
                 .WithMany(attributeCollection => attributeCollection.TableAttributeCollections)
                 .HasForeignKey(tableAttributeCollection => tableAttributeCollection.AttributeCollectionId);
 
+            modelBuilder.Entity<AttributeCollection>()
+                .HasMany(attrCol => attrCol.TableAttributeCollections)
+                .WithOne(tableAttrCol => tableAttrCol.AttributeCollection)
+                .HasForeignKey(tableAttrCol => tableAttrCol.AttributeCollectionId);
+            modelBuilder.Entity<AttributeCollection>()
+                .HasMany(attrCol => attrCol.KeyGroup)
+                .WithOne(keyGroup => keyGroup.AttributeCollection)
+                .HasForeignKey(keyGroup => keyGroup.AttributeCollectionId);
+            modelBuilder.Entity<AttributeCollection>()
+                .HasMany(attrCol => attrCol.DependencyElements)
+                .WithOne(funcDepend => funcDepend.AttributeCollection)
+                .HasForeignKey(funcDepend => funcDepend.AttributeCollectionId);
 
-            modelBuilder.Entity<TableAttribute>()
-                .HasOne(tableAttribute => tableAttribute.Attribute)
-                .WithMany(table => table.TableAttributes)
-                .HasForeignKey(tableAttribute => tableAttribute.TableId);
-            modelBuilder.Entity<TableAttribute>()
-                .HasOne(tableAttribute => tableAttribute.Table)
-                .WithMany(table => table.TableAttributes)
-                .HasForeignKey(tableAttribute => tableAttribute.AttributeId);
+            modelBuilder.Entity<DependencyElement>()
+                .HasOne(dependElem => dependElem.AttributeCollection)
+                .WithMany(attrCol => attrCol.DependencyElements)
+                .HasForeignKey(attrCol => attrCol.AttributeCollectionId);
+            modelBuilder.Entity<DependencyElement>()
+                .HasOne(dependElem => dependElem.FunctionalDependency)
+                .WithMany(funcDepend => funcDepend.DependencyElements)
+                .HasForeignKey(dependElem => dependElem.FunctionalDependencyId);
+
+            modelBuilder.Entity<FunctionalDependency>()
+                .HasMany(funcDepend => funcDepend.DependencyElements)
+                .WithOne(dependElem => dependElem.FunctionalDependency)
+                .HasForeignKey(dependElem => dependElem.FunctionalDependencyId);
 
             base.OnModelCreating(modelBuilder);
         }

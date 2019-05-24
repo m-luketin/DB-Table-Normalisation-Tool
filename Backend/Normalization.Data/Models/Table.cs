@@ -8,7 +8,7 @@ namespace Normalization.Data.Models
 {
     public class Table : IEntity
     {
-        public int PrimaryId { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public ICollection<TableAttribute> TableAttributes { get; set; }
 

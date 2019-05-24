@@ -8,9 +8,11 @@ namespace Normalization.Data.Models
 {
     public class DependencyElement : IEntity
     {
-        public int PrimaryId { get; set; }
+        public int Id { get; set; }
         public AttributeCollection AttributeCollection { get; set; }
+        public int AttributeCollectionId { get; set; }
         public FunctionalDependency FunctionalDependency { get; set; }
+        public int FunctionalDependencyId { get; set; }
         public bool IsLeft { get; set; }
 
         public DependencyElement()
@@ -20,7 +22,9 @@ namespace Normalization.Data.Models
         public DependencyElement(AttributeCollection attributeCollection, FunctionalDependency functionalDependencies, bool isLeft)
         {
             AttributeCollection = attributeCollection;
+            AttributeCollectionId = attributeCollection.Id;
             FunctionalDependency = functionalDependencies;
+            FunctionalDependencyId = functionalDependencies.Id;
             IsLeft = isLeft;
         }
 

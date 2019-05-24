@@ -8,19 +8,19 @@ namespace Normalization.Data.Models
 {
     public class AttributeCollection : IEntity
     {
-        public int PrimaryId { get; set; }
+        public int Id { get; set; }
         public ICollection<TableAttributeCollection> TableAttributeCollections { get; set; }
         public ICollection<KeyGroup> KeyGroup { get; set; }
-        public ICollection<DependencyElement> FunctionalDependency { get; set; }
+        public ICollection<DependencyElement> DependencyElements { get; set; }
 
         public AttributeCollection()
         {
             
         }
 
-        public AttributeCollection(ICollection<DependencyElement> functionalDependency)
+        public AttributeCollection(ICollection<DependencyElement> dependencyElements)
         {
-            FunctionalDependency = functionalDependency;
+            DependencyElements = dependencyElements;
         }
         public AttributeCollection(ICollection<KeyGroup> keyGroup)
         {
@@ -30,11 +30,11 @@ namespace Normalization.Data.Models
         {
             TableAttributeCollections = tableAttributeCollections;
         }
-        public AttributeCollection(ICollection<TableAttributeCollection> tableAttributeCollections, ICollection<KeyGroup> keyGroup, ICollection<DependencyElement> functionalDependency)
+        public AttributeCollection(ICollection<TableAttributeCollection> tableAttributeCollections, ICollection<KeyGroup> keyGroup, ICollection<DependencyElement> dependencyElements)
         {
             TableAttributeCollections = tableAttributeCollections;
             KeyGroup = keyGroup;
-            FunctionalDependency = functionalDependency;
+            DependencyElements = dependencyElements;
         }
 
     }
