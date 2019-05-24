@@ -3,7 +3,12 @@ import Attributes from "./Attributes";
 import KeysDisplay from "./KeysDisplay";
 import DependenciesDisplay from "./DependenciesDisplay";
 import Navbar from "./../Navbar";
-import { attributeHandler,splitAttributes } from "../../utils";
+import {
+  attributeHandler,
+  splitAttributes,
+  getFirstFormattedFormError,
+  formatFormValues
+} from "../../utils";
 import { Post } from "../../services/normalization";
 
 class Form extends Component {
@@ -100,9 +105,10 @@ class Form extends Component {
     const selectedAttribute = event.target.innerHTML;
     this.setState(prevState => {
       return {
-        dependenciesTo: attributeHandler(
-          prevState.dependenciesTo
-        ).addAttribute(selectedAttribute, index)
+        dependenciesTo: attributeHandler(prevState.dependenciesTo).addAttribute(
+          selectedAttribute,
+          index
+        )
       };
     });
   };
@@ -111,9 +117,10 @@ class Form extends Component {
     if (this.state.dependenciesTo[index].length === 1) return;
     this.setState(prevState => {
       return {
-        dependenciesTo: attributeHandler(
-          prevState.dependenciesTo
-        ).addAttribute(selectedAttribute, index)
+        dependenciesTo: attributeHandler(prevState.dependenciesTo).addAttribute(
+          selectedAttribute,
+          index
+        )
       };
     });
   };
@@ -171,24 +178,33 @@ class Form extends Component {
     });
   };
 
-  postForm = () =>{
-    const Dependencies = this.state.dependenciesFrom.map((dependencyFrom,index)=>{
-      return{
-        PrimaryId: -1,
-        From: dependencyFrom,
-        To : this.state.dependenciesTo[index].toString()
-      }
-    })
-    const endpointCorrect = {
-      Name: "Test",
-      Attributes: splitAttributes(this.state.attributes),
-      Dependencies: [...Dependencies],
-      Keys : this.state.keys,
-      PrimaryId: -1
-    }
-    console.log(endpointCorrect)
-    Post(endpointCorrect).then(response => console.log(response));
-  }
+  postForm = () => {
+    // const Dependencies = this.state.dependenciesFrom.map(
+    //   (dependencyFrom, index) => {
+    //     return {
+    //       PrimaryId: -1,
+    //       From: dependencyFrom,
+    //       To: this.state.dependenciesTo[index].toString()
+    //     };
+    //   }
+    // );
+    // const endpointCorrect = {
+    //   Name: "Test",
+    //   Attributes: splitAttributes(this.state.attributes),
+    //   Dependencies: [...Dependencies],
+    //   Keys: this.state.keys,
+    //   PrimaryId: -1
+    // };
+    // console.log(endpointCorrect);
+    // Post(endpointCorrect).then(response => console.log(response));
+    //console.log(this.state.dependenciesFrom);
+    console.log(
+    getFirstFormattedFormError({
+      attributes: this.state.attributes,
+      ...formatFormValues(this.state)
+    }));
+  };
+
   render() {
     return (
       <>
@@ -228,7 +244,9 @@ class Form extends Component {
             <button className="ButtonRun ButtonClear" onClick={this.clearState}>
               Clear all inputs
             </button>
-            <button className="ButtonRun" onClick={this.postForm}>Save and run</button>
+            <button className="ButtonRun" onClick={this.postForm}>
+              Save and run
+            </button>
           </div>
         </div>
       </>
