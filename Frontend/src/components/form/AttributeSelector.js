@@ -51,7 +51,7 @@ class AttributeSelector extends Component {
           <textarea
             data-tip
             data-for="SearchBar"
-            className="AttributeInput"
+            className="FieldInput"
             onChange={event => this.handleChange(event)}
             onKeyDown={event => this.handleKeyDown(event)}
             value={this.state.inputValue}

@@ -79,7 +79,7 @@ a:hover{
   margin-top: 40px;
 }
 
-.Description {
+.InputFieldDescription {
   font-family: "frutiger_light_condensedLtcn";
   font-weight: bolder;
   margin-left: 20px;
@@ -119,11 +119,11 @@ a:hover{
   background-color: #de5b1e; /*red*/
 }
 
-.AttributesContent .AttributeInput {
+.InputFieldContent .FieldInput {
   margin-top: 20px;
 }
 
-.AttributeInput {
+.FieldInput {
   border-radius: 4px;
   margin-left: 115px;
 }
@@ -231,7 +231,7 @@ a:hover{
   justify-content: flex-end;
 }
 
-.FunctionalDependency .AttributeSelector:nth-of-type(1) .AttributeInput {
+.FunctionalDependency .AttributeSelector:nth-of-type(1) .FieldInput {
   margin-left: 0;
 }
 
