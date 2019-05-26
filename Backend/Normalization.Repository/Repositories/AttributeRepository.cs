@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
-using Normalization.Repository.Factory;
 using Normalization.Repository.Interfaces;
 using Attribute = Normalization.Data.Models.Attribute;
 
@@ -13,11 +12,11 @@ namespace Normalization.Repository.Repositories
 {
     public class AttributeRepository : IRepository
     {
-        private readonly AttributeContext _attributeContext;
+        private readonly ConfigurationContext _attributeContext;
 
         public AttributeRepository()
         {
-            _attributeContext = ContextFactory.CreateAttributeContext();
+            _attributeContext = new ConfigurationContext();
         }
 
         public IQueryable Read()

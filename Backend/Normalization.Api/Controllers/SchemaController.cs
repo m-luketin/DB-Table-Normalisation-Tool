@@ -21,6 +21,11 @@ namespace Normalization.Api.Controllers
             return new TableMap().Read();
         }
 
+        [HttpGet("{id}")]
+        public IViewModel Get(int id)
+        {
+            return new TableMap().ReadFromId(id);
+        }
         [HttpPost]
         public IViewModel Post(TableViewModel tableView)
         {

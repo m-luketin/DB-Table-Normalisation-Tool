@@ -5,18 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
-using Normalization.Repository.Factory;
 using Normalization.Repository.Interfaces;
 
 namespace Normalization.Repository.Repositories
 {
     public class FunctionalDependencyRepository : IRepository
     {
-        private readonly FunctionalDependencyContext _functionalDependencyContext;
+        private readonly ConfigurationContext _functionalDependencyContext;
 
         public FunctionalDependencyRepository()
         {
-            _functionalDependencyContext = ContextFactory.CreateFunctionalDependencyContext();
+            _functionalDependencyContext = new ConfigurationContext();
         }
         public IQueryable Read()
         {

@@ -5,18 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
-using Normalization.Repository.Factory;
 using Normalization.Repository.Interfaces;
 
 namespace Normalization.Repository.Repositories
 {
     public class DependencyElementRepository : IRepository
     {
-        private readonly DependencyElementContext _dependencyElementContext;
+        private readonly ConfigurationContext _dependencyElementContext;
 
         public DependencyElementRepository()
         {
-            _dependencyElementContext = ContextFactory.CreateDependencyElementContext();
+            _dependencyElementContext = new ConfigurationContext();
         }
 
         public IQueryable Read()
