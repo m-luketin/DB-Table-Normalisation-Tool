@@ -94,7 +94,7 @@ namespace Normalization.Maps
                 }
             }
 
-            return viewItem;
+            return ReadFromId(tableModel.Id);
         }
 
         public IViewModel Update(IViewModel item)
