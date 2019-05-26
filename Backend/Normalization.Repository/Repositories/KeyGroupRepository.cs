@@ -5,18 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
-using Normalization.Repository.Factory;
 using Normalization.Repository.Interfaces;
 
 namespace Normalization.Repository.Repositories
 {
     public class KeyGroupRepository : IRepository
     {
-        private readonly KeyGroupContext _keyGroupContext;
+        private readonly ConfigurationContext _keyGroupContext;
 
         public KeyGroupRepository()
         {
-            _keyGroupContext = ContextFactory.CreateKeyGroupContext();
+            _keyGroupContext = new ConfigurationContext();
         }
         public IQueryable Read()
         {

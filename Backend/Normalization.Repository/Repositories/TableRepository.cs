@@ -5,18 +5,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
-using Normalization.Repository.Factory;
 using Normalization.Repository.Interfaces;
 
 namespace Normalization.Repository.Repositories
 {
     public class TableRepository : IRepository
     {
-        private readonly TableContext _tableContext;
+        private readonly ConfigurationContext _tableContext;
 
         public TableRepository()
         {
-            _tableContext = ContextFactory.CreateTableContext();
+            _tableContext = new ConfigurationContext();
         }
         public IQueryable Read()
         {

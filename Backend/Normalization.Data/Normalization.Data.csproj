@@ -139,15 +139,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contexts\AttributeCollectionContext.cs" />
-    <Compile Include="Contexts\AttributeContext.cs" />
-    <Compile Include="Contexts\SchemaContext\ConfigurationContext.cs" />
-    <Compile Include="Contexts\DependencyElementContext.cs" />
-    <Compile Include="Contexts\FunctionalDependencyContext.cs" />
-    <Compile Include="Contexts\KeyGroupContext.cs" />
-    <Compile Include="Contexts\TableAttributeCollectionContext.cs" />
-    <Compile Include="Contexts\TableAttributeContext.cs" />
-    <Compile Include="Contexts\TableContext.cs" />
+    <Compile Include="Contexts\ConfigurationContext.cs" />
     <Compile Include="Migrations\20190524084332_Inital-Create-Second.cs" />
     <Compile Include="Migrations\20190524084332_Inital-Create-Second.designer.cs">
       <DependentUpon>20190524084332_Inital-Create-Second.cs</DependentUpon>

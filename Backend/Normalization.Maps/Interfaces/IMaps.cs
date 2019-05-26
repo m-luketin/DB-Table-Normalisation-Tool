@@ -12,7 +12,7 @@ namespace Normalization.Maps
     {
         IViewModel Create(IViewModel item);
         IViewModel Update(IViewModel item);
-        IViewModel ReadFromId(int id);
+        //IViewModel ReadFromId(int id);
         ICollection<IViewModel> Read();
         void Delete(int id);
     }

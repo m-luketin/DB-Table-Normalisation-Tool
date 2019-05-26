@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
-using Normalization.Repository.Factory;
 using Normalization.Repository.Interfaces;
 using Attribute = Normalization.Data.Models.Attribute;
 
@@ -14,10 +13,10 @@ namespace Normalization.Repository.Repositories
 {
     public class TableAttributeRepository : IRepository
     {
-        private readonly TableAttributeContext _tableAttributeContext;
+        private readonly ConfigurationContext _tableAttributeContext;
         public TableAttributeRepository()
         {
-            _tableAttributeContext = ContextFactory.CreateTableAttributeContext();
+            _tableAttributeContext = new ConfigurationContext();
         }
         public IQueryable Read()
         {
