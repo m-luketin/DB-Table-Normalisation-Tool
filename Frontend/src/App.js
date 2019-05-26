@@ -5,6 +5,7 @@ import "./App.css";
 import MainScreen from "./components/MainScreen";
 import Form from "./components/form/Form";
 import Decomposition from "./components/display/Decomposition";
+import Algorithm from "./components/Algorithm";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             )}
           />
           <Route exact path="/test" render={() => <Decomposition/>} />
+          <Route exact path="/algorithm" render={() => <Algorithm/>} />
           <Redirect to="/" />
         </Switch>
       </BrowserRouter>

@@ -11,8 +11,8 @@ const Navbar = () => {
         <Link to="/load" className="NavbarListItem">
           <div>Load example</div>
         </Link>
-        <Link to="/test" className="NavbarListItem">
-          <div>Previous normalized</div>
+        <Link to="/algorithm" className="NavbarListItem">
+          <div>Algorithm</div>
         </Link>
         <Link to="/" className="NavbarListItem">
           <div>About</div>
