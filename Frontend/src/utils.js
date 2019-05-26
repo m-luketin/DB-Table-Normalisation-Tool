@@ -43,9 +43,10 @@ export const isNullOrWhitespace = input => {
 };
 
 export const formatFormValues = formState => {
-  const { keys, dependenciesFrom, dependenciesTo } = formState;
+  const { tableName, keys, dependenciesFrom, dependenciesTo } = formState;
 
-  let newKeys = keys.filter(element => element.length !== 0);
+  const newTableName = tableName.trim();
+  const newKeys = keys.filter(element => element.length !== 0);
   const newDependenciesFrom = dependenciesFrom.filter(
     (element, index) =>
       element.length !== 0 || dependenciesTo[index].length !== 0
@@ -55,6 +56,7 @@ export const formatFormValues = formState => {
       element.length !== 0 || dependenciesFrom[index].length !== 0
   );
   return {
+    tableName: newTableName,
     keys: newKeys,
     dependenciesFrom: newDependenciesFrom,
     dependenciesTo: newDependenciesTo
@@ -67,14 +69,18 @@ export const getFirstFormattedFormError = formStateValues => {
   //   2 - key error
   //   3 - dependency error
   //   4 - non-existant (redundant) attribute
+  //   5 - table name error
   //   0 - test passed successfully
 
   const {
+    tableName,
     attributes,
     keys,
     dependenciesFrom,
     dependenciesTo
   } = formStateValues;
+
+  console.log(tableName)
 
   if (isNullOrWhitespace(attributes)) {
     return 1;
@@ -96,6 +102,9 @@ export const getFirstFormattedFormError = formStateValues => {
   }
   if (isAnyAttributeRedundant(formStateValues)) {
     return 4;
+  }
+  if (isNullOrWhitespace(tableName)) {
+    return 5;
   }
 
   return 0;
@@ -154,6 +163,9 @@ export const formErrorHandler = formErrorCode => {
       break;
     case 4:
       errorCode = "You have added an non-existant attribute!";
+      break;
+    case 5:
+      errorCode = "Your table must have a name!";
       break;
     default:
       errorCode = "Invalid error code!";

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Attributes from "./Attributes";
+import InputField from "./InputField";
 import KeysDisplay from "./KeysDisplay";
 import DependenciesDisplay from "./DependenciesDisplay";
 import Navbar from "./../Navbar";
@@ -16,12 +16,17 @@ class Form extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      tableName: this.props.tableName,
       attributes: this.props.attributes,
       keys: this.props.keys,
       dependenciesFrom: this.props.dependenciesFrom,
       dependenciesTo: this.props.dependenciesTo
     };
   }
+
+  handleNameChange = event => {
+    this.setState({ tableName: event.target.value });
+  };
 
   handleAttributesChange = event => {
     this.setState({ attributes: event.target.value });
@@ -182,9 +187,15 @@ class Form extends Component {
   postForm = () => {
     const formattedFormValues = formatFormValues(this.state);
     const attributes = this.state.attributes;
-    const { keys, dependenciesFrom, dependenciesTo } = formattedFormValues;
+    const {
+      tableName,
+      keys,
+      dependenciesFrom,
+      dependenciesTo
+    } = formattedFormValues;
 
     const formError = getFirstFormattedFormError({
+      tableName,
       attributes,
       keys,
       dependenciesFrom,
@@ -220,8 +231,16 @@ class Form extends Component {
       <>
         <Navbar />
         <div className="Form">
-          <Attributes
-            attributes={this.state.attributes}
+          <InputField
+            heading="Table name"
+            description="Your table will be saved using the name provided"
+            value={this.state.tableName}
+            handleChange={this.handleNameChange}
+          />
+          <InputField
+            heading="Attributes in table"
+            description="Separate attributes using a comma ( , )"
+            value={this.state.attributes}
             handleChange={this.handleAttributesChange}
           />
           <KeysDisplay
