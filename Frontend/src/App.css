@@ -60,7 +60,7 @@ a:hover{
 }
 
 .MainTitle{
-  margin-top: 140px;
+  margin-top: 100px;
   text-align: center;
 }
 
@@ -442,4 +442,22 @@ a:hover{
 
 .TableDependency div {
   margin: 0 5px;
+}
+
+.algorithm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.algorithm--steps{
+  
+}
+
+.algorithm--description {
+  width: 70%;
+}
+
+.description--main {
+  text-align: center;
 }
