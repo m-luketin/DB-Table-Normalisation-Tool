@@ -26,10 +26,14 @@ export const attributeHandler = container => {
 };
 
 export const splitAttributes = string => {
-  return string
+  let array = string
     .replace(" ", "")
     .split(",")
     .filter(attribute => !isNullOrWhitespace(attribute));
+
+  return array.map(attribute => {
+    return attribute.trim();
+  });
 };
 
 export const isNullOrWhitespace = input => {
@@ -41,7 +45,7 @@ export const isNullOrWhitespace = input => {
 export const formatFormValues = formState => {
   const { keys, dependenciesFrom, dependenciesTo } = formState;
 
-  const newKeys = keys.filter(element => element.length !== 0);
+  let newKeys = keys.filter(element => element.length !== 0);
   const newDependenciesFrom = dependenciesFrom.filter(
     (element, index) =>
       element.length !== 0 || dependenciesTo[index].length !== 0
@@ -62,6 +66,7 @@ export const getFirstFormattedFormError = formStateValues => {
   //   1 - attribute error
   //   2 - key error
   //   3 - dependency error
+  //   4 - non-existant (redundant) attribute
   //   0 - test passed successfully
 
   const {
@@ -89,7 +94,50 @@ export const getFirstFormattedFormError = formStateValues => {
   if (dependenciesTo.find(element => element.length === 0) !== undefined) {
     return 3;
   }
+  if (isAnyAttributeRedundant(formStateValues)) {
+    return 4;
+  }
+
   return 0;
+};
+
+const isAnyAttributeRedundant = formStateValues => {
+  //This is bad code!
+  const {
+    attributes,
+    keys,
+    dependenciesFrom,
+    dependenciesTo
+  } = formStateValues;
+  const attributesArray = splitAttributes(attributes);
+
+  if (
+    keys
+      .map(key => key.map(att => attributesArray.includes(att)).includes(false))
+      .includes(true)
+  ) {
+    return true;
+  }
+  if (
+    dependenciesFrom
+      .map(dependency =>
+        dependency.map(att => attributesArray.includes(att)).includes(false)
+      )
+      .includes(true)
+  ) {
+    return true;
+  }
+  if (
+    dependenciesTo
+      .map(dependency =>
+        dependency.map(att => attributesArray.includes(att)).includes(false)
+      )
+      .includes(true)
+  ) {
+    return true;
+  }
+
+  return false;
 };
 
 export const formErrorHandler = formErrorCode => {
@@ -103,6 +151,9 @@ export const formErrorHandler = formErrorCode => {
       break;
     case 3:
       errorCode += "Functional Dependencies section!";
+      break;
+    case 4:
+      errorCode = "You have added an non-existant attribute!";
       break;
     default:
       errorCode = "Invalid error code!";

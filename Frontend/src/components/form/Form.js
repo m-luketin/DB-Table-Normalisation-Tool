@@ -196,23 +196,23 @@ class Form extends Component {
       return;
     }
 
-    const Dependencies = dependenciesFrom.map((dependencyFrom, index) => {
-      return {
-        PrimaryId: -1,
-        From: dependencyFrom,
-        To: dependenciesTo[index].toString()
-      };
-    });
-    const endpointCorrect = {
-      Name: "Test",
-      Attributes: splitAttributes(attributes),
-      Dependencies: [...Dependencies],
-      Keys: keys,
-      PrimaryId: -1
-    };
-    console.log(endpointCorrect);
-    Post(endpointCorrect).then(response => console.log(response));
-    console.log(dependenciesFrom);
+    // const Dependencies = dependenciesFrom.map((dependencyFrom, index) => {
+    //   return {
+    //     PrimaryId: -1,
+    //     From: dependencyFrom,
+    //     To: dependenciesTo[index].toString()
+    //   };
+    // });
+    // const endpointCorrect = {
+    //   Name: "Test",
+    //   Attributes: splitAttributes(attributes),
+    //   Dependencies: [...Dependencies],
+    //   Keys: keys,
+    //   PrimaryId: -1
+    // };
+    // console.log(endpointCorrect);
+    // Post(endpointCorrect).then(response => console.log(response));
+    // console.log(dependenciesFrom);
   };
 
   render() {
