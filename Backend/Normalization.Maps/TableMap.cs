@@ -40,8 +40,8 @@ namespace Normalization.Maps
                 RepositoryFactory.CreateFunctionalDependencyRepository().Create(ref functionalDependency);
                 var tableAttributesFrom = new List<IEntity>();
                 var tableAttributesTo = new List<IEntity>();
-                tableAttributesFrom.AddRange(dependencyViews.From.Select(attributeCollection => RepositoryFactory.CreateTableAttributeRepository().GetByName(attributeCollection)));
-                tableAttributesTo.Add(RepositoryFactory.CreateTableAttributeRepository().GetByName(dependencyViews.To));
+                tableAttributesFrom.AddRange(dependencyViews.From.Select(attributeCollection => RepositoryFactory.CreateTableAttributeRepository().GetByNameAndTableId(attributeCollection,tableModel.Id)));
+                tableAttributesTo.Add(RepositoryFactory.CreateTableAttributeRepository().GetByNameAndTableId(dependencyViews.To,tableModel.Id));
                 var attributeCollectionModel = ModelFactory.CreateAttributeCollection();
                 foreach (var entity in tableAttributesFrom)
                 {
@@ -71,7 +71,7 @@ namespace Normalization.Maps
 
             foreach (var keyGroupsView in viewItem.Keys)
             {
-                var tableAttributeList = keyGroupsView.Select(keyGroupString => RepositoryFactory.CreateTableAttributeRepository().GetByName(keyGroupString)).ToList();
+                var tableAttributeList = keyGroupsView.Select(keyGroupString => RepositoryFactory.CreateTableAttributeRepository().GetByNameAndTableId(keyGroupString,tableModel.Id)).ToList();
 
                 var keyGroupModel = (KeyGroup)ModelFactory.CreateKeyGroup();
                 var attributeCollectionModel = ModelFactory.CreateAttributeCollection();
@@ -89,17 +89,9 @@ namespace Normalization.Maps
 
                     var tableAttributeCollectionModelIEntity = (IEntity) tableAttributeCollectionModel;
                     RepositoryFactory.CreateTableAttributeCollectionRepository().Create(ref tableAttributeCollectionModelIEntity);
-
-
                 }
             }
-
             return ReadFromId(tableModel.Id);
-        }
-
-        public IViewModel Update(IViewModel item)
-        {
-            throw new NotImplementedException();
         }
 
         public IViewModel ReadFromId(int id)
@@ -197,6 +189,13 @@ namespace Normalization.Maps
                 };
         }
 
+        public IViewModel Update(IViewModel item)
+        {
+            if (item.PrimaryId == null) throw new Exception("Table not exists");
+            Delete((int)item.PrimaryId);
+            return Create(item);
+        }
+
         public ICollection<IViewModel> Read()
         {
             var tableViewList = new List<IViewModel>();
@@ -213,7 +212,8 @@ namespace Normalization.Maps
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            ((AttributeCollectionRepository)RepositoryFactory.CreateAttributeCollectionRepository()).DeleteByTable(id);
+            RepositoryFactory.CreateTableRepository().Delete(id);
         }
     }
 }

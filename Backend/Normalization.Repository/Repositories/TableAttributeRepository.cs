@@ -61,9 +61,9 @@ namespace Normalization.Repository.Repositories
             return _tableAttributeContext.TableAttributes.Find(id);
         }
 
-        public IEntity GetByName(string nameAttribute)
+        public IEntity GetByNameAndTableId(string nameAttribute,int tableId)
         {
-            return _tableAttributeContext.TableAttributes.FirstOrDefault(tableAttr => tableAttr.Attribute.ColumnName == nameAttribute);
+            return _tableAttributeContext.TableAttributes.FirstOrDefault(tableAttr => tableAttr.Attribute.ColumnName == nameAttribute && tableAttr.TableId == tableId);
         }
     }
 }

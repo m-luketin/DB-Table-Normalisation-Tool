@@ -37,6 +37,14 @@ namespace Normalization.Repository.Repositories
             _attributeCollectionContext.SaveChanges();
         }
 
+        public void DeleteByTable(int id)
+        {
+            var attributesToDelete =_attributeCollectionContext.AttributeCollections.Cast<AttributeCollection>().Where(attributeCollection =>
+                attributeCollection.TableAttributeCollections.Any(tableAttributeCol =>
+                    tableAttributeCol.TableAttribute.TableId == id));
+            _attributeCollectionContext.AttributeCollections.RemoveRange(attributesToDelete);
+            _attributeCollectionContext.SaveChanges();
+        }
         public void Delete(int id)
         {
             Delete(GetById(id));
