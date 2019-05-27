@@ -215,7 +215,7 @@ class Form extends Component {
       };
     });
     const endpointCorrect = {
-      Name: "Test",
+      Name: tableName,
       Attributes: splitAttributes(attributes),
       Dependencies: [...Dependencies],
       Keys: keys,
