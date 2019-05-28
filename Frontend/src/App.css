@@ -453,12 +453,10 @@ a:hover{
   align-items: center;
 }
 
-.algorithm--steps{
-  
-}
-
 .algorithm--description {
   width: 70%;
+  font-size: 20px;
+  color: #595856;
 }
 
 .description--main {

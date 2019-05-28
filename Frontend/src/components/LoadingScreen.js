@@ -8,9 +8,6 @@ const LoadingScreen = () => {
         <i />
         <i />
         <i />
-        <i />
-        <i />
-        <i />
       </div>
     </section>
   );
