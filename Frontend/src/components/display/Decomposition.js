@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Navbar from "../Navbar";
 import Table from "./Table";
 import LoadingScreen from "../LoadingScreen";
-import { fetchStoredTables } from "../../services/normalization";
+//import { fetchStoredTables } from "../../services/normalization";
 
 class Decomposition extends Component {
   constructor(props) {

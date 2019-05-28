@@ -447,18 +447,26 @@ a:hover{
   margin: 0 5px;
 }
 
-.algorithm {
+.Algorithm {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.algorithm--description {
+.AlgorithmDescription {
   width: 70%;
   font-size: 20px;
   color: #595856;
 }
 
-.description--main {
+.DescriptionContent {
   text-align: center;
+}
+
+.LoadingScreen{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: -40px;
+  height: 90vh;
 }

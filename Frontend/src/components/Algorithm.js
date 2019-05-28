@@ -6,15 +6,15 @@ const Algorithm = () => {
   return (
     <>
       <Navbar />
-      <div className="algorithm">
+      <div className="Algorithm">
         <br />
         <br />
         <br />
         <br />
-        <h1 className="algorithm--title">3NF Decomposition algorithm</h1>
+        <h1>3NF Decomposition algorithm</h1>
         <br />
-        <div className="algorithm--description">
-          <p className="description--main">
+        <div className="AlgorithmDescription">
+          <p className="DescriptionContent">
             Third normal form (<b>3NF</b>) is a form used in normalizing a
             database design to reduce data duplication and maintain referential
             integrity by ensuring that{" "}
@@ -34,7 +34,7 @@ const Algorithm = () => {
           statistics.
           <br />
           <br />
-          <p className="algorithm--steps">
+          <p>
             <b>Steps:</b>
             <br />
             - RHS of each functional dependency is a single attribute (canonical

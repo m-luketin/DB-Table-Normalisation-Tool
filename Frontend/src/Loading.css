@@ -95,3 +95,7 @@ div.spinner i:nth-child(4) {
     transform: rotate(360deg);
   }
 }
+
+.description{
+  text-align: center;
+}
