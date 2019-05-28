@@ -7,9 +7,9 @@ using Normalization.ViewModel;
 
 namespace Normalization.Maps.Algorithm
 {
-    public class Algorithm
+    public static class Algorithm
     {
-        public NormalizedViewModel NormalizeTable(TableViewModel table)
+        public static NormalizedViewModel NormalizeTable(TableViewModel table)
         {
             var normalizedTable = new NormalizedViewModel();
             var decompositionElement = new List<string>();

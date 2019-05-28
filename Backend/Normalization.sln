@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Normalization.Api", "Normalization.Api\Normalization.Api.csproj", "{E2718A03-1873-455F-855F-AE29E59FBAAE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E536125B-F2A0-4211-9D4D-7073DBCE7E16} = {E536125B-F2A0-4211-9D4D-7073DBCE7E16}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Normalization.Data", "Normalization.Data\Normalization.Data.csproj", "{2A000668-DBF9-4127-8498-436CC7B80C76}"
 EndProject
