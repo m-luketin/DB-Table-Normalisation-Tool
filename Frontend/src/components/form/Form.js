@@ -10,7 +10,7 @@ import {
   formatFormValues,
   formErrorHandler
 } from "../../utils";
-import { Post } from "../../services/normalization";
+import { postTable } from "../../services/normalization";
 
 class Form extends Component {
   constructor(props) {
@@ -222,7 +222,7 @@ class Form extends Component {
       PrimaryId: -1
     };
     console.log(endpointCorrect);
-    Post(endpointCorrect).then(response => console.log(response));
+    postTable(endpointCorrect).then(response => console.log(response));
     console.log(dependenciesFrom);
   };
 
