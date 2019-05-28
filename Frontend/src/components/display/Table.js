@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Table = props => {
   return (
     <div className="Table">
       <div className="TableContent">
-        {props.title !== undefined ? <h2>props.title</h2> : null}
+        {props.isExample === true ? <h2>{props.table.name}</h2> : null}
         <h2>Attributes</h2>
         <div className="TableAttributes">
-          {props.attributes.map((attribute, index) => {
+          {props.table.attributes.map((attribute, index) => {
             return (
               <div className="TableAttribute" key={index}>
                 {attribute}
@@ -16,19 +17,18 @@ const Table = props => {
           })}
         </div>
 
-        {props.dependencies !== undefined ? (
+        {props.isExample !== true ? (
           <>
             <h2>Dependencies</h2>
             <div className="TableDependencies">
-              {props.dependencies.map((dependency, index) => {
-                dependency = dependency.split("-");
+              {props.table.dependencies.map((dependency, index) => {
                 return (
                   <div key={index} className="TableDependency">
-                    <div>{dependency[0]}</div>
+                    <div>{dependency.from}</div>
 
                     <div> -> </div>
 
-                    <div>{dependency[1]}</div>
+                    <div>{dependency.to}</div>
                   </div>
                 );
               })}
@@ -36,8 +36,10 @@ const Table = props => {
           </>
         ) : null}
       </div>
-      {props.title !== undefined ? (
-        <button className="ButtonRun ButtonTable">Load table</button>
+      {props.isExample === true ? (
+        <Link to={`update/${props.table.primaryId}`}>
+          <button className="ButtonRun ButtonTable">Load table</button>
+        </Link>
       ) : null}
     </div>
   );

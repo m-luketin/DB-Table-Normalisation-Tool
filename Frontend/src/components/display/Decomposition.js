@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Navbar from "../Navbar";
 import Table from "./Table";
 import LoadingScreen from "../LoadingScreen";
-//import { fetchStoredTables } from "../../services/normalization";
+import { fetchStoredTables } from "../../services/normalization";
 
 class Decomposition extends Component {
   constructor(props) {
@@ -12,11 +12,11 @@ class Decomposition extends Component {
     };
   }
 
-  // componentDidMount(){
-  //   fetchStoredTables().then(response => {
-  //     this.setState({decomposition: response});
-  //   })
-  // }
+  componentDidMount() {
+    fetchStoredTables().then(response => {
+      this.setState({ decomposition: response });
+    });
+  }
 
   render() {
     if (!this.state.decomposition)
@@ -30,13 +30,9 @@ class Decomposition extends Component {
       <>
         <Navbar />
         <div className="Tables">
-          {this.state.decomposition.map((table, index) => (
-            <Table
-              title={table.name}
-              attributes={table.attributes}
-              key={index}
-            />
-          ))}
+          {this.state.decomposition.map((table, index) => {
+            return <Table table={table} isExample={true} key={index}/>;
+          })}
         </div>
       </>
     );

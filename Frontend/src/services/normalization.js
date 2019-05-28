@@ -11,4 +11,14 @@ export const postTable = payload => {
   }).then(response => response.json());
 };
 
-export const fetchStoredTables = () => {};
+export const fetchStoredTables = () => {
+  return fetch("http://localhost:58183/api/schema/get").then(response =>
+    response.json()
+  );
+};
+
+export const fetchTableById = id => {
+  return fetch(`http://localhost:58183/api/schema/get/${id}`).then(
+    response => response.json()
+  );
+};

@@ -118,7 +118,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DependencyMap.cs" />
+    <Compile Include="Algorithm\Algorithm.cs" />
     <Compile Include="Factory\ModelFactory.cs" />
     <Compile Include="Factory\RepositoryFactory.cs" />
     <Compile Include="Interfaces\IMaps.cs" />

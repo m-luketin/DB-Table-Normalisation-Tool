@@ -221,9 +221,7 @@ class Form extends Component {
       Keys: keys,
       PrimaryId: -1
     };
-    console.log(endpointCorrect);
     postTable(endpointCorrect).then(response => console.log(response));
-    console.log(dependenciesFrom);
   };
 
   render() {
