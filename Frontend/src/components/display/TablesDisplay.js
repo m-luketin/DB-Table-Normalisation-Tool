@@ -7,7 +7,7 @@ const TablesDisplay = props => {
     <>
       <Navbar />
       <div className="Tables">
-        {props.decomposition.TableAttributes.map((table, index) => {
+        {props.decomposition.map((table, index) => {
           return (
             <Table table={table} isExample={props.isExample} key={index} />
           );
