@@ -10,7 +10,7 @@ import {
   formatFormValues,
   formErrorHandler
 } from "../../utils";
-import { postTable } from "../../services/normalization";
+import { postTable, updateTable } from "../../services/normalization";
 
 class Form extends Component {
   constructor(props) {
@@ -206,10 +206,10 @@ class Form extends Component {
       formErrorHandler(formError);
       return;
     }
-
+    let tempId = this.props.id !== undefined ? this.props.id : -1;
     const Dependencies = dependenciesFrom.map((dependencyFrom, index) => {
       return {
-        PrimaryId: -1,
+        PrimaryId: tempId,
         From: dependencyFrom,
         To: dependenciesTo[index].toString()
       };
@@ -219,9 +219,20 @@ class Form extends Component {
       Attributes: splitAttributes(attributes),
       Dependencies: [...Dependencies],
       Keys: keys,
-      PrimaryId: -1
+      PrimaryId: tempId
     };
-    postTable(endpointCorrect).then(response => console.log(response));
+
+    if (this.props.id !== undefined) {
+      updateTable(endpointCorrect).then(response => console.log(response));
+    } else {
+      postTable(endpointCorrect).then(
+        response =>
+          //this.props.history.push(`/decomposition/${response.primaryId}`)
+          (window.location.href = `http://localhost:3000/decomposition/${
+            response.primaryId
+          }`)
+      );
+    }
   };
 
   render() {

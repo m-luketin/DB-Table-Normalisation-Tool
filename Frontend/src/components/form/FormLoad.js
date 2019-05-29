@@ -18,7 +18,6 @@ class FormLoad extends Component {
     const id = this.props.match.params.id;
     fetchTableById(id).then(response => {
       this.setState(() => {
-        console.log(response.dependencies.map(element => element.to))
         return {
           table: response,
           dependenciesFrom: response.dependencies.map(element => element.from),
@@ -43,6 +42,7 @@ class FormLoad extends Component {
         keys={this.state.table.keys}
         dependenciesFrom={this.state.dependenciesFrom}
         dependenciesTo={this.state.dependenciesTo}
+        id={this.state.table.primaryId}
       />
     );
   }

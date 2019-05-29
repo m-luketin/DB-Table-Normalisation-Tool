@@ -80,8 +80,6 @@ export const getFirstFormattedFormError = formStateValues => {
     dependenciesTo
   } = formStateValues;
 
-  console.log(tableName)
-
   if (isNullOrWhitespace(attributes)) {
     return 1;
   }

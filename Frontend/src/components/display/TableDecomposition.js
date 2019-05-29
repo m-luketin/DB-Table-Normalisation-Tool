@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Navbar from "../Navbar";
-import Table from "./Table";
 import LoadingScreen from "../LoadingScreen";
-import { fetchStoredTables } from "../../services/normalization";
+import { runAlgorithm } from "../../services/normalization";
+import TablesDisplay from "./TablesDisplay";
 
-class Decomposition extends Component {
+class TableDecomposition extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +13,8 @@ class Decomposition extends Component {
   }
 
   componentDidMount() {
-    fetchStoredTables().then(response => {
+    const id = this.props.match.params.id;
+    runAlgorithm(id).then(response => {
       this.setState({ decomposition: response });
     });
   }
@@ -28,15 +29,13 @@ class Decomposition extends Component {
       );
     return (
       <>
-        <Navbar />
-        <div className="Tables">
-          {this.state.decomposition.map((table, index) => {
-            return <Table table={table} isExample={true} key={index}/>;
-          })}
-        </div>
+        <TablesDisplay
+          isExample={false}
+          decomposition={this.state.decomposition}
+        />
       </>
     );
   }
 }
 
-export default Decomposition;
+export default TableDecomposition;

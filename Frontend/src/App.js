@@ -6,8 +6,9 @@ import "./Loading.css";
 import MainScreen from "./components/MainScreen";
 import Form from "./components/form/Form";
 import FormLoad from "./components/form/FormLoad";
-import Decomposition from "./components/display/Decomposition";
+import TablesLoad from "./components/display/TablesLoad";
 import Algorithm from "./components/Algorithm";
+import TableDecomposition from "./components/display/TableDecomposition";
 
 function App() {
   return (
@@ -33,7 +34,12 @@ function App() {
             path="/update/:id"
             render={props => <FormLoad {...props} />}
           />
-          <Route exact path="/load" render={() => <Decomposition />} />
+          <Route
+            exact
+            path="/decomposition/:id"
+            render={props => <TableDecomposition {...props} />}
+          />
+          <Route exact path="/load" render={() => <TablesLoad />} />
           <Route exact path="/algorithm" render={() => <Algorithm />} />
           <Redirect to="/" />
         </Switch>
