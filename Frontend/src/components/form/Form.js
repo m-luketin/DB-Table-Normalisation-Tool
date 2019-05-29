@@ -87,6 +87,7 @@ class Form extends Component {
 
   handleDependencyChangeAddFrom = (event, index) => {
     const selectedAttribute = event.target.innerHTML;
+    if(this.state.dependenciesTo[index].includes(selectedAttribute)) return;
     this.setState(prevState => {
       return {
         dependenciesFrom: attributeHandler(
@@ -97,6 +98,7 @@ class Form extends Component {
   };
 
   handleDependencyChangeAddByEnterFrom = (selectedAttribute, index) => {
+    if(this.state.dependenciesTo[index].includes(selectedAttribute)) return;
     this.setState(prevState => {
       return {
         dependenciesFrom: attributeHandler(
@@ -109,6 +111,7 @@ class Form extends Component {
   handleDependencyChangeAddTo = (event, index) => {
     if (this.state.dependenciesTo[index].length === 1) return;
     const selectedAttribute = event.target.innerHTML;
+    if(this.state.dependenciesFrom[index].includes(selectedAttribute)) return;
     this.setState(prevState => {
       return {
         dependenciesTo: attributeHandler(prevState.dependenciesTo).addAttribute(
@@ -121,6 +124,7 @@ class Form extends Component {
 
   handleDependencyChangeAddByEnterTo = (selectedAttribute, index) => {
     if (this.state.dependenciesTo[index].length === 1) return;
+    if(this.state.dependenciesFrom[index].includes(selectedAttribute)) return;
     this.setState(prevState => {
       return {
         dependenciesTo: attributeHandler(prevState.dependenciesTo).addAttribute(
