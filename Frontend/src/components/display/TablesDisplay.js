@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../Navbar";
-import Table from "./Table";
+import ExampleTable from "./ExampleTable";
 
 const TablesDisplay = props => {
   return (
@@ -8,9 +8,7 @@ const TablesDisplay = props => {
       <Navbar />
       <div className="Tables">
         {props.decomposition.map((table, index) => {
-          return (
-            <Table table={table} isExample={props.isExample} key={index} />
-          );
+          return <ExampleTable table={table} key={index} />;
         })}
       </div>
     </>

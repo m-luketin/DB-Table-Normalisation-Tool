@@ -177,6 +177,7 @@ class Form extends Component {
 
   clearState = () => {
     this.setState({
+      tableName: "",
       attributes: "",
       keys: [[]],
       dependenciesFrom: [[]],
@@ -223,7 +224,12 @@ class Form extends Component {
     };
 
     if (this.props.id !== undefined) {
-      updateTable(endpointCorrect).then(response => window.location.href=`http://localhost:3000/decomposition/${response.primaryId}` );
+      updateTable(endpointCorrect).then(
+        response =>
+          (window.location.href = `http://localhost:3000/decomposition/${
+            response.primaryId
+          }`)
+      );
     } else {
       postTable(endpointCorrect).then(
         response =>
