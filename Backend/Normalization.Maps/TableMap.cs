@@ -98,42 +98,36 @@ namespace Normalization.Maps
         {
             var _contextToDatabase = new ConfigurationContext();
             var tableEntity = _contextToDatabase.Tables.Find(id);
+            if (tableEntity == null) throw new Exception("Table not exists.");
             var tableAttributeList = _contextToDatabase.TableAttributes
-                   .Cast<TableAttribute>()
                    .Select(tableAttr => tableAttr)
                    .Where(tableAttr => tableAttr.TableId == tableEntity.Id);
 
             var attributeList = _contextToDatabase.Attributes
-                .Cast<Attribute>()
                 .Select(attr => attr)
                 .Where(attr => tableAttributeList.Any(tableAttr => tableAttr.AttributeId == attr.Id));
 
             var tableAttributeCollectionList = _contextToDatabase.TableAttributeCollections
-                .Cast<TableAttributeCollection>()
                 .Select(tableAttrCol => tableAttrCol)
                 .Where(tableAttrCol => tableAttributeList.Any(tableAttr => tableAttr.Id == tableAttrCol.TableAttributeId));
 
             var attributeCollectionList = _contextToDatabase.AttributeCollections
-                .Cast<AttributeCollection>()
                 .Select(attrCol => attrCol)
                 .Where(attrCol =>
                     tableAttributeCollectionList.Any(tableAttrCol =>
                         tableAttrCol.AttributeCollectionId == attrCol.Id)).ToList();
 
             var keyGroupList = _contextToDatabase.KeyGroups
-                .Cast<KeyGroup>()
                 .Select(keyGroup => keyGroup)
                 .Where(keyGroup =>
                     attributeCollectionList.Any(attrCol => keyGroup.AttributeCollectionId == attrCol.Id)).ToList();
 
             var dependencyElementList = _contextToDatabase.DependencyElements
-                .Cast<DependencyElement>()
                 .Select(dependElem => dependElem)
                 .Where(dependElem =>
                     attributeCollectionList.Any(attrCol => dependElem.AttributeCollectionId == attrCol.Id));
 
             var functionalDependencyList = _contextToDatabase.FunctionalDependencies
-                .Cast<FunctionalDependency>()
                 .Select(funcDepend => funcDepend)
                 .Where(funcDepend =>
                     dependencyElementList.Any(dependElem => dependElem.FunctionalDependencyId == funcDepend.Id))

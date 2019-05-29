@@ -40,9 +40,9 @@ namespace Normalization.Api.Controllers
         }
 
         [HttpPut]
-        public void Update(TableViewModel tableView)
+        public TableViewModel Update(TableViewModel tableView)
         {
-            new TableMap().Update(tableView);
+           return (TableViewModel)(new TableMap().Update(tableView));
         }
     }
 }

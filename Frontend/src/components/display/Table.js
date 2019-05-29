@@ -8,7 +8,7 @@ const Table = props => {
         {props.isExample === true ? <h2>{props.table.name}</h2> : null}
         <h2>Attributes</h2>
         <div className="TableAttributes">
-          {props.table.attributes.map((attribute, index) => {
+          {props.table.map((attribute, index) => {
             return (
               <div className="TableAttribute" key={index}>
                 {attribute}

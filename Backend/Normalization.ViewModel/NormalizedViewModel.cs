@@ -13,7 +13,7 @@ namespace Normalization.ViewModel
 
         public NormalizedViewModel()
         {
-
+            TableAttributes = new List<ICollection<string>>();
         }
         public NormalizedViewModel(string name, ICollection<ICollection<string>> attributes)
         {

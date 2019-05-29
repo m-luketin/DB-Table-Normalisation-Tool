@@ -8,19 +8,20 @@ class TableDecomposition extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      decomposition: null
+      SchemaName: null,
+      TableAttributes: null
     };
   }
 
   componentDidMount() {
     const id = this.props.match.params.id;
     runAlgorithm(id).then(response => {
-      this.setState({ decomposition: response });
+      this.setState({ SchemaName: response.SchemaName, TableAttributes: response.TableAttributes });
     });
   }
 
   render() {
-    if (!this.state.decomposition)
+    if (!this.state.SchemaName)
       return (
         <>
           <Navbar />
@@ -31,7 +32,7 @@ class TableDecomposition extends Component {
       <>
         <TablesDisplay
           isExample={false}
-          decomposition={this.state.decomposition}
+          decomposition={this.state.state}
         />
       </>
     );

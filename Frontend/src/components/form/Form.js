@@ -223,7 +223,7 @@ class Form extends Component {
     };
 
     if (this.props.id !== undefined) {
-      updateTable(endpointCorrect).then(response => console.log(response));
+      updateTable(endpointCorrect).then(response => window.location.href=`http://localhost:3000/decomposition/${response.primaryId}` );
     } else {
       postTable(endpointCorrect).then(
         response =>

@@ -39,7 +39,7 @@ namespace Normalization.Repository.Repositories
 
         public void DeleteByTable(int id)
         {
-            var attributesToDelete =_attributeCollectionContext.AttributeCollections.Cast<AttributeCollection>().Where(attributeCollection =>
+            var attributesToDelete =_attributeCollectionContext.AttributeCollections.Where(attributeCollection =>
                 attributeCollection.TableAttributeCollections.Any(tableAttributeCol =>
                     tableAttributeCol.TableAttribute.TableId == id));
             _attributeCollectionContext.AttributeCollections.RemoveRange(attributesToDelete);
