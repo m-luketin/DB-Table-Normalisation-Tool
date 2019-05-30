@@ -12,7 +12,23 @@ namespace Normalization.Maps.Algorithm
         public static NormalizedViewModel NormalizeTable(TableViewModel table)
         {
             var normalizedTable = new NormalizedViewModel {SchemaName = table.Name};
+            var isAlreadyNormalized = true;
 
+            foreach (var dependencyViewModel in table.Dependencies)
+            {
+                var areRelationsPartOfKey = table.Keys.Any(key => key.All(partOfKey => dependencyViewModel.From.Any(dependencyElement => partOfKey == dependencyElement)));
+                var allKeysPartOfRelationTo = table.Keys.All(key => key.All(partOfKey => dependencyViewModel.To == partOfKey));
+                if (areRelationsPartOfKey || allKeysPartOfRelationTo) continue;
+                isAlreadyNormalized = false;
+                break;
+            }
+
+            if (isAlreadyNormalized)
+            {
+                normalizedTable.TableAttributes.Add(table.Attributes);
+
+                return normalizedTable;
+            }
             foreach (var dependencyViewModel in table.Dependencies)
             {
                 var decompositionElement = new List<string>();
