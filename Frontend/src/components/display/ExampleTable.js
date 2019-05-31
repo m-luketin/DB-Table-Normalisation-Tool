@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const ExampleTable = props => {
   const handleDelete = () => {
-    props.handleDelete(props.table);
+    props.handleDelete(props.table.primaryId);
   } 
   return (
     <div className="Table">

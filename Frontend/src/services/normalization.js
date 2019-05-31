@@ -36,11 +36,10 @@ export const fetchTableById = id => {
   );
 };
 
-export const deleteTable = table => {
-  return fetch(`http://localhost:58183/api/schema/delete/${table}`, {
+export const deleteTable = id => {
+  return fetch(`http://localhost:58183/api/schema/delete/${id}`, {
     method: "DELETE",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ PrimaryId: `${table.primaryId}` })
+    headers: { "Content-Type": "application/json" }
   });
 };
 

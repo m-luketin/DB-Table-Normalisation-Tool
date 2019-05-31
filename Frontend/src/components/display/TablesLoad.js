@@ -12,12 +12,12 @@ class TablesLoad extends Component {
     };
   }
 
-  handleDeleteTable = table => {
+  handleDeleteTable = id => {
     if (window.confirm("Are you sure you want to delete this table?"))
-      deleteTable(table);
+      deleteTable(id);
     this.setState(prevState => {
       let newDecomposition = [...prevState.decomposition].filter(
-        element => element !== table
+        element => element.primaryId !== id
       );
       return {
         decomposition: newDecomposition
