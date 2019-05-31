@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { deleteTable } from "../../services/normalization"
 
 const ExampleTable = props => {
   return (
@@ -21,6 +22,7 @@ const ExampleTable = props => {
       <Link to={`update/${props.table.primaryId}`}>
         <button className="ButtonRun ButtonTable">Load table</button>
       </Link>
+      <span className="Close"/>
     </div>
   );
 };

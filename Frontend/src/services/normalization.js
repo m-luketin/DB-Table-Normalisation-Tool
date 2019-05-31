@@ -36,6 +36,12 @@ export const fetchTableById = id => {
   );
 };
 
+export const deleteTable = id => {
+  return fetch(`http://localhost:58183/api/schema/delete/${id}`, {
+    method: "DELETE"
+  }).then(response => response.json());
+}
+
 export const runAlgorithm = id => {
   return fetch(`http://localhost:58183/api/normalization/generate/${id}`).then(
     response => response.json()
