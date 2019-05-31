@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { deleteTable } from "../../services/normalization"
 
 const ExampleTable = props => {
+  const handleDelete = () => {
+    props.handleDelete(props.table);
+  } 
   return (
     <div className="Table">
       <div className="TableContent">
@@ -22,7 +24,7 @@ const ExampleTable = props => {
       <Link to={`update/${props.table.primaryId}`}>
         <button className="ButtonRun ButtonTable">Load table</button>
       </Link>
-      <span className="Close"/>
+      <span className="Close" onClick={handleDelete}/>
     </div>
   );
 };

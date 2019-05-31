@@ -32,7 +32,7 @@ namespace Normalization.Api.Controllers
             return new TableMap().Create(tableView);
         }
 
-        [HttpDelete]
+        [HttpDelete("{table}")]
         public void Delete(TableViewModel tableView)
         {
             if(tableView.PrimaryId == null) throw new Exception("Table not exists");
