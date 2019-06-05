@@ -34,11 +34,15 @@ namespace Normalization.Maps.Algorithm
                 var decompositionElement = new List<string>();
                 decompositionElement.AddRange(dependencyViewModel.From);
                 decompositionElement.Add(dependencyViewModel.To);
-                normalizedTable.TableAttributes.Add(decompositionElement);
+                if (normalizedTable.TableAttributes.All(tableAttribute =>
+                    decompositionElement.All(element => !tableAttribute.Any(ta => ta.Contains(element)))))
+                    normalizedTable.TableAttributes.Add(decompositionElement);
             }
-            normalizedTable.TableAttributes.Add(table.Keys.First());
+            if(normalizedTable.TableAttributes.All(tableAttribute => !tableAttribute.Any(ta => table.Keys.First().All(ta.Contains))))
+                normalizedTable.TableAttributes.Add(table.Keys.First());
 
             normalizedTable.TableAttributes = normalizedTable.TableAttributes.Distinct().ToList();
+            
 
 
             return normalizedTable;
