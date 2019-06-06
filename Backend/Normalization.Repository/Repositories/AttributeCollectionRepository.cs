@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
 using Normalization.Repository.Interfaces;
-using Attribute = Normalization.Data.Models.Attribute;
 
 namespace Normalization.Repository.Repositories
 {
@@ -26,6 +22,7 @@ namespace Normalization.Repository.Repositories
 
         public void Create(ref IEntity entity)
         {
+            if (entity == null) throw new ArgumentNullException(nameof(entity));
             var attributeCollection = _attributeCollectionContext.AttributeCollections.Add(new AttributeCollection());
             _attributeCollectionContext.SaveChanges();
             entity = attributeCollection.Entity;
@@ -39,12 +36,17 @@ namespace Normalization.Repository.Repositories
 
         public void DeleteByTable(int id)
         {
-            var attributesToDelete =_attributeCollectionContext.AttributeCollections.Where(attributeCollection =>
-                attributeCollection.TableAttributeCollections.Any(tableAttributeCol =>
-                    tableAttributeCol.TableAttribute.TableId == id));
+            var attributesToDelete = _attributeCollectionContext.AttributeCollections.Where
+            (
+                attributeCollection => attributeCollection.TableAttributeCollections.Any
+                (
+                    tableAttributeCol => tableAttributeCol.TableAttribute.TableId == id
+                )
+            );
             _attributeCollectionContext.AttributeCollections.RemoveRange(attributesToDelete);
             _attributeCollectionContext.SaveChanges();
         }
+
         public void Delete(int id)
         {
             Delete(GetById(id));

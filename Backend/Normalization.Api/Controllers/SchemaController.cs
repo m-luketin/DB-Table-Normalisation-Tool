@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using Normalization.Maps;
 using Normalization.ViewModel;
 
@@ -26,6 +22,7 @@ namespace Normalization.Api.Controllers
         {
             return new TableMap().ReadFromId(id);
         }
+
         [HttpPost]
         public IViewModel Post(TableViewModel tableView)
         {
@@ -41,7 +38,7 @@ namespace Normalization.Api.Controllers
         [HttpPut]
         public TableViewModel Update(TableViewModel tableView)
         {
-           return (TableViewModel)(new TableMap().Update(tableView));
+           return (TableViewModel) new TableMap().Update(tableView);
         }
     }
 }

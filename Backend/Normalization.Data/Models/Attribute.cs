@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Normalization.Data.Models
 {
@@ -16,10 +12,10 @@ namespace Normalization.Data.Models
         {
             
         }
+
         public Attribute(string columnName)
         {
             ColumnName = columnName;
         }
-
     }
 }

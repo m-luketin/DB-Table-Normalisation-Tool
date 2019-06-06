@@ -1,27 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using System.Linq;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
 using Normalization.Repository.Interfaces;
-using Attribute = Normalization.Data.Models.Attribute;
 
 namespace Normalization.Repository.Repositories
 {
     public class TableAttributeRepository : IRepository
     {
         private readonly ConfigurationContext _tableAttributeContext;
+
         public TableAttributeRepository()
         {
             _tableAttributeContext = new ConfigurationContext();
         }
+
         public IQueryable Read()
         {
             return _tableAttributeContext.TableAttributes;
         }
+
         public void Create(ref IEntity entity)
         {
             var tableAttributeNew = (TableAttribute) entity;
@@ -34,7 +31,7 @@ namespace Normalization.Repository.Repositories
 
         public void Delete(IEntity entity)
         {
-            _tableAttributeContext.TableAttributes.Remove((TableAttribute)entity);
+            _tableAttributeContext.TableAttributes.Remove((TableAttribute) entity);
             _tableAttributeContext.SaveChanges();
         }
 
@@ -63,7 +60,12 @@ namespace Normalization.Repository.Repositories
 
         public IEntity GetByNameAndTableId(string nameAttribute,int tableId)
         {
-            return _tableAttributeContext.TableAttributes.FirstOrDefault(tableAttr => tableAttr.Attribute.ColumnName == nameAttribute && tableAttr.TableId == tableId);
+            return _tableAttributeContext.TableAttributes.FirstOrDefault
+                (
+                    tableAttr => 
+                        tableAttr.Attribute.ColumnName == nameAttribute && 
+                        tableAttr.TableId == tableId
+                );
         }
     }
 }

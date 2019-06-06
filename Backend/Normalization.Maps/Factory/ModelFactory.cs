@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Normalization.Data.Models;
+﻿using Normalization.Data.Models;
 using Attribute = Normalization.Data.Models.Attribute;
 
 namespace Normalization.Maps.Factory
@@ -14,30 +9,37 @@ namespace Normalization.Maps.Factory
         {
             return new Table(name);
         }
+
         public static IEntity CreateTable()
         {
             return new Table();
         }
+
         public static IEntity CreateAttribute(string columnName)
         {
             return new Attribute(columnName);
         }
+
         public static IEntity CreateAttribute()
         {
             return new Attribute();
         }
+
         public static IEntity CreateTableAttribute(IEntity table,IEntity attribute)
         {
             return new TableAttribute((Table)table,(Attribute)attribute);
         }
+
         public static IEntity CreateTableAttribute()
         {
             return new TableAttribute();
         }
+
         public static IEntity CreateTableAttributeCollection()
         {
             return new TableAttributeCollection();
         }
+
         public static IEntity CreateAttributeCollection()
         {
             return new AttributeCollection();

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Normalization.Data.Models
+﻿namespace Normalization.Data.Models
 {
     public class KeyGroup : IEntity
     {
@@ -16,11 +10,11 @@ namespace Normalization.Data.Models
         {
             
         }
+
         public KeyGroup(AttributeCollection attributeCollection)
         {
             AttributeCollection = attributeCollection;
             AttributeCollectionId = attributeCollection.Id;
         }
-
     }
 }

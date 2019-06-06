@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
 using Normalization.Repository.Interfaces;
@@ -17,10 +13,12 @@ namespace Normalization.Repository.Repositories
         {
             _tableContext = new ConfigurationContext();
         }
+
         public IQueryable Read()
         {
             return _tableContext.Tables;
         }
+
         public void Create(ref IEntity entity)
         {
             var table = _tableContext.Tables.Add(new Table(((Table)entity).Name));

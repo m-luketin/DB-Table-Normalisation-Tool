@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
 using Normalization.Repository.Interfaces;
@@ -34,7 +30,7 @@ namespace Normalization.Repository.Repositories
 
         public void Delete(IEntity entity)
         {
-            _attributeContext.Attributes.Remove((Data.Models.Attribute)entity);
+            _attributeContext.Attributes.Remove((Attribute) entity);
             _attributeContext.SaveChanges();
         }
 
@@ -47,7 +43,7 @@ namespace Normalization.Repository.Repositories
         public IEntity Edit(IEntity entity)
         {
             var attributeNew = (Attribute) entity;
-            var attribute = (Attribute)GetById(entity.Id);
+            var attribute = (Attribute) GetById(entity.Id);
             attribute.ColumnName = attributeNew.ColumnName;
             attribute.TableAttributes = attributeNew.TableAttributes;
             _attributeContext.Attributes.Update(attribute);

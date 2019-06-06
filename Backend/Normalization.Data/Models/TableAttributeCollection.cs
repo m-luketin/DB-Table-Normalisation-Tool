@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Normalization.Data.Models
+﻿namespace Normalization.Data.Models
 {
     public class TableAttributeCollection : IEntity
     {
@@ -19,13 +13,16 @@ namespace Normalization.Data.Models
             
         }
 
-        public TableAttributeCollection(AttributeCollection attributeCollection, TableAttribute tableAttribute)
+        public TableAttributeCollection
+        (
+            AttributeCollection attributeCollection,
+            TableAttribute tableAttribute
+        )
         {
             AttributeCollection = attributeCollection;
             TableAttribute = tableAttribute;
             AttributeCollectionId = attributeCollection.Id;
             TableAttributeId = tableAttribute.Id;
         }
-
     }
 }

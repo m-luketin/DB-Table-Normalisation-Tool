@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Normalization.ViewModel;
+﻿using System.Collections.Generic;
 
 namespace Normalization.ViewModel
 {
@@ -19,7 +14,15 @@ namespace Normalization.ViewModel
         {
             
         }
-        public TableViewModel(string name, ICollection<string> attributes, ICollection<DependencyViewModel> dependencies, ICollection<ICollection<string>> keys, int? primaryId)
+
+        public TableViewModel
+        (
+            string name,
+            ICollection<string> attributes,
+            ICollection<DependencyViewModel> dependencies,
+            ICollection<ICollection<string>> keys,
+            int? primaryId
+        )
         {
             Name = name;
             Attributes = attributes;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Normalization.ViewModel
 {
@@ -15,7 +11,11 @@ namespace Normalization.ViewModel
         {
             TableAttributes = new List<ICollection<string>>();
         }
-        public NormalizedViewModel(string name, ICollection<ICollection<string>> attributes)
+        public NormalizedViewModel
+        (
+            string name,
+            ICollection<ICollection<string>> attributes
+        )
         {
             SchemaName = name;
             TableAttributes = attributes;

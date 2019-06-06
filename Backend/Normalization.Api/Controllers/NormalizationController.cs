@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Normalization.Maps;
 using Normalization.Maps.Algorithm;
@@ -20,7 +16,7 @@ namespace Normalization.Api.Controllers
         {
             var tableMap = new TableMap();
             var tableViewModel = tableMap.ReadFromId(id);
-            return Algorithm.NormalizeTable(((TableViewModel)tableViewModel));
+            return Algorithm.NormalizeTable((TableViewModel)tableViewModel);
         }
     }
 }

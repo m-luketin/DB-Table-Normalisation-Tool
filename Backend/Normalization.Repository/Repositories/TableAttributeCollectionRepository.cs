@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
 using Normalization.Repository.Interfaces;
@@ -17,19 +13,27 @@ namespace Normalization.Repository.Repositories
         {
             _tableAttributeCollectionContext = new ConfigurationContext();
         }
+
         public IQueryable Read()
         {
             return _tableAttributeCollectionContext.TableAttributeCollections;
         }
+
         public void Create(ref IEntity entity)
         {
             var tableAttributeCollectionNew = (TableAttributeCollection) entity;
-            var attributeCollection = _tableAttributeCollectionContext.AttributeCollections
-                .Find(tableAttributeCollectionNew.AttributeCollection.Id);
-            var tableAttribute = _tableAttributeCollectionContext.TableAttributes
-                .Find(tableAttributeCollectionNew.TableAttribute.Id);
-            var tableAttributeCollection =_tableAttributeCollectionContext.TableAttributeCollections.Add(
-                new TableAttributeCollection(attributeCollection,tableAttribute));
+            var attributeCollection = _tableAttributeCollectionContext.AttributeCollections.Find
+                (
+                    tableAttributeCollectionNew.AttributeCollection.Id
+                );
+            var tableAttribute = _tableAttributeCollectionContext.TableAttributes.Find
+                (
+                    tableAttributeCollectionNew.TableAttribute.Id
+                );
+            var tableAttributeCollection =_tableAttributeCollectionContext.TableAttributeCollections.Add
+                (
+                    new TableAttributeCollection(attributeCollection,tableAttribute)
+                );
 
             _tableAttributeCollectionContext.SaveChanges();
             entity = tableAttributeCollection.Entity;
@@ -37,7 +41,7 @@ namespace Normalization.Repository.Repositories
 
         public void Delete(IEntity entity)
         {
-            _tableAttributeCollectionContext.TableAttributeCollections.Remove((TableAttributeCollection)entity);
+            _tableAttributeCollectionContext.TableAttributeCollections.Remove((TableAttributeCollection) entity);
             _tableAttributeCollectionContext.SaveChanges();
         }
 

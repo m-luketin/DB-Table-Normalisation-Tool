@@ -1,18 +1,11 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Internal;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
 using Normalization.Maps.Factory;
-using Normalization.Repository.Interfaces;
 using Normalization.Repository.Repositories;
 using Normalization.ViewModel;
-using Attribute = Normalization.Data.Models.Attribute;
 
 namespace Normalization.Maps
 {
@@ -21,7 +14,8 @@ namespace Normalization.Maps
         public IViewModel Create(IViewModel item)
         {
             var viewItem = (TableViewModel) item;
-            var attributeList = new List<IEntity>();
+            List<IEntity> attributeList;
+            attributeList = new List<IEntity>();
             var tableModel = ModelFactory.CreateTable(viewItem.Name);
             RepositoryFactory.CreateTableRepository().Create(ref tableModel);
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
-using Normalization.ViewModel;
+﻿using System.Collections.Generic;
 
 namespace Normalization.ViewModel
 {
@@ -19,7 +13,12 @@ namespace Normalization.ViewModel
            
         }
 
-        public DependencyViewModel(int? primaryId, ICollection<string> @from, string to)
+        public DependencyViewModel
+        (
+            int? primaryId, 
+            ICollection<string> @from, 
+            string to
+        )
         {
             PrimaryId = primaryId;
             From = @from;

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using Normalization.Data.Models;
-using Normalization.Repository.Interfaces;
+﻿using Normalization.Repository.Interfaces;
 using Normalization.Repository.Repositories;
 
 namespace Normalization.Maps.Factory

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Normalization.Data.Models
 {
@@ -21,11 +17,15 @@ namespace Normalization.Data.Models
         {
             Name = name;
         }
-        public Table(string name, ICollection<TableAttribute> tableAttributes)
+
+        public Table
+        (
+            string name,
+            ICollection<TableAttribute> tableAttributes
+        )
         {
             Name = name;
             TableAttributes = tableAttributes;
         }
-
     }
 }

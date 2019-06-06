@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
 using Normalization.Repository.Interfaces;
@@ -17,12 +14,15 @@ namespace Normalization.Repository.Repositories
         {
             _functionalDependencyContext = new ConfigurationContext();
         }
+
         public IQueryable Read()
         {
             return _functionalDependencyContext.FunctionalDependencies;
         }
+
         public void Create(ref IEntity entity)
         {
+            if (entity == null) throw new ArgumentNullException(nameof(entity));
             var functionalDependency =_functionalDependencyContext.FunctionalDependencies.Add(new FunctionalDependency());
             _functionalDependencyContext.SaveChanges();
             entity = functionalDependency.Entity;
@@ -30,7 +30,7 @@ namespace Normalization.Repository.Repositories
 
         public void Delete(IEntity entity)
         {
-            _functionalDependencyContext.FunctionalDependencies.Remove((FunctionalDependency)entity);
+            _functionalDependencyContext.FunctionalDependencies.Remove((FunctionalDependency) entity);
             _functionalDependencyContext.SaveChanges();
         }
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Normalization.Data.Models
 {
@@ -22,20 +18,27 @@ namespace Normalization.Data.Models
         {
             DependencyElements = dependencyElements;
         }
+
         public AttributeCollection(ICollection<KeyGroup> keyGroup)
         {
             KeyGroup = keyGroup;
         }
+
         public AttributeCollection(ICollection<TableAttributeCollection> tableAttributeCollections)
         {
             TableAttributeCollections = tableAttributeCollections;
         }
-        public AttributeCollection(ICollection<TableAttributeCollection> tableAttributeCollections, ICollection<KeyGroup> keyGroup, ICollection<DependencyElement> dependencyElements)
+
+        public AttributeCollection
+        (
+            ICollection<TableAttributeCollection> tableAttributeCollections,
+            ICollection<KeyGroup> keyGroup,
+            ICollection<DependencyElement> dependencyElements
+        )
         {
             TableAttributeCollections = tableAttributeCollections;
             KeyGroup = keyGroup;
             DependencyElements = dependencyElements;
         }
-
     }
 }

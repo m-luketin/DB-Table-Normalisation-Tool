@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Normalization.Data.Contexts;
 using Normalization.Data.Models;
 using Normalization.Repository.Interfaces;
@@ -17,15 +13,19 @@ namespace Normalization.Repository.Repositories
         {
             _keyGroupContext = new ConfigurationContext();
         }
+
         public IQueryable Read()
         {
             return _keyGroupContext.KeyGroups;
         }
+
         public void Create(ref IEntity entity)
         {
             var keyGroupNew = (KeyGroup) entity;
-            var attributeCollection = _keyGroupContext.AttributeCollections
-                .Find(keyGroupNew.AttributeCollection.Id);
+            var attributeCollection = _keyGroupContext.AttributeCollections.Find
+                (
+                    keyGroupNew.AttributeCollection.Id
+                );
             var keyGroup = _keyGroupContext.KeyGroups.Add(new KeyGroup(attributeCollection));
 
             _keyGroupContext.SaveChanges();

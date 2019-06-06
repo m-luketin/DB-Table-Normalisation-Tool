@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Normalization.Data.Models
+﻿namespace Normalization.Data.Models
 {
     public class DependencyElement : IEntity
     {
@@ -19,7 +13,13 @@ namespace Normalization.Data.Models
         {
             
         }
-        public DependencyElement(AttributeCollection attributeCollection, FunctionalDependency functionalDependencies, bool isLeft)
+
+        public DependencyElement
+        (
+            AttributeCollection attributeCollection,
+            FunctionalDependency functionalDependencies,
+            bool isLeft
+        )
         {
             AttributeCollection = attributeCollection;
             AttributeCollectionId = attributeCollection.Id;
@@ -27,6 +27,5 @@ namespace Normalization.Data.Models
             FunctionalDependencyId = functionalDependencies.Id;
             IsLeft = isLeft;
         }
-
     }
 }
