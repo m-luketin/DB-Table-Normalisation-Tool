@@ -1,5 +1,7 @@
+const CONNECTION_PORT_API = "http://localhost:58183/api/";
+
 export const postTable = payload => {
-  return fetch("http://localhost:58183/api/schema/post", {
+  return fetch(`${CONNECTION_PORT_API}schema/post`, {
     method: "POST",
     mode: "cors",
     headers: {
@@ -12,7 +14,7 @@ export const postTable = payload => {
 };
 
 export const updateTable = payload => {
-  return fetch("http://localhost:58183/api/schema/update", {
+  return fetch(`${CONNECTION_PORT_API}schema/update`, {
     method: "PUT",
     mode: "cors",
     headers: {
@@ -25,26 +27,26 @@ export const updateTable = payload => {
 };
 
 export const fetchStoredTables = () => {
-  return fetch("http://localhost:58183/api/schema/get").then(response =>
+  return fetch(`${CONNECTION_PORT_API}schema/get`).then(response =>
     response.json()
   );
 };
 
 export const fetchTableById = id => {
-  return fetch(`http://localhost:58183/api/schema/get/${id}`).then(response =>
+  return fetch(`${CONNECTION_PORT_API}schema/get/${id}`).then(response =>
     response.json()
   );
 };
 
 export const deleteTable = id => {
-  return fetch(`http://localhost:58183/api/schema/delete/${id}`, {
+  return fetch(`${CONNECTION_PORT_API}schema/delete/${id}`, {
     method: "DELETE",
     headers: { "Content-Type": "application/json" }
   });
 };
 
 export const runAlgorithm = id => {
-  return fetch(`http://localhost:58183/api/normalization/generate/${id}`).then(
+  return fetch(`${CONNECTION_PORT_API}normalization/generate/${id}`).then(
     response => response.json()
   );
 };
