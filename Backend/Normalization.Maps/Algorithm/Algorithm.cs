@@ -13,7 +13,7 @@ namespace Normalization.Maps.Algorithm
 
             foreach (var dependencyViewModel in table.Dependencies)
             {
-                var areRelationsPartOfKey = table.Keys.Any
+                var isKeyPartOfRelationFrom = table.Keys.Any
                 (
                     key => key.All
                     (
@@ -23,13 +23,13 @@ namespace Normalization.Maps.Algorithm
                         )
                     )
                 );
-                var allKeysPartOfRelationTo = table.Keys.All
+                var isRelationToPartOfKey = table.Keys.Any
                 (
-                    key => key.All
+                    key => key.Any
                     (partOfKey => dependencyViewModel.To == partOfKey)
                 );
 
-                if (areRelationsPartOfKey || allKeysPartOfRelationTo) continue;
+                if (isKeyPartOfRelationFrom || isRelationToPartOfKey) continue;
                 isAlreadyNormalized = false;
                 break;
             }
@@ -37,9 +37,10 @@ namespace Normalization.Maps.Algorithm
             if (isAlreadyNormalized)
             {
                 normalizedTable.TableAttributes.Add(table.Attributes);
-
+                
                 return normalizedTable;
             }
+
             foreach (var dependencyViewModel in table.Dependencies)
             {
                 var decompositionElement = new List<string>();
